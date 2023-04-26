@@ -25,9 +25,6 @@ public class GameManager : MonoBehaviour
 
     CanvasGroup studentGrid, professorGrid, roomSlotGrid;
 
-    [SerializeField]
-    PlayerData player;
-
     // cardprefab
     public GameObject cardPrefab;
 
@@ -46,7 +43,9 @@ public class GameManager : MonoBehaviour
         foreach (Student s in slctStudents){
             // init student card
             GameObject studentCardObj = Instantiate(cardPrefab, new Vector3(0,0,0), Quaternion.identity);
+            studentCardObj.GetComponent<Button>().enabled = true;
             studentCardObj.GetComponent<Button>().enabled = false;
+            //Destroy(studentCardObj.GetComponent<Button>());
             studentCardObj.AddComponent<CanvasGroup>();
             studentCardObj.AddComponent<DragDrop>();
             studentCardObj.AddComponent<HoverTips>();
@@ -66,7 +65,8 @@ public class GameManager : MonoBehaviour
             // init Professor card
             GameObject professorCardObj = Instantiate(cardPrefab, new Vector3(0,0,0), Quaternion.identity);
             professorCardObj.transform.SetParent(professorGrid.transform, false);
-            professorCardObj.GetComponent<Button>().enabled = false;
+            professorCardObj.GetComponent<Button>().enabled = true;
+            Destroy(professorCardObj.GetComponent<Button>());
             professorCardObj.AddComponent<CanvasGroup>();
             professorCardObj.AddComponent<DragDrop>();
             professorCardObj.AddComponent<HoverTips>();
@@ -87,17 +87,6 @@ public class GameManager : MonoBehaviour
         // foreach(Professor p in slctProfessors){
         //     Debug.Log($"select p : {p.name}");
         // }
-    }
-
-    void SaveData()
-    {
-        player.SaveMoneyData(money);
-
-        foreach (Transform child in studentGrid.transform)
-        {
-            Student student = child.GetComponent<Student>();
-            player.SaveStudentData(student);
-        }     
     }
 
     void NextScene()

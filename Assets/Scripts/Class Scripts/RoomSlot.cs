@@ -60,6 +60,11 @@ public class RoomSlot : MonoBehaviour, IDropHandler
             }
             else if (dropped.TryGetComponent<Professor>(out Professor prof))
             {
+                if (room.IsLocked())
+                {
+                    room.UnAssign();
+                    prof.UnAssign();
+                }
                 if (room.IsAssigned())
                 {
                     Debug.Log("This room is Assigned. Please unassign first.");
