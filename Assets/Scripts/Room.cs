@@ -21,7 +21,7 @@ public class Room : MonoBehaviour
     bool maxedLevel;
     bool ready;
 
-    Professors host;
+    Professor host;
     int skillLecture;
     List<Student> students = new List<Student>();
     GameManager gameManager;
@@ -107,17 +107,17 @@ public class Room : MonoBehaviour
         Debug.Log("Room " + id.ToString() + ": " + facility.ToString() + " Is Now level: " + level.ToString());
     }
 
-    public void Assign(Professors professor)
+    public void Assign(Professor professor)
     {
         assigned = true;
         host = professor;
 
-        Debug.Log("Professor " + professor.GetProfessorId().ToString() + " Added.");
+        Debug.Log("Professor " + professor.id + " Added.");
     }
 
     public void UnAssign()
     {
-        Debug.Log("Professor " + host.GetProfessorId().ToString() + " Unassigned.");
+        Debug.Log("Professor " + host.id.ToString() + " Unassigned.");
         assigned = false;
         host = null;
         skillLecture = -1;
@@ -340,7 +340,7 @@ public class Room : MonoBehaviour
      public string type;
      public int level;
      public int maxCapa;
-     public Professors teacher;
+     public Professor teacher;
      public Skill skill;
      public List<(Student,int)> students;
 

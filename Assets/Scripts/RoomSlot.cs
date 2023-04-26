@@ -58,7 +58,7 @@ public class RoomSlot : MonoBehaviour, IDropHandler
                     student.UnAssign();
                 }
             }
-            else if (dropped.TryGetComponent<Professors>(out Professors prof))
+            else if (dropped.TryGetComponent<Professor>(out Professor prof))
             {
                 if (room.IsAssigned())
                 {
@@ -74,14 +74,14 @@ public class RoomSlot : MonoBehaviour, IDropHandler
                     profButtonObjectClone.transform.SetSiblingIndex(0);
                     Prof_Btn profButton = profButtonObjectClone.GetComponent<Prof_Btn>();
 
-                    profButton.SetText("Professor " + prof.GetProfessorId().ToString());
-                    profButton.SetId(prof.GetProfessorId());
+                    profButton.SetText("Professor " + prof.id.ToString());
+                    profButton.SetId(prof.id);
                     profButton.setProfessor(prof);
                     profButton.setProfessorRoom(room);
 
                     GameObject dropdownClone = Instantiate(dropdownObject, transform).gameObject;
                     dropdownClone.transform.SetSiblingIndex(1);
-                    dropdownClone.GetComponent<DropDownHandler>().SkillOptionEdit(dropdownClone.GetComponent<TMP_Dropdown>(), prof.GetProfessorSubjects());
+                    dropdownClone.GetComponent<DropDownHandler>().SkillOptionEdit(dropdownClone.GetComponent<TMP_Dropdown>(), prof.getSubjects(prof.id));
 
                     int selectedSkill = dropdownClone.GetComponent<DropDownHandler>().GetSelectedSkill();
                     room.SetLectureSkill(selectedSkill);

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Prof_Btn : Game_Button
 {
     GameManager gameManager;
-    Professors professor;
+    Professor professor;
     Room room;
     int profId;
 
@@ -31,7 +31,7 @@ public class Prof_Btn : Game_Button
         
     }
 
-    public void setProfessor(Professors professor)
+    public void setProfessor(Professor professor)
     {
         this.professor = professor;
     }

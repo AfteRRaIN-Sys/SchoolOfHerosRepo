@@ -15,8 +15,10 @@ public class Professor : MonoBehaviour
 
     public bool assigned;
 
+    CanvasGroup canvasGroup;
+
     public void Awake() {
-        
+        canvasGroup = gameObject.GetComponent<CanvasGroup>();
     }
 
     public static Professor CreateComponent(GameObject where, string name, int id) {
@@ -26,6 +28,7 @@ public class Professor : MonoBehaviour
         myC.name = name+$"\n{myC.cost}";
         myC.subjects = myC.getSubjects(id);
         myC.assigned = false;
+        
         return myC;
     }
 
@@ -41,11 +44,15 @@ public class Professor : MonoBehaviour
     public void Assign()
     {
         assigned = true;
+        canvasGroup.alpha = 0.5f;
+        canvasGroup.blocksRaycasts = false;
     }
 
     public void UnAssign()
     {
         assigned = false;
+        canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
     }
 
     public void CopyProfessor(Professor p)
