@@ -8,44 +8,50 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-    public DraftSO classSO;
+    //Real private variables
+    bool semesterEnd; //
+    int turn;
+    int shoppingCart;
+    Notification notificationSystem;
 
-    public bool semesterEnd = true;
-    public int semester = 0;
-    public int money = 1000;
+    //Private variables but need to be shown for debugging
+    [SerializeField]
+    int semester = 0;
+    [SerializeField]
+    int money = 1000;
+    [SerializeField]
+    int maxTurn = 20;
 
-    public int maxTurn = 20;
-    public int turn = 0;
-
-    public TMP_Text money_text, turn_text;
-
-    public Canvas canvas;
-
-    private int shoppingCart = 0;
-
+    //Need to be shown in Inspector
+    [SerializeField] //Roster data (Students and Professors)
+    DraftSO classSO;
+    [SerializeField] //This Scene Canvas
+    Canvas canvas;
+    [SerializeField] //Text on this canvas (Scene)
+    TMP_Text money_text, turn_text;
+    [SerializeField] //Grid storing items
     CanvasGroup studentGrid, professorGrid, roomSlotGrid;
+    [SerializeField] //Card Prefab for Students and Professors
+    GameObject cardPrefab;
 
-    // cardprefab
-    public GameObject cardPrefab;
 
+    //This will be called in the start of the scene
     public void Start()
     {
         money_text.text = "Money: " + money.ToString();
         turn_text.text = "";
+        semesterEnd = true;
+        turn = 0;
         shoppingCart = 0;
-        studentGrid = GameObject.Find("StudentGrid").GetComponent<CanvasGroup>();
-        professorGrid = GameObject.Find("ProfessorGrid").GetComponent<CanvasGroup>();
-        roomSlotGrid = GameObject.Find("RoomSlotGrid").GetComponent<CanvasGroup>();
 
-        
+        notificationSystem = gameObject.GetComponent<Notification>();
         List<Student> slctStudents = classSO.studentList;
         
         foreach (Student s in slctStudents){
             // init student card
             GameObject studentCardObj = Instantiate(cardPrefab, new Vector3(0,0,0), Quaternion.identity);
             studentCardObj.GetComponent<Button>().enabled = true;
-            studentCardObj.GetComponent<Button>().enabled = false;
-            //Destroy(studentCardObj.GetComponent<Button>());
+            Destroy(studentCardObj.GetComponent<Button>());
             studentCardObj.AddComponent<CanvasGroup>();
             studentCardObj.AddComponent<DragDrop>();
             studentCardObj.AddComponent<HoverTips>();
@@ -56,7 +62,6 @@ public class GameManager : MonoBehaviour
 
             Student tmp = studentCardObj.AddComponent<Student>();
             tmp.CopyStudent(s);
-            // tmp = s;
             Debug.Log($"student {s.name} {studentCardObj.GetComponent<Student>().name}");
         }
 
@@ -73,7 +78,6 @@ public class GameManager : MonoBehaviour
             professorCardObj.GetComponent<HoverTips>().SetObject(professorCardObj);
             professorCardObj.GetComponent<HoverTips>().isStudent = false;
             
-            // ***
             professorCardObj.AddComponent<Professor>();
             Professor tmp = professorCardObj.GetComponent<Professor>();
             tmp.CopyProfessor(s);
@@ -89,11 +93,13 @@ public class GameManager : MonoBehaviour
         // }
     }
 
+    // Move to next scene in order from Built scenes
     void NextScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    // Will create anything onto the mouse cursor
     public GameObject InstantiateObjectAtCursor(GameObject instObject)
     {
         GameObject newObject = Instantiate(instObject, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
@@ -106,6 +112,9 @@ public class GameManager : MonoBehaviour
         return newObject;
     }
 
+    //--------------------------------------------------  Renovation Phase -------------------------------------
+
+    // Player click to Buy a room
     public void BuyRoom(int id, string fac)
     {
         int price = GetRoomPrice(fac);
@@ -119,7 +128,7 @@ public class GameManager : MonoBehaviour
         {
             shoppingCart += price;
 
-            Room room = GameObject.Find("Room" + id.ToString()).GetComponent<Room>();
+            Room room = GameObject.Find("RoomSlot" + id.ToString()).GetComponent<Room>();
             room.UnlockAs(fac);
             room.AddValue(price);
             Room_Btn room_Btn = GameObject.Find("RoomButton" + id.ToString()).GetComponent<Room_Btn>();
@@ -129,16 +138,17 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            gameObject.GetComponent<Notification>().Notify("Can't upgrade Room" + id.ToString() + ". Insufficient Budget! Required: " + price.ToString());
+            notificationSystem.Notify("Can't upgrade Room" + id.ToString() + ". Insufficient Budget! Required: " + price.ToString());
             Debug.Log("Insufficient Budget!");
         }
 
         SemesterCheck();
     }
 
+    // Player click to Upgrade a room
     public void UpgradeRoom(int id)
     {
-        Room room = GameObject.Find("Room" + id.ToString()).GetComponent<Room>();
+        Room room = GameObject.Find("RoomSlot" + id.ToString()).GetComponent<Room>();
         int price = GetRoomPrice(room.facility) / 2;
         if (shoppingCart + price <= money)
         {
@@ -147,19 +157,20 @@ public class GameManager : MonoBehaviour
             room.Upgrade();
             room.AddValue(price);
 
-            gameObject.GetComponent<Notification>().Notify("Room" + id.ToString() + "is now level " + room.GetLevel().ToString());
+            notificationSystem.Notify("Room" + id.ToString() + "is now level " + room.GetLevel().ToString());
             ShowMoney();
         }
         else
         {
-            gameObject.GetComponent<Notification>().Notify("Can't upgrade Room" + id.ToString() + ". Insufficient Budget! Required: " + price.ToString());
+            notificationSystem.Notify("Can't upgrade Room" + id.ToString() + ". Insufficient Budget! Required: " + price.ToString());
             Debug.Log("Insufficient Budget!");
         }
     }
 
+    //If player click to de-upgrade the room
     public void DegradeRoom(int id)
     {
-        Room room = GameObject.Find("Room" + id.ToString()).GetComponent<Room>();
+        Room room = GameObject.Find("RoomSlot" + id.ToString()).GetComponent<Room>();
         int price = GetRoomPrice(room.facility)/2;
         if (room.GetLevel() > 1)
         {
@@ -169,18 +180,19 @@ public class GameManager : MonoBehaviour
             room.AddValue(-price);
 
             ShowMoney();
-            gameObject.GetComponent<Notification>().Notify("Room" + id.ToString() + "is now level " + room.GetLevel().ToString());
+            notificationSystem.Notify("Room" + id.ToString() + "is now level " + room.GetLevel().ToString());
         }
         else
         {
-            gameObject.GetComponent<Notification>().Notify("Room" + id.ToString() + "is at lowest level!");
+            notificationSystem.Notify("Room" + id.ToString() + "is at lowest level!");
             Debug.Log("This room is at lowest level!");
         }
     }
 
+    // Player click to Remove a room
     public void RemoveRoom(int id)
     {
-        Room room = GameObject.Find("Room" + id.ToString()).GetComponent<Room>();
+        Room room = GameObject.Find("RoomSlot" + id.ToString()).GetComponent<Room>();
 
         shoppingCart -= room.GetValue();
 
@@ -194,6 +206,7 @@ public class GameManager : MonoBehaviour
         SemesterCheck();
     }
 
+    // This is the price for each type of facility
     public int GetRoomPrice(string fac)
     {
         switch (fac)
@@ -211,6 +224,7 @@ public class GameManager : MonoBehaviour
         return -1;
     }
 
+    // Player click to Start a Semester
     public void StartSemester()
     {
         semesterSwitch();
@@ -223,6 +237,7 @@ public class GameManager : MonoBehaviour
         turn_text.text = "Turn 1 / " + maxTurn.ToString();
         setTurn(1);
 
+        // Update each room Icon
         GameObject roomBtnGrid = GameObject.Find("RoomButtonGrid").gameObject;
         foreach (Transform child in roomBtnGrid.transform)
         {
@@ -234,6 +249,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        //Show the lecture phase elements
         Turn_Btn turnButton = GameObject.Find("Btn_EndTurn").GetComponent<Turn_Btn>(); ;
         turnButton.ShowButton();
 
@@ -253,39 +269,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CheckTurnButton(Room room)
-    {
-        Turn_Btn turnButton = GameObject.Find("Btn_EndTurn").GetComponent<Turn_Btn>();
-        if (room.IsReady())
-        {
-            turnButton.SetEnable(true);
-            turnButton.ShowButton();
-        }
-        else
-        {
-            turnButton.SetEnable(false);
-        }
-    }
-    string learnNotification = "";
+    // -------------------------------------------- Lecturing Phase -------------------------------------------
 
+    //If player click to end turn
+    string learnNotification = "";
     public void EndTurn()
     {
         if (turn < maxTurn)
         {
-            GameObject rooms = GameObject.Find("RoomImageGrid").gameObject;
-            foreach (Transform room in rooms.transform)
-            {            
-                if (!room.GetComponent<Room>().IsLocked())
+            //proceed the lecture or the usage for each and every room available
+            GameObject rooms = GameObject.Find("RoomSlotGrid").gameObject;
+            foreach (Transform child in rooms.transform)
+            {
+                Room room = child.GetComponent<Room>();
+                string facility = room.facility;
+                if (!room.IsLocked())
                 {
-                    room.GetComponent<Room>().Learn();
-                    learnNotification += room.GetComponent<Room>().GetLearnNotification();
+                    switch (facility)
+                    {
+                        case "Classroom":
+                            room.Learn();
+                            learnNotification += room.GetLearnNotification();
+                            continue;
+                        case "Medic":
+                            continue;
+                        case "Guide":
+                            continue;
+                        case "Delete":
+                            continue;
+                    }    
                 }
             }
-            gameObject.GetComponent<Notification>().Notify(learnNotification);
+            notificationSystem.Notify(learnNotification);
             addTurn(1);
             ShowTurn();
         }
-        else
+        else //Transition to next scene
         {
             GameObject roomBtnGrid = GameObject.Find("RoomButtonGrid").gameObject;
             foreach (Transform child in roomBtnGrid.transform)
@@ -302,13 +321,25 @@ public class GameManager : MonoBehaviour
             turnButton.HideButton();
             semesterSwitch();
 
-            SaveData();
             NextScene();
         }
         learnNotification = "";
     }
 
-    
+    //
+    public void CheckTurnButton(Room room)
+    {
+        Turn_Btn turnButton = GameObject.Find("Btn_EndTurn").GetComponent<Turn_Btn>();
+        if (room.IsReady())
+        {
+            turnButton.SetEnable(true);
+            turnButton.ShowButton();
+        }
+        else
+        {
+            turnButton.SetEnable(false);
+        }
+    }
 
     private bool SemesterCheck()
     {

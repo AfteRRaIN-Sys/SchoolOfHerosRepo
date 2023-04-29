@@ -40,7 +40,7 @@ public class Room_Btn : Game_Button
         
         GameObject button = roomMenu.transform.GetChild(1).gameObject;
 
-        GameObject gameObject = GameObject.Find("Room" + roomId.ToString());
+        GameObject gameObject = GameObject.Find("RoomSlot" + roomId.ToString());
         Room room = gameObject.GetComponent<Room>();
 
         if (!room.IsLocked())

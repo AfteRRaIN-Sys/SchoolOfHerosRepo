@@ -17,7 +17,7 @@ public class RoomSlot : MonoBehaviour, IDropHandler
 
     void Start()
     {
-        room = GameObject.Find("Room"+ roomSlotId.ToString()).GetComponent<Room>();
+        room = GetComponent<Room>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 

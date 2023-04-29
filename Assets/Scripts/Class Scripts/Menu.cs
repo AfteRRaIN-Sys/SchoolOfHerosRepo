@@ -72,7 +72,7 @@ public class Menu : MonoBehaviour
 
     private void SetRoom()
     {
-        room = GameObject.Find("Room" + menuId.ToString()).GetComponent<Room>();
+        room = GameObject.Find("RoomSlot" + menuId.ToString()).GetComponent<Room>();
         Menu_Btn classroomButton = gameObject.transform.GetChild(1).GetComponent<Menu_Btn>();
 
         if (room.IsLocked())
