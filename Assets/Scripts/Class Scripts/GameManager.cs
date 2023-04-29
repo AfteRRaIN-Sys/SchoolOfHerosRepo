@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -236,6 +237,13 @@ public class GameManager : MonoBehaviour
        
         turn_text.text = "Turn 1 / " + maxTurn.ToString();
         setTurn(1);
+
+        //Close the room menu if any is still open.
+        GameObject existedMenu = GameObject.Find("Menu(Clone)");
+        if (existedMenu != null)
+        {
+            Destroy(existedMenu);
+        }
 
         // Update each room Icon
         GameObject roomBtnGrid = GameObject.Find("RoomButtonGrid").gameObject;

@@ -28,6 +28,12 @@ public class Room_Btn : Game_Button
 
     public void OnClick(GameObject menu)
     {
+        GameObject existedMenu = GameObject.Find("Menu(Clone)");
+        if(existedMenu != null)
+        {
+            Destroy(existedMenu);
+        }
+        
         GameObject roomMenu = gameManager.InstantiateObjectAtCursor(menu);
 
         SetUpRoomMenu(roomMenu);
