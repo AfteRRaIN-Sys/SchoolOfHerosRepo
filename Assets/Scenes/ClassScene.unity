@@ -485,7 +485,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 0}
+  classroom2: {fileID: 0}
+  classroom3: {fileID: 0}
+  classroom4: {fileID: 0}
   minigameBoard: {fileID: 0}
 --- !u!1 &237675465
 GameObject:
@@ -787,7 +790,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 0}
+  classroom2: {fileID: 0}
+  classroom3: {fileID: 0}
+  classroom4: {fileID: 0}
   minigameBoard: {fileID: 0}
 --- !u!1 &372683181
 GameObject:
@@ -1023,7 +1029,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
+  classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
+  classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!1 &399565524
 GameObject:
@@ -2341,7 +2350,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
+  classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
+  classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!1 &917979007
 GameObject:
@@ -2493,7 +2505,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
+  classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
+  classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!1 &929352817
 GameObject:
@@ -4188,7 +4203,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 0}
+  classroom2: {fileID: 0}
+  classroom3: {fileID: 0}
+  classroom4: {fileID: 0}
   minigameBoard: {fileID: 0}
 --- !u!1 &1359188193
 GameObject:
@@ -4475,7 +4493,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
+  classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
+  classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!1 &1409062615
 GameObject:
@@ -4627,7 +4648,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
+  classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
+  classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!225 &1419712469
 CanvasGroup:
@@ -4898,7 +4922,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 0}
+  classroom2: {fileID: 0}
+  classroom3: {fileID: 0}
+  classroom4: {fileID: 0}
   minigameBoard: {fileID: 0}
 --- !u!1 &1516651172
 GameObject:
@@ -5193,7 +5220,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 0}
+  classroom2: {fileID: 0}
+  classroom3: {fileID: 0}
+  classroom4: {fileID: 0}
   minigameBoard: {fileID: 0}
 --- !u!1 &1582992629
 GameObject:
@@ -5615,7 +5645,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
+  classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
+  classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!225 &1696367979
 CanvasGroup:
@@ -6638,7 +6671,10 @@ MonoBehaviour:
   maxLevel: 4
   maxCapacity: 0
   ruinedSprite: {fileID: 21300000, guid: 2b5a8bb3948661f469dda0dff15362e8, type: 3}
-  classroomSprite: {fileID: 21300000, guid: c3566960fc9dee84dbda7e096de5dfed, type: 3}
+  classroom1: {fileID: 0}
+  classroom2: {fileID: 0}
+  classroom3: {fileID: 0}
+  classroom4: {fileID: 0}
   minigameBoard: {fileID: 0}
 --- !u!1 &2078186925
 GameObject:

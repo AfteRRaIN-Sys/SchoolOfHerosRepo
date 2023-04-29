@@ -327,10 +327,31 @@ public class GameManager : MonoBehaviour
     }
 
     //
-    public void CheckTurnButton(Room room)
+    public void CheckTurnButton()
     {
         Turn_Btn turnButton = GameObject.Find("Btn_EndTurn").GetComponent<Turn_Btn>();
-        if (room.IsReady())
+
+        bool ready = false;
+        GameObject roomGrid = roomSlotGrid.gameObject;
+        foreach (Transform child in roomGrid.transform)
+        {
+            Room room = child.GetComponent<Room>();
+            if(room.IsLocked() || room.IsEmpty())
+            {
+                continue;
+            }
+            if (!room.IsReady())
+            {
+                ready = false;
+                break;
+            }
+            else
+            {
+                ready = true;
+            }
+        }
+
+        if (ready)
         {
             turnButton.SetEnable(true);
             turnButton.ShowButton();

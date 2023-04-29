@@ -21,6 +21,11 @@ public class Prof_Btn : Game_Button
     {
         professor.UnAssign();
         room.UnAssign();
+        
+        //int i = 0;
+        //while (i < gameObject.transform.parent.childCount){
+        //    Destroy(gameObject.transform.parent.GetChild(0).gameObject);
+        //}
         Destroy(gameObject.transform.parent.GetChild(1).gameObject);
         Destroy(gameObject);
     }

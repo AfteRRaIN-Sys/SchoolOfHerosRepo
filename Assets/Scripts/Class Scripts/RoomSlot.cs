@@ -29,6 +29,11 @@ public class RoomSlot : MonoBehaviour, IDropHandler
 
             if (dropped.TryGetComponent<Student>(out Student student))
             {
+                if (room.IsLocked())
+                {
+                    Debug.Log("This room is not yet Unlocked. Please use another room in the meanwhile.");
+                    return;
+                }
                 if (room.IsAssigned())
                 {
                     if (!room.IsFull())
@@ -50,25 +55,28 @@ public class RoomSlot : MonoBehaviour, IDropHandler
                     {
                         Debug.Log("This room is already full!. Please unassign at least one student first.");
                         student.UnAssign();
+                        return;
                     }
                 }
                 else
                 {
                     Debug.Log("This room is yet Assigned by any professor. Please assign professor first.");
                     student.UnAssign();
+                    return;
                 }
             }
             else if (dropped.TryGetComponent<Professor>(out Professor prof))
             {
                 if (room.IsLocked())
                 {
-                    room.UnAssign();
-                    prof.UnAssign();
+                    Debug.Log("This room is not yet Unlocked. Please use another room in the meanwhile.");
+                    return;
                 }
                 if (room.IsAssigned())
                 {
                     Debug.Log("This room is Assigned. Please unassign first.");
                     prof.UnAssign();
+                    return;
                 }
                 else
                 {

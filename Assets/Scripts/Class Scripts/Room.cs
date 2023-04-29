@@ -20,6 +20,7 @@ public class Room : MonoBehaviour
     bool full;
     bool maxedLevel;
     bool ready;
+    bool empty;
 
     Professor host;
     int skillLecture;
@@ -27,7 +28,7 @@ public class Room : MonoBehaviour
     GameManager gameManager;
 
     public Sprite ruinedSprite;
-    public Sprite classroomSprite;
+    public Sprite classroom1, classroom2, classroom3, classroom4;
 
     public void Start()
     {
@@ -36,6 +37,7 @@ public class Room : MonoBehaviour
         assigned = false;
         maxedLevel = false;
         ready = false;
+        empty = true;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         skillLecture = -1;
@@ -43,7 +45,7 @@ public class Room : MonoBehaviour
         ChangeRoomImage("Ruined");
     }
 
-    public void ChangeRoomImage(string fac)
+    public void ChangeRoomImage(string fac, int level = 0)
     {
         switch (fac)
         {
@@ -51,7 +53,14 @@ public class Room : MonoBehaviour
                 gameObject.GetComponent<Image>().sprite = ruinedSprite;
                 break;
             case "Classroom":
-                gameObject.GetComponent<Image>().sprite = classroomSprite;
+                if(level == 1)
+                    gameObject.GetComponent<Image>().sprite = classroom1;
+                else if (level == 2)
+                    gameObject.GetComponent<Image>().sprite = classroom2;
+                else if (level == 3)
+                    gameObject.GetComponent<Image>().sprite = classroom3;
+                else if (level == 4)
+                    gameObject.GetComponent<Image>().sprite = classroom4;
                 break;
         }  
     }
@@ -66,13 +75,18 @@ public class Room : MonoBehaviour
         {
             full = false;
         }
+
+        if(currentCapacity == 0 && host == null)
+        {
+            empty = true;
+        }
     }
 
     public void UnlockAs(string fac)
     {
         locked = false;
         facility = fac;
-        ChangeRoomImage(fac);
+        ChangeRoomImage(fac, 1);
         level += 1;
         maxCapacity = 1;
     }
@@ -84,6 +98,8 @@ public class Room : MonoBehaviour
 
         CheckCapacity();
         Debug.Log("Room " + id.ToString() + ": " + facility.ToString() + " Is Now level: " + level.ToString());
+
+        ChangeRoomImage(facility, level);
     }
 
     public void Remove()
@@ -94,6 +110,7 @@ public class Room : MonoBehaviour
         assigned = false;
         full = false;
         value = 0;
+        empty = true;
         ChangeRoomImage("Ruined");
     }
 
@@ -105,14 +122,20 @@ public class Room : MonoBehaviour
         CheckCapacity();
 
         Debug.Log("Room " + id.ToString() + ": " + facility.ToString() + " Is Now level: " + level.ToString());
+        ChangeRoomImage(facility, level);
     }
 
     public void Assign(Professor professor)
     {
+        empty = false;
         assigned = true;
         host = professor;
 
         Debug.Log("Professor " + professor.id + " Added.");
+
+        CheckCapacity();
+        CheckReady();
+        gameManager.CheckTurnButton();
     }
 
     public void UnAssign()
@@ -121,6 +144,10 @@ public class Room : MonoBehaviour
         assigned = false;
         host = null;
         skillLecture = -1;
+
+        CheckCapacity();
+        CheckReady();
+        gameManager.CheckTurnButton();
     }
 
     public bool IsAssigned()
@@ -145,13 +172,19 @@ public class Room : MonoBehaviour
         return ready;
     }
 
+    public bool IsEmpty()
+    {
+        return empty;
+    }
+
     public void AddStudent(Student student)
     {
+        empty = false;
         currentCapacity += 1;
         CheckCapacity();
         students.Add(student);
         CheckReady();
-        gameManager.CheckTurnButton(gameObject.GetComponent<Room>());
+        gameManager.CheckTurnButton();
 
         Debug.Log("Student " + student.id.ToString() + " Added.");
         Debug.Log("Capacity:" + currentCapacity.ToString() + " / " + maxCapacity.ToString());
@@ -163,7 +196,7 @@ public class Room : MonoBehaviour
         currentCapacity -= 1;
         CheckCapacity();
         CheckReady();
-        gameManager.CheckTurnButton(gameObject.GetComponent<Room>());
+        gameManager.CheckTurnButton();
 
         Debug.Log("Student " + student.id.ToString() + " Removed.");
         Debug.Log("Capacity:" + currentCapacity.ToString() + " / " + maxCapacity.ToString());
