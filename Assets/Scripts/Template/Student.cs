@@ -5,17 +5,6 @@ using TMPro;
 
 // using Random = System.Random;
 
-public class Skill {
-    public int id;
-    public int type;
-    public int level;
-    public Skill(int id, int type, int level){
-        this.id = id;
-        this.type = type;
-        this.level = level;
-    }
-}
-
 public class Student : MonoBehaviour
 {
     // student info
@@ -34,7 +23,7 @@ public class Student : MonoBehaviour
     public int[] preferences;
     public int[] progressLeft;
 
-    public List<Skill> learnedSkills;
+    //public List<Skill> learnedSkills;
 
     // random
     // var rnd = new System.Random();
@@ -59,7 +48,7 @@ public class Student : MonoBehaviour
         this.canvasGroup = s.canvasGroup;
         this.preferences = s.preferences;
         this.progressLeft = s.progressLeft;
-        this.learnedSkills = s.learnedSkills;
+        //this.learnedSkills = s.learnedSkills;
         this.n_skills = s.n_skills;
     }
 
@@ -68,9 +57,11 @@ public class Student : MonoBehaviour
         this.maxHP = 100;
         this.currentHP = this.maxHP;
         
+        /*
         this.learnedSkills = new List<Skill>() {
             new Skill(1,1,1),
         };
+        */
 
         // hard code : must be edited later
         this.n_skills = 10;
