@@ -5,36 +5,36 @@ using TMPro;
 
 public class Notification : MonoBehaviour
 {
-    public RectTransform notificationWindow;
-    public TMP_Text notificationText;
-    public float timeToStop = 2f;
+    [SerializeField]
+    float timeToStop = 2f;
+    [SerializeField]
+    float notificationInterval = 1f;
+    [SerializeField]
+    GameObject notificationWindow;
+    [SerializeField]
+    GameObject notificationBlock;
 
-    public void Notify(string notif)
+    public void Notify(string notification)
     {
-        
-        StopAllCoroutines();
-        notificationText.text = notif;
-        //notificationWindow.rect.size(notificationText.preferredWidth, notificationText.preferredHeight);
-        notificationWindow.gameObject.SetActive(true);
-        StartCoroutine(StartTimer());      
+        GameObject notifButton = Instantiate(notificationBlock, Vector3.zero, Quaternion.identity, notificationWindow.transform);
+        TMP_Text notifText = notifButton.GetComponentInChildren<TMP_Text>();
+        notifText.text = notification;
+        StartCoroutine(Dismiss(notifButton));
     }
-
-
-    private IEnumerator StartTimer()
+    /*
+    IEnumerator DelayedNotification(string notification)
+    {
+        yield return new WaitForSeconds(notificationInterval);
+        GameObject notifButton = Instantiate(notificationBlock, Vector3.zero, Quaternion.identity, notificationWindow.transform);
+        TMP_Text notifText = notifButton.GetComponentInChildren<TMP_Text>();
+        notifText.text = notification;
+        StartCoroutine(Dismiss(notifButton));
+    }
+    */
+    private IEnumerator Dismiss(GameObject notification)
     {
         yield return new WaitForSeconds(timeToStop);
 
-        HideMessages();
-    }
-
-    private void HideMessages()
-    {
-        notificationWindow.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Destroy(notification);
     }
 }

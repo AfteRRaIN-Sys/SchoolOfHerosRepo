@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     bool semesterEnd; //
     int turn;
     int shoppingCart;
-    Notification notificationSystem;
+    
 
     //Private variables but need to be shown for debugging
     [SerializeField]
@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     int money = 1000;
     [SerializeField]
     int maxTurn = 20;
+    [SerializeField]
+    Notification notificationSystem;
+    [SerializeField]
+    float delayTimer = 1f;
 
     //Need to be shown in Inspector
     [SerializeField] //Roster data (Students and Professors)
@@ -45,7 +49,7 @@ public class GameManager : MonoBehaviour
         turn = 0;
         shoppingCart = 0;
 
-        notificationSystem = gameObject.GetComponent<Notification>();
+        
         List<Student> slctStudents = classSO.studentList;
         
         foreach (Student s in slctStudents){
@@ -111,6 +115,23 @@ public class GameManager : MonoBehaviour
         newObject.transform.position = cursorPosition;
 
         return newObject;
+    }
+
+    void Delay (float timer)
+    {
+        System.DateTime startMoment = System.DateTime.Now;
+        System.DateTime nowMoment = System.DateTime.Now;
+
+        System.TimeSpan interval = nowMoment.Subtract(startMoment);
+
+        while ((float)interval.TotalSeconds < timer)
+        {
+            nowMoment = System.DateTime.Now;
+            interval = nowMoment.Subtract(startMoment);
+            
+        }
+        Debug.Log("Timer Ends");
+        return;
     }
 
     //--------------------------------------------------  Renovation Phase -------------------------------------
@@ -280,24 +301,27 @@ public class GameManager : MonoBehaviour
     // -------------------------------------------- Lecturing Phase -------------------------------------------
 
     //If player click to end turn
-    string learnNotification = "";
+    //string learnNotification = "";
     public void EndTurn()
     {
         if (turn < maxTurn)
         {
             //proceed the lecture or the usage for each and every room available
             GameObject rooms = GameObject.Find("RoomSlotGrid").gameObject;
+
             foreach (Transform child in rooms.transform)
             {
                 Room room = child.GetComponent<Room>();
+                int index = room.transform.GetSiblingIndex();
                 string facility = room.facility;
                 if (!room.IsLocked())
                 {
                     switch (facility)
                     {
                         case "Classroom":
+                            Delay(delayTimer);
                             room.Learn();
-                            learnNotification += room.GetLearnNotification();
+                            //learnNotification = room.GetLearnNotification();
                             continue;
                         case "Medic":
                             continue;
@@ -305,10 +329,10 @@ public class GameManager : MonoBehaviour
                             continue;
                         case "Delete":
                             continue;
-                    }    
-                }
+                    }
+                }              
+                //notificationSystem.Notify(learnNotification);
             }
-            notificationSystem.Notify(learnNotification);
             addTurn(1);
             ShowTurn();
         }
@@ -331,7 +355,7 @@ public class GameManager : MonoBehaviour
 
             NextScene();
         }
-        learnNotification = "";
+        //learnNotification = "";
     }
 
     //

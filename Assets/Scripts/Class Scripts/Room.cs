@@ -26,6 +26,10 @@ public class Room : MonoBehaviour
     int skillLecture;
     List<Student> students = new List<Student>();
     GameManager gameManager;
+    [SerializeField]
+    Notification notificationSystem;
+    [SerializeField]
+    float notificationDelayInterval = 1f;
 
     public Sprite ruinedSprite;
     public Sprite classroom1, classroom2, classroom3, classroom4;
@@ -206,21 +210,36 @@ public class Room : MonoBehaviour
     {
         skillLecture = skill;
     }
+    /**/
+    IEnumerator DelayedNotification(string notification, float delayTimer)
+    {
+        yield return new WaitForSeconds(delayTimer);
+        notificationSystem.Notify(notification);
+    }
 
     string notification;
     public void Learn()
     {
-        notification = "";
+        //notification = "";
+        float delayTimer = .5f;
         foreach (Student stu in students)
         {
             if (stu.progressLeft[skillLecture] == 0)
             {
-                notification += "Student" + stu.GetStudentID().ToString() + " has already learned: Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                //notification += "Student" + stu.GetStudentID().ToString() + " has already learned: Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                notification = stu.name + " has already learned: Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                StartCoroutine(DelayedNotification(notification, delayTimer));
+                delayTimer += notificationDelayInterval;
+                //notificationSystem.Notify(notification);
                 Debug.Log(notification);
             }
             else
             {
-                notification += "Student" + stu.GetStudentID().ToString() + " is learning : Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                //notification += "Student" + stu.GetStudentID().ToString() + " is learning : Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                notification = stu.name + " is learning : Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                StartCoroutine(DelayedNotification(notification, delayTimer));
+                delayTimer += notificationDelayInterval;
+                //notificationSystem.Notify(notification);
                 Debug.Log(notification);
                 int progress = 1;
                 if (stu.GetPref()[skillLecture] == 1)
@@ -228,7 +247,11 @@ public class Room : MonoBehaviour
                     int chance = randChance(100);
                     if (chance > 70)
                     {
-                        notification += "And he loves it! (progress + 1 as a bonus)" + System.Environment.NewLine;
+                        //notification += "And he loves it! (progress + 1 as a bonus)" + System.Environment.NewLine;
+                        notification = stu.name + " loves it! (progress + 1 as a bonus)" + System.Environment.NewLine;
+                        StartCoroutine(DelayedNotification(notification, delayTimer));
+                        delayTimer += notificationDelayInterval;
+                        //notificationSystem.Notify(notification);
                         Debug.Log("Student " + stu.id.ToString() + " Loves the lecture! :)" + System.Environment.NewLine);
                         progress += 1;
                     }
@@ -246,7 +269,11 @@ public class Room : MonoBehaviour
                     int chance = randChance(100);
                     if (chance > 70)
                     {
-                        notification += "But he hates it... (progress - 1 as a penalty)" + System.Environment.NewLine;
+                        //notification += "But he hates it... (progress - 1 as a penalty)" + System.Environment.NewLine;
+                        notification = stu.name + " hates it... (progress - 1 as a penalty)" + System.Environment.NewLine;
+                        StartCoroutine(DelayedNotification(notification, delayTimer));
+                        delayTimer += notificationDelayInterval;
+                        //notificationSystem.Notify(notification);
                         Debug.Log("Student " + stu.id.ToString() + " Hates the lecture! :(" + System.Environment.NewLine);
                         progress -= 1;
                     }
@@ -257,13 +284,16 @@ public class Room : MonoBehaviour
                     if (stu.progressLeft[skillLecture] <= 0)
                     {
                         stu.progressLeft[skillLecture] = 0;
-                        notification += "And He has Complete the course! Skill: " + skillLecture.ToString() + System.Environment.NewLine;
+                        //notification += "And He has Complete the course! Skill: " + skillLecture.ToString() + System.Environment.NewLine;
+                        notification = stu.name + " has Complete the course! Skill: " + skillLecture.ToString() + System.Environment.NewLine;
+                        StartCoroutine(DelayedNotification(notification, delayTimer));
+                        delayTimer += notificationDelayInterval;
+                        //notificationSystem.Notify(notification);
                         Debug.Log("Student " + stu.id.ToString() + " has Complete the course! Skill: " + skillLecture.ToString());
                     }
                 }
             } 
         }
-        //gameManager.SetLearnNotification();
         //gameManager.GetComponent<Notification>().Notify(notification);
     }
 
