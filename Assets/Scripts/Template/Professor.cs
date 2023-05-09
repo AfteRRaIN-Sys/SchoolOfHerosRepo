@@ -21,6 +21,11 @@ public class Professor : MonoBehaviour
         canvasGroup = gameObject.GetComponent<CanvasGroup>();
     }
 
+    public Professor(int id, string name) {
+        this.name = name;
+        this.id = id;
+    }
+
     public static Professor CreateComponent(GameObject where, string name, int id) {
         Professor myC = where.AddComponent<Professor>();
         myC.id = id;

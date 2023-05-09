@@ -31,6 +31,11 @@ public class Student : MonoBehaviour
     // info from GameManager
     int n_skills;
 
+    public Student(int id, string name) {
+        this.name = name;
+        this.id = id;
+    }
+
     public static Student CreateComponent(GameObject where, string name, int id) {
         Student myC = where.AddComponent<Student>();
         myC.name = name;
