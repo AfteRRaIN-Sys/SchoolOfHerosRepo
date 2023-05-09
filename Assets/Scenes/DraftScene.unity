@@ -1066,7 +1066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7783019, g: 1, b: 0.86987215, a: 0.19215687}
+  m_Color: {r: 0.7783019, g: 1, b: 0.86987215, a: 0.8235294}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2191,6 +2191,10 @@ PrefabInstance:
       propertyPath: CardPrefab
       value: 
       objectReference: {fileID: 5585947104732090587, guid: 9280a3749a67ed546a3209cddb1d3e5d, type: 3}
+    - target: {fileID: -4899582185881224644, guid: a5fd5896fe22e4e4db2f7efbe29b3767, type: 3}
+      propertyPath: gameStateSO
+      value: 
+      objectReference: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
     - target: {fileID: -4899582185881224644, guid: a5fd5896fe22e4e4db2f7efbe29b3767, type: 3}
       propertyPath: numSelected
       value: 2

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum BattleState { START, PLAYERSELECT, PLAYERTURN, ENEMYTURN, WON, LOST }
@@ -29,6 +30,7 @@ public class BattleSystem : MonoBehaviour
 
 	public Text dialogueText;
 	public DraftSO classSo;
+	public GameStateSO gameStateSO;
 
 	public BattleHUD enemyHUD;
 
@@ -47,7 +49,7 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
 		state = BattleState.START;
-		slctStudents = classSo.studentList;
+		slctStudents = gameStateSO.studentList;
 
 		StartCoroutine(SetupBattle());
     }
@@ -203,9 +205,17 @@ public class BattleSystem : MonoBehaviour
 		if(state == BattleState.WON)
 		{
 			dialogueText.text = "You won the battle!";
+			
+			// move to draft
+			NextScene();
+
 		} else if (state == BattleState.LOST)
 		{
 			dialogueText.text = "You were defeated.";
+
+			// move to draft
+			NextScene();
+
 		}
 	}
 
@@ -417,5 +427,10 @@ public class BattleSystem : MonoBehaviour
 		supBut.gameObject.SetActive(false);
 		StartCoroutine(PlayerTurn());
 	}
+
+	void NextScene()
+    {
+        SceneManager.LoadScene(0);
+    }
 
 }

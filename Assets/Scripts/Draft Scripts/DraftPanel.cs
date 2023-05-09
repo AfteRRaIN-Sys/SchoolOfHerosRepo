@@ -10,6 +10,8 @@ public class DraftPanel : MonoBehaviour
 
     [SerializeField]
     DraftSO draftSO;
+    [SerializeField]
+    GameStateSO gameStateSO;
 
 
     // prefab
@@ -58,7 +60,7 @@ public class DraftPanel : MonoBehaviour
         currentPhrase = 0;
         numSelected = 0;
         maxSlctStudent = 3;
-        point = 700;
+        point = gameStateSO.point;
 
         this.ChangePhrase();
         
@@ -74,7 +76,7 @@ public class DraftPanel : MonoBehaviour
     {   
         int c = 0;
         
-        int left_points = 700;
+        int left_points = gameStateSO.point;
         if (currentPhrase == 0) {
             for (int i = 0; i<this.studentCards.Count;i++){
                 if (this.studentCards[i].isSelected) {
@@ -181,7 +183,7 @@ public class DraftPanel : MonoBehaviour
                     slctStudents.Add(s.student);
                 }
             }
-            draftSO.studentList = slctStudents;
+            gameStateSO.studentList = slctStudents;
 
             List<Professor> slctProfessors = new List<Professor>();
             foreach(ProfessorCard s in professorCards) {
@@ -189,7 +191,7 @@ public class DraftPanel : MonoBehaviour
                     slctProfessors.Add(s.professor);
                 }
             }
-            draftSO.professorList = slctProfessors;
+            gameStateSO.professorList = slctProfessors;
 
             foreach(Student s in slctStudents){
                 Debug.Log($"select s : {s.name}");
@@ -198,6 +200,8 @@ public class DraftPanel : MonoBehaviour
             foreach(Professor p in slctProfessors){
                 Debug.Log($"select p : {p.name}");
             }
+
+            
             
             NextScene();
         }

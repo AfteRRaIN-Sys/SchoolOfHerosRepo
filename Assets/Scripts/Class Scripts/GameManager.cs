@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     //Need to be shown in Inspector
     [SerializeField] //Roster data (Students and Professors)
     DraftSO classSO;
+    [SerializeField]
+    GameStateSO gameStateSO;
     [SerializeField] //This Scene Canvas
     Canvas canvas;
     [SerializeField] //Text on this canvas (Scene)
@@ -54,7 +56,7 @@ public class GameManager : MonoBehaviour
 
         notificationLogButton.alpha = 0f;
         
-        List<Student> slctStudents = classSO.studentList;
+        List<Student> slctStudents = gameStateSO.studentList;
         
         foreach (Student s in slctStudents){
             // init student card
@@ -74,7 +76,7 @@ public class GameManager : MonoBehaviour
             Debug.Log($"student {s.name} {studentCardObj.GetComponent<Student>().name}");
         }
 
-        List<Professor> slctProfessors = classSO.professorList;
+        List<Professor> slctProfessors = gameStateSO.professorList;
         foreach (Professor s in slctProfessors){
             // init Professor card
             GameObject professorCardObj = Instantiate(cardPrefab, new Vector3(0,0,0), Quaternion.identity);
