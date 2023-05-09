@@ -20,7 +20,7 @@ public class GameState : MonoBehaviour{
                                           "Zero","Yamada","Satoshi",
                                         "Don","Justine","Anzu","Arthur",
                                         "Arnia"};
-     public boolean[] studentAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
+     public bool[] studentAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
      public int[][] prefSkill = {};
 
 
