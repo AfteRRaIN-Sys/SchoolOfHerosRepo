@@ -15,8 +15,12 @@ public class ToggleTable : MonoBehaviour
 
     public void ButtonClicked() {
         Debug.Log("toggle clicked");
-        RawImage r = GameObject.Find("DraftArea").GetComponent<DraftPanel>().rawImage;
-        r.gameObject.SetActive(!r.gameObject.activeSelf);
+        // RawImage r = GameObject.Find("DraftArea").GetComponent<DraftPanel>().rawImage;
+        // r.gameObject.SetActive(!r.gameObject.activeSelf);
+
+        Image table = GameObject.Find("DraftArea").GetComponent<DraftPanel>().decisionTable;
+        table.gameObject.SetActive(!table.gameObject.activeSelf);
+
         // currentPhrase += 1;
     }
 }

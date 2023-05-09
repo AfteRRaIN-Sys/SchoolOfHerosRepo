@@ -39,12 +39,19 @@ public class StudentCard : MonoBehaviour //, IPointerClickHandler
         
     }
 
-    public void ChangeColor(){
+     public void ChangeColor(){
         // Debug.Log("change color");
+        Image img = this.GetComponentInChildren<Image>();
         if (isSelected){
-            this.GetComponentInChildren<Image>().color = Color.green;
+            // img.color = Color.green;
+            Color currentColor = img.color;
+            currentColor.a = 1f;
+            img.color = currentColor;
         } else {
-            this.GetComponentInChildren<Image>().color = Color.red;
+            // img.color = Color.red;
+            Color currentColor = img.color;
+            currentColor.a = 0.4f;
+            img.color = currentColor;
         }
     }
 
