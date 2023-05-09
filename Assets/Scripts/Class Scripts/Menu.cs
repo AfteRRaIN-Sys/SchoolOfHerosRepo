@@ -53,6 +53,8 @@ public class Menu : MonoBehaviour
     {
         GameObject upgradeButton = Instantiate(upgrade, transform);
         upgradeButton.GetComponent<RectTransform>().SetSiblingIndex(2);
+
+        //upgradeButton.GetComponent<Menu_Btn>().SetText("Upgrade Room (+" + (gameManager.GetRoomPrice("Classroom") / 2).ToString() + ")");
         upgradeButton.GetComponent<Menu_Btn>().SetText("Upgrade Room");
         upgradeButton.GetComponent<Menu_Btn>().SetDesc("Upgrade");
 
@@ -60,6 +62,7 @@ public class Menu : MonoBehaviour
         {
             GameObject downGradeButton = Instantiate(upgrade, transform);
             downGradeButton.GetComponent<RectTransform>().SetSiblingIndex(3);
+            //downGradeButton.GetComponent<Menu_Btn>().SetText("Cancel Room Upgrade ( +" + (gameManager.GetRoomPrice("Classroom") / 2).ToString() + " )");
             downGradeButton.GetComponent<Menu_Btn>().SetText("Cancel Room Upgrade");
             downGradeButton.GetComponent<Menu_Btn>().SetDesc("Downgrade");
         }
@@ -77,10 +80,12 @@ public class Menu : MonoBehaviour
 
         if (room.IsLocked())
         {
+            //classroomButton.SetText("Buy Classroom (+" + (gameManager.GetRoomPrice("Classroom") / 2).ToString() + ")");
             classroomButton.SetText("Buy Classroom");
         }
         else
         {
+            //classroomButton.SetText("Remove Classroom ( +" + room.GetValue().ToString() + " )");
             classroomButton.SetText("Remove Classroom");
         }
     }

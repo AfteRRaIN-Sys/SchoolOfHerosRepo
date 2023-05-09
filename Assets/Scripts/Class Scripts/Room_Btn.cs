@@ -52,7 +52,7 @@ public class Room_Btn : Game_Button
         if (!room.IsLocked())
         {
             button.GetComponent<Menu_Btn>().SetDesc("Remove");
-            button.transform.GetChild(0).GetComponent<TMP_Text>().text = "Remove Classroom";
+            button.transform.GetChild(0).GetComponent<TMP_Text>().text = "Remove Classroom" ;
             roomMenu.GetComponent<Menu>().CreateUpgradeButton();
         }
         else
