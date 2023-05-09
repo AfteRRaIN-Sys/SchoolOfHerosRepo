@@ -6,12 +6,12 @@ public class GameState : MonoBehaviour{
     //Game State Attributes
 
     public int point = 0;
-    public List<Student> studentList = {};
-    public  List<Professor> profList = {};
+    public List<Student> studentList = new List<Student>();
+    public  List<Professor> profList = new List<Professor>();
     public int cur_sem = 1;
     public Sprite studentArt, professorArt, roomArt;
     public GameManager roomManager;
-    public List<Skill> = {};
+    public List<Skill> skillList = new List<Skill>();
     
 
     // //Student Part
@@ -25,8 +25,8 @@ public class GameState : MonoBehaviour{
     // Constructor needed
     public Student StudentFactory(int id)
     {
-        Student student = Student(StudentTemplateName[id]);
-        return Student;
+        Student student = new Student(StudentTemplateName[id]);
+        return student;
     }
 
 
@@ -37,8 +37,8 @@ public class GameState : MonoBehaviour{
         while(count > 0){
             int rnd = Random.Range(0, 15);
             if(studentAvail[rnd]){
-                student = StudentFactory(rnd);
-                draftStudent.add(student);
+                Student student = StudentFactory(rnd);
+                draftStudent.Add(student);
                 studentAvail[rnd] = false;
                 count -= 1 ;
             }
@@ -49,7 +49,7 @@ public class GameState : MonoBehaviour{
 
     //Professor Part
     public string[] ProfessorTemplateName;
-    public boolean[] profAvail = new boolean[]{true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
+    public bool[] profAvail = new bool[]{true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
     
 
     //Skill Part
@@ -60,7 +60,7 @@ public class GameState : MonoBehaviour{
     //Constructor needed
     public Professor ProfessorFactory(int id)
     {
-        Professor prof = Professor(ProfessorTemplateName[id]);
+        Professor prof = new Professor(ProfessorTemplateName[id]);
         return prof;
     }
 
@@ -71,8 +71,8 @@ public class GameState : MonoBehaviour{
         while(count > 0){
             int rnd = Random.Range(0, 15);
             if(profAvail[rnd]){
-                prof = ProfessorFactory(rnd);
-                draftProf.add(prof);
+                Professor prof = ProfessorFactory(rnd);
+                draftProf.Add(prof);
                 profAvail[rnd] = false;
                 count -= 1 ;
             }
