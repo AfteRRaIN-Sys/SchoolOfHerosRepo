@@ -23,7 +23,7 @@ public class SelectStudentTxt : MonoBehaviour
         int maxSlctStudent = gm.GetComponent<DraftPanel>().maxSlctStudent;
 
         if (currentPhrase == 0) {
-            txt.text = $"Select Student {numSelected}/{maxSlctStudent}";
+            txt.text = $"Select Student [{numSelected}/{maxSlctStudent}]";
             if (numSelected >= maxSlctStudent) {
                 txt.color = Color.red;
             }

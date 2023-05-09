@@ -41,10 +41,14 @@ public class ProfessorCard : MonoBehaviour
 
      public void ChangeColor(){
         // Debug.Log("change color");
+        Image img = this.GetComponentInChildren<Image>();
         if (isSelected){
-            this.GetComponentInChildren<Image>().color = Color.green;
+            // img.color = Color.green;
+            img.color = new Color(1f,1f,1f,1f);;
+            // .a = 0.2;
         } else {
-            this.GetComponentInChildren<Image>().color = Color.red;
+            // img.color = Color.red;
+            img.color = new Color(1f,1f,1f,0.4f);
         }
     }
 

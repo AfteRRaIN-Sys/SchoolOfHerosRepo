@@ -14,9 +14,13 @@ public class DraftPanel : MonoBehaviour
 
     // prefab
     public GameObject DraftArea;
+    public GameObject CardInfoPopup;
+    public Sprite studentCardSprite;
+    public Sprite professorCardSprite;
     public GameObject CardPrefab;
 
     public RawImage rawImage;
+    public Image decisionTable;
     
     public List<GameObject> studentCardObjList;
 
@@ -78,11 +82,11 @@ public class DraftPanel : MonoBehaviour
                 } else {
                     if (numSelected >= maxSlctStudent) {
                         studentCardObjList[i].GetComponent<Button>().interactable = false;
-                        studentCardObjList[i].GetComponentInChildren<Image>().color = Color.black;
+                        // studentCardObjList[i].GetComponentInChildren<Image>().color = Color.black;
                     }
                     else {
                         studentCardObjList[i].GetComponent<Button>().interactable = true;
-                        studentCardObjList[i].GetComponentInChildren<Image>().color = Color.red;
+                        // studentCardObjList[i].GetComponentInChildren<Image>().color = Color.red;
                     }
                 }
             }
@@ -93,12 +97,12 @@ public class DraftPanel : MonoBehaviour
                     left_points -= professorCards[i].professor.cost;
                 } else {
                     if (point < professorCards[i].professor.cost) {
-                        professorCardObjList[i].GetComponent<Button>().interactable = false;
-                        professorCardObjList[i].GetComponentInChildren<Image>().color = Color.black;
+                        professorCardObjList[i].GetComponent<Button>().enabled = false;
+                        professorCardObjList[i].GetComponentInChildren<Image>().color = new Color(1f, 0.1f, 0.1f, 0.7f);
                     }
                     else {
-                        professorCardObjList[i].GetComponent<Button>().interactable = true;
-                        professorCardObjList[i].GetComponentInChildren<Image>().color = Color.red;
+                        professorCardObjList[i].GetComponent<Button>().enabled = true;
+                        professorCardObjList[i].GetComponentInChildren<Image>().color = new Color(1f, 1f, 1f, 0.4f);;
                     }
                 }
             }
@@ -113,6 +117,7 @@ public class DraftPanel : MonoBehaviour
                 // Student tmp = this.gameObject.AddComponent<Student>();
                 GameObject studentCardObj = Instantiate(CardPrefab, new Vector3(0,0,0), Quaternion.identity);
                 studentCardObj.transform.SetParent(DraftArea.transform, false);
+                studentCardObj.GetComponent<Image>().sprite = studentCardSprite;
 
                 Student student = Student.CreateComponent(studentCardObj, $"student_{i}", i);
                 students.Add(student);
@@ -134,6 +139,8 @@ public class DraftPanel : MonoBehaviour
         } else if (currentPhrase == 1) {
             Debug.Log($"Prof Phrase");
 
+            // Sprite ProfCardBackGround = Resources.Load<Sprite>("Assets/Card_Shirts_Lite/PNG/Card_shirt_01") as Sprite;
+
             for (int i=0; i<this.studentCardObjList.Count;i++) {
                 studentCardObjList[i].SetActive(false);
             }
@@ -141,6 +148,8 @@ public class DraftPanel : MonoBehaviour
             for (int i =0; i<7; i++) {
                 
                 GameObject professorCardObj = Instantiate(CardPrefab, new Vector3(0,0,0), Quaternion.identity);
+                professorCardObj.GetComponent<Image>().sprite = professorCardSprite;
+                
                 professorCardObj.transform.SetParent(DraftArea.transform, false);
 
                 Professor professor = Professor.CreateComponent(professorCardObj, $"Professor_{i}", i);

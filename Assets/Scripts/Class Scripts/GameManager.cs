@@ -33,9 +33,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] //This Scene Canvas
     Canvas canvas;
     [SerializeField] //Text on this canvas (Scene)
-    TMP_Text money_text, turn_text;
+    TMP_Text money_text, turn_text, shopping_text;
     [SerializeField] //Grid storing items
     CanvasGroup studentGrid, professorGrid, roomSlotGrid;
+    [SerializeField]
+    CanvasGroup notificationLogButton, BossDetailButton;
     [SerializeField] //Card Prefab for Students and Professors
     GameObject cardPrefab;
 
@@ -45,10 +47,12 @@ public class GameManager : MonoBehaviour
     {
         money_text.text = "Money: " + money.ToString();
         turn_text.text = "";
+        shopping_text.text = "";
         semesterEnd = true;
         turn = 0;
         shoppingCart = 0;
 
+        notificationLogButton.alpha = 0f;
         
         List<Student> slctStudents = classSO.studentList;
         
@@ -291,6 +295,7 @@ public class GameManager : MonoBehaviour
         roomSlotGrid.blocksRaycasts = true;
 
         money_text.GetComponent<CanvasGroup>().alpha = 0;
+        shopping_text.GetComponent<CanvasGroup>().alpha = 0;
         foreach (Transform child in roomSlotGrid.gameObject.transform)
         {
             CanvasGroup slot = child.gameObject.GetComponent<CanvasGroup>();
@@ -356,6 +361,8 @@ public class GameManager : MonoBehaviour
             NextScene();
         }
         //learnNotification = "";
+
+        notificationLogButton.alpha = 1f;
     }
 
     //
@@ -484,6 +491,9 @@ public class GameManager : MonoBehaviour
 
     public void ShowMoney()
     {
+        shopping_text.GetComponent<CanvasGroup>().alpha = 1;
+        shopping_text.text = "Shopping Cart: -" + shoppingCart.ToString();
+
         int remaining = money - shoppingCart;
         money_text.text = "Money: " + remaining.ToString();
     }

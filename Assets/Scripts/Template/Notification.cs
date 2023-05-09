@@ -7,8 +7,8 @@ public class Notification : MonoBehaviour
 {
     [SerializeField]
     float timeToStop = 2f;
-    [SerializeField]
-    float notificationInterval = 1f;
+    //[SerializeField]
+    //float notificationInterval = 1f;
     [SerializeField]
     GameObject notificationWindow;
     [SerializeField]
