@@ -1130,7 +1130,8 @@ MonoBehaviour:
   roomSlotGrid: {fileID: 399565526}
   notificationLogButton: {fileID: 1095700299}
   BossDetailButton: {fileID: 305547248}
-  cardPrefab: {fileID: 5585947104732090587, guid: 9280a3749a67ed546a3209cddb1d3e5d, type: 3}
+  studentCardPrefab: {fileID: 1502024292869187119, guid: 5379a5f8ecf7c8f49aefaad303c3e91f, type: 3}
+  professorCardPrefab: {fileID: 6418140653729942050, guid: 012d51f632d0b944c859241a66e76804, type: 3}
 --- !u!114 &372683186
 MonoBehaviour:
   m_ObjectHideFlags: 0

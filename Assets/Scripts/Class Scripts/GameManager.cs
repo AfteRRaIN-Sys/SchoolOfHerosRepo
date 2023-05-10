@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     CanvasGroup notificationLogButton, BossDetailButton;
     [SerializeField] //Card Prefab for Students and Professors
-    GameObject cardPrefab;
+    GameObject studentCardPrefab, professorCardPrefab;
 
 
     //This will be called in the start of the scene
@@ -62,7 +62,9 @@ public class GameManager : MonoBehaviour
         
         foreach (Student s in slctStudents){
             // init student card
-            GameObject studentCardObj = Instantiate(cardPrefab, new Vector3(0,0,0), Quaternion.identity);
+            GameObject studentCardObj = Instantiate(studentCardPrefab, new Vector3(0,0,0), Quaternion.identity);
+            studentCardObj.transform.SetParent(studentGrid.transform, false);
+            /*
             studentCardObj.GetComponent<Button>().enabled = true;
             Destroy(studentCardObj.GetComponent<Button>());
             studentCardObj.AddComponent<CanvasGroup>();
@@ -70,8 +72,7 @@ public class GameManager : MonoBehaviour
             studentCardObj.AddComponent<HoverTips>();
             studentCardObj.GetComponent<HoverTips>().SetObject(studentCardObj);
             studentCardObj.GetComponent<HoverTips>().isStudent = true;
-
-            studentCardObj.transform.SetParent(studentGrid.transform, false);
+            */
 
             Student tmp = studentCardObj.AddComponent<Student>();
             tmp.CopyStudent(s);
@@ -81,8 +82,9 @@ public class GameManager : MonoBehaviour
         List<Professor> slctProfessors = gameStateSO.professorList;
         foreach (Professor s in slctProfessors){
             // init Professor card
-            GameObject professorCardObj = Instantiate(cardPrefab, new Vector3(0,0,0), Quaternion.identity);
+            GameObject professorCardObj = Instantiate(professorCardPrefab, new Vector3(0,0,0), Quaternion.identity);
             professorCardObj.transform.SetParent(professorGrid.transform, false);
+            /*
             professorCardObj.GetComponent<Button>().enabled = true;
             Destroy(professorCardObj.GetComponent<Button>());
             professorCardObj.AddComponent<CanvasGroup>();
@@ -90,7 +92,7 @@ public class GameManager : MonoBehaviour
             professorCardObj.AddComponent<HoverTips>();
             professorCardObj.GetComponent<HoverTips>().SetObject(professorCardObj);
             professorCardObj.GetComponent<HoverTips>().isStudent = false;
-            
+            */
             professorCardObj.AddComponent<Professor>();
             Professor tmp = professorCardObj.GetComponent<Professor>();
             tmp.CopyProfessor(s);
