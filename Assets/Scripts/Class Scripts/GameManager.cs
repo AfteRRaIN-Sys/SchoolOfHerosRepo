@@ -47,9 +47,11 @@ public class GameManager : MonoBehaviour
     //This will be called in the start of the scene
     public void Start()
     {
+        money = gameStateSO.money;
         money_text.text = "Money: " + money.ToString();
         turn_text.text = "";
         shopping_text.text = "";
+        semester = gameStateSO.cur_sem;
         semesterEnd = true;
         turn = 0;
         shoppingCart = 0;
@@ -440,7 +442,7 @@ public class GameManager : MonoBehaviour
     {
 
     }
-
+    /*
     public int getSemester()
     {
         return semester;
@@ -450,10 +452,11 @@ public class GameManager : MonoBehaviour
     {
         semester = amount;
     }
-
+    */
     public void addSemester(int amount)
     {
         semester += amount;
+        gameStateSO.cur_sem = semester;
     }
 
     public int getTurn()

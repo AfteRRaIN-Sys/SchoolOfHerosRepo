@@ -17,6 +17,7 @@ public class StartGameBtn : MonoBehaviour
     }
     
     public void InitGame() {
+        gameStateSO.money = 1000;
         gameStateSO.point = 700;
         gameStateSO.studentList = new List<Student>();
         gameStateSO.professorList = new List<Professor>();
