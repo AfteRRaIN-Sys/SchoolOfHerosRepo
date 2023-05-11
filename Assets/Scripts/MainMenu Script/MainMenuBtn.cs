@@ -7,9 +7,11 @@ using UnityEngine.UI;
 public class MainMenuBtn : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Button button;
+    //public Button button;
 
     public GameStateSO gameStateSO;
+    public CanvasGroup loadingScreen;
+
 
     /*
     public void Start(){
@@ -29,13 +31,21 @@ public class MainMenuBtn : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Starting Game");
+        loadingScreen.alpha = 1;
         InitGame();
-        NextScene();
+        StartCoroutine(Delay(1.5f));
     }
 
     public void Tutorial()
     {
+        Debug.Log("Game Tutorial");
+        Debug.Log("...WIP");
+    }
 
+    public void Setting()
+    {
+        Debug.Log("Game Settings");
+        Debug.Log("...WIP");
     }
 
     public void QuitGame()
@@ -49,6 +59,15 @@ public class MainMenuBtn : MonoBehaviour
         gameStateSO.point = 700;
         gameStateSO.studentList = new List<Student>();
         gameStateSO.professorList = new List<Professor>();
+    }
+
+    IEnumerator Delay(float sec)
+    {
+        Debug.Log("Waiting..");       
+        yield return new WaitForSecondsRealtime(sec);
+
+        loadingScreen.alpha = 0;
+        NextScene();
     }
 
     void NextScene()
