@@ -31,9 +31,13 @@ public class Student : MonoBehaviour
     // info from GameManager
     int n_skills;
 
-    public Student(int id, string name) {
+    public Student(int id, string name, int[] pref) {
         this.name = name;
         this.id = id;
+        this.preferences = pref;
+        this.maxHP = 100;
+        this.currentHP = 100;
+        this.year = 1;
     }
 
     public static Student CreateComponent(GameObject where, string name, int id) {

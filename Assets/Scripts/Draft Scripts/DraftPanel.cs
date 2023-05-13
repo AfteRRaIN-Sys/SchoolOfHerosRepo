@@ -13,6 +13,8 @@ public class DraftPanel : MonoBehaviour
     [SerializeField]
     GameStateSO gameStateSO;
 
+    public GameObject gameStateObj;
+
 
     // prefab
     public GameObject DraftArea;
@@ -62,13 +64,18 @@ public class DraftPanel : MonoBehaviour
         maxSlctStudent = 3;
         point = gameStateSO.point;
 
-        this.ChangePhrase();
+        gameStateObj = GameObject.Find("GameState");
+        // gameStateSO.slctTable = gameStateObj.GetComponent<GameState>().DraftStudentGenerator();
         
+        students = gameStateObj.GetComponent<GameState>().DraftStudentGenerator();
+        
+        professors = gameStateObj.GetComponent<GameState>().DraftProfGenerator();
+        this.ChangePhrase();
     }
     
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -121,8 +128,11 @@ public class DraftPanel : MonoBehaviour
                 studentCardObj.transform.SetParent(DraftArea.transform, false);
                 studentCardObj.GetComponent<Image>().sprite = studentCardSprite;
 
-                Student student = Student.CreateComponent(studentCardObj, $"student_{i}", i);
-                students.Add(student);
+                // Student student = Student.CreateComponent(studentCardObj, $"student_{i}", i);
+                // students.Add(student);
+                Student student = studentCardObj.AddComponent<Student>();
+                student.CopyStudent(students[i]);
+                students[i] = student;
                 StudentCard tmp2 = StudentCard.CreateComponent(studentCardObj, student);
                 Debug.Log(tmp2.student.id);
                 studentCards.Add(tmp2);
@@ -147,15 +157,17 @@ public class DraftPanel : MonoBehaviour
                 studentCardObjList[i].SetActive(false);
             }
             
-            for (int i =0; i<7; i++) {
+            for (int i =0; i<professors.Count; i++) {
                 
                 GameObject professorCardObj = Instantiate(CardPrefab, new Vector3(0,0,0), Quaternion.identity);
                 professorCardObj.GetComponent<Image>().sprite = professorCardSprite;
-                
                 professorCardObj.transform.SetParent(DraftArea.transform, false);
 
-                Professor professor = Professor.CreateComponent(professorCardObj, $"Professor_{i}", i);
-                professors.Add(professor);
+                // Professor professor = Professor.CreateComponent(professorCardObj, $"Professor_{i}", i);
+                // professors.Add(professor);
+                Professor professor = professorCardObj.AddComponent<Professor>();
+                professor.CopyProfessor(professors[i]);
+                professors[i] = professor;
                 ProfessorCard tmp2 = ProfessorCard.CreateComponent(professorCardObj, professor);
                 Debug.Log(tmp2.professor.id);
                 professorCards.Add(tmp2);
@@ -201,8 +213,15 @@ public class DraftPanel : MonoBehaviour
                 Debug.Log($"select p : {p.name}");
             }
 
-            
-            
+            foreach (Student s in slctStudents) {
+                gameStateSO.studentAvail[s.id] = false; 
+            }
+            foreach (Professor p in slctProfessors) {
+                gameStateSO.profAvail[p.id] = false; 
+            }
+
+            gameStateSO.studentList.AddRange(slctStudents);
+            gameStateSO.professorList.AddRange(slctProfessors);
             NextScene();
         }
     }

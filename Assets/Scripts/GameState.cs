@@ -18,73 +18,79 @@ public class GameState : MonoBehaviour {
     // public GameManager roomManager;
     // public List<Skill> skillList = new List<Skill>();
 
-    // // //Student Part
-    // public string[] StudentTemplateName = {"Somchai","Somying","Ramuel","Karl","Grimgor",
-    //                                      "Emhyr","Paul",
-    //                                       "Zero","Yamada","Satoshi",
-    //                                     "Don","Justine","Anzu","Arthur",
-    //                                     "Arnia"};
-    //  public bool[] studentAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
-    //  public int[][] prefSkill = {};
+    // //Student Part
+    public string[] StudentTemplateName = {"Somchai","Somying","Ramuel","Karl","Grimgor",
+                                         "Emhyr","Paul",
+                                          "Zero","Yamada","Satoshi",
+                                        "Don","Justine","Anzu","Arthur",
+                                        "Arnia"};
+     public bool[] studentAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
+     public int[][] prefSkill = {};
 
-    // // Constructor needed
-    // public Student StudentFactory(int id)
-    // {
-    //     Student student = new Student(id, StudentTemplateName[id]);
-    //     return student;
-    // }
+    // Constructor needed
+    public Student StudentFactory(int id)
+    {
+        int[] pref = new int[38];
+        Student student = new Student(id, StudentTemplateName[id], pref);
+        return student;
+    }
 
 
-    // public List<Student> DraftStudentGenerator ()
-    // {
-    //     List<Student>  draftStudent  = new List<Student>();
-    //     int count = 5;
-    //     while(count > 0){
-    //         int rnd = Random.Range(0, 15);
-    //         if(studentAvail[rnd]){
-    //             Student student = StudentFactory(rnd);
-    //             draftStudent.Add(student);
-    //             studentAvail[rnd] = false;
-    //             count -= 1 ;
-    //         }
-    //     }
-    //     return draftStudent;
-    // }
+    public List<Student> DraftStudentGenerator ()
+    {
+        Debug.Log("start gen");
+        List<Student>  draftStudent  = new List<Student>();
+        int count = 5;
+        while(count > 0){
+            int rnd = Random.Range(0, 15);
+            if(studentAvail[rnd]){
+                Student student = StudentFactory(rnd);
+                draftStudent.Add(student);
+                studentAvail[rnd] = false;
+                count -= 1 ;
+            }
+        }
+        foreach (Student s in draftStudent) {
+            Debug.Log(s.id);
+        }
+        return draftStudent;
+    }
 
 
     //Professor Part
-    // public string[] ProfessorTemplateName = {"Sword_Master","Assassin_Master","Guard_Master","Couter_Master","Heal_Master","Priest_Master","Witch_Master"};
-    // //public boolean[] profAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
-    // public bool[] profAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
-    
+    public string[] ProfessorTemplateName = {"Sword_Master","Assassin_Master","Guard_Master","Couter_Master","Heal_Master","Priest_Master","Witch_Master"};
+    //public boolean[] profAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
+    public bool[] profAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
+    public int[] profCost = {100,200,100,100,200,100,100,200,100};
 
-    // //Skill Part
-    // public string[] SkillTemplateName = new string[38];
-    // public int[] prereqID = new int[38];
-    // public int[] turnsToComplete = new int[38];
+    //Skill Part
+    public string[] SkillTemplateName = new string[38];
+    public int[] prereqID = new int[38];
+    public int[] turnsToComplete = new int[38];
 
-    // //Constructor needed
-    // public Professor ProfessorFactory(int id)
-    // {
-    //     Professor prof = new Professor(id, ProfessorTemplateName[id]);
-    //     return prof;
-    // }
+    //Constructor needed
+    public Professor ProfessorFactory(int id)
+    {
+        int[] subjects = new int[38];
+        Professor prof = new Professor(id, ProfessorTemplateName[id], profCost[id], subjects);
+        return prof;
+    }
 
-    // public List<Professor> DraftProfGenerator ()
-    // {
-    //     List<Professor> draftProf = new List<Professor>();
-    //     int count = 5;
-    //     while(count > 0){
-    //         int rnd = Random.Range(0, 15);
-    //         if(profAvail[rnd]){
-    //             Professor prof = ProfessorFactory(rnd);
-    //             draftProf.Add(prof);
-    //             profAvail[rnd] = false;
-    //             count -= 1 ;
-    //         }
-    //     }
-    //     return draftProf;
-    // }
+    public List<Professor> DraftProfGenerator ()
+    {
+        List<Professor> draftProf = new List<Professor>();
+        int count = 5;
+        while(count > 0){
+            int rnd = Random.Range(0, 7);
+            if(profAvail[rnd]){
+                Professor prof = ProfessorFactory(rnd);
+                draftProf.Add(prof);
+                profAvail[rnd] = false;
+                count -= 1 ;
+            }
+        }
+        return draftProf;
+    }
     
 }
 

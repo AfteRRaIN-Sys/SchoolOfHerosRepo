@@ -9,6 +9,7 @@ public class GameStateSO : ScriptableObject{
     [SerializeField]
     public int point{ get; set; }
     public int money{ get; set; }
+    public List<Student> slctTable{get; set;}
     public List<Student> studentList{ get; set; }
     public  List<Professor> professorList{ get; set; }
     public int cur_sem{ get; set; }

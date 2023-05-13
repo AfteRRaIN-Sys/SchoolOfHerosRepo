@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
     //This will be called in the start of the scene
     public void Start()
     {
+        foreach (bool b in gameStateSO.profAvail) {
+            Debug.Log(b);
+        }
         money = gameStateSO.money;
         money_text.text = "Money: " + money.ToString();
         turn_text.text = "";

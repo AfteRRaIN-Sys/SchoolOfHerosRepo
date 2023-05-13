@@ -21,9 +21,11 @@ public class Professor : MonoBehaviour
         canvasGroup = gameObject.GetComponent<CanvasGroup>();
     }
 
-    public Professor(int id, string name) {
+    public Professor(int id, string name, int cost, int[] subjects) {
         this.name = name;
         this.id = id;
+        this.cost = cost;
+        this.subjects = subjects;
     }
 
     public static Professor CreateComponent(GameObject where, string name, int id) {

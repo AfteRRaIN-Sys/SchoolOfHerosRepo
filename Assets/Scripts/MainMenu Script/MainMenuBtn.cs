@@ -59,6 +59,15 @@ public class MainMenuBtn : MonoBehaviour
         gameStateSO.point = 700;
         gameStateSO.studentList = new List<Student>();
         gameStateSO.professorList = new List<Professor>();
+        gameStateSO.studentAvail = new bool[15];
+        for (int i =0; i<15;i++) {
+            gameStateSO.studentAvail[i] = true;
+        }
+        gameStateSO.profAvail = new bool[7];
+        for (int i =0; i<7;i++) {
+            gameStateSO.profAvail[i] = true;
+        }
+
     }
 
     IEnumerator Delay(float sec)
