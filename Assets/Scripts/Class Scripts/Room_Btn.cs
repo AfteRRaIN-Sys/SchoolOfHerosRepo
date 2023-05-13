@@ -43,7 +43,7 @@ public class Room_Btn : Game_Button
     {
         roomMenu.GetComponent<Menu>().SetId(roomId);
 
-        
+        /*
         GameObject button = roomMenu.transform.GetChild(1).gameObject;
 
         GameObject gameObject = GameObject.Find("RoomSlot" + roomId.ToString());
@@ -53,14 +53,13 @@ public class Room_Btn : Game_Button
         {
             button.GetComponent<Menu_Btn>().SetDesc("Remove");
             button.transform.GetChild(0).GetComponent<TMP_Text>().text = "Remove Classroom" ;
-            roomMenu.GetComponent<Menu>().CreateUpgradeButton();
         }
         else
         {
             button.transform.GetChild(0).GetComponent<TMP_Text>().text = "Buy Classroom";
             button.GetComponent<Menu_Btn>().SetDesc("Buy");
         }
-        
+        */
     }
 
     public void ToggleLock(bool onoff)
