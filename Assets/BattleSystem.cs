@@ -321,7 +321,7 @@ public class BattleSystem : MonoBehaviour
 					br = false;
 					}
 				}
-				if(playerUnits[i].skills[38]<=0 && br){
+				if(playerUnits[i].skills[36]<=0 && br){
 					act  = Random.value;
 					if(act>=0.6 - supChance){
 					//enemyUnit.TakeDamage(playerUnits[i].damage*2);
@@ -331,7 +331,7 @@ public class BattleSystem : MonoBehaviour
 							playerHUDs[j].SetHP(playerUnits[j].currentHP);
 						}
 					}
-					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[38]+" is successful!";
+					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[36]+" is successful!";
 					yield return new WaitForSecondsRealtime(2f);
 					dialogueText.text = "All player is healed";
 					//UnitMove(enemyUnit, -1);
@@ -604,7 +604,7 @@ public class BattleSystem : MonoBehaviour
 
 	void NextScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
 }
