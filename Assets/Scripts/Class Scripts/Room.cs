@@ -15,6 +15,20 @@ public class Room : MonoBehaviour
     public int maxCapacity;
     private int currentCapacity;
 
+    //                          |lvl1|  lvl2|   lvl3|   lvl4|   store index of skill that is prerequisite for each skill (-1 means no prerequisite needed)
+    private int[] preReqSkill = {    -1,     0,      1,      2,
+                                                            2,
+                                                    1,      5,
+                                            0,      7,      8,
+                                    -1,     10,     11,     12,
+                                            10,     14,     15,
+                                            10,     17,     18,
+                                    -1,     20,     21,     22,
+                                            20,     24,     25,
+                                    -1,     27,     28,     29,
+                                    -1,     31,     32,     33,
+                                                    32,     35};
+
     bool locked;
     bool assigned;
     bool full;
@@ -224,76 +238,83 @@ public class Room : MonoBehaviour
         float delayTimer = .5f;
         foreach (Student stu in students)
         {
-            if (stu.progressLeft[skillLecture] == 0)
+            if (CheckPrerequisite(stu, skillLecture))
             {
-                //notification += "Student" + stu.GetStudentID().ToString() + " has already learned: Skill" + skillLecture.ToString() + System.Environment.NewLine;
-                notification = stu.name + " has already learned: Skill" + skillLecture.ToString() + System.Environment.NewLine;
-                StartCoroutine(DelayedNotification(notification, delayTimer));
-                delayTimer += notificationDelayInterval;
-                //notificationSystem.Notify(notification);
-                Debug.Log(notification);
+                if (stu.progressLeft[skillLecture] == 0)
+                {
+                    //notification += "Student" + stu.GetStudentID().ToString() + " has already learned: Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                    notification = stu.name + " has already learned: Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                    StartCoroutine(DelayedNotification(notification, delayTimer));
+                    delayTimer += notificationDelayInterval;
+                    //notificationSystem.Notify(notification);
+                    Debug.Log(notification);
+                }
+                else
+                {
+                    //notification += "Student" + stu.GetStudentID().ToString() + " is learning : Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                    notification = stu.name + " is learning : Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                    StartCoroutine(DelayedNotification(notification, delayTimer));
+                    delayTimer += notificationDelayInterval;
+                    //notificationSystem.Notify(notification);
+                    Debug.Log(notification);
+                    int progress = 1;
+                    if (stu.GetPref()[skillLecture] == 1)
+                    {
+                        int chance = randChance(100);
+                        if (chance > 70)
+                        {
+                            //notification += "And he loves it! (progress + 1 as a bonus)" + System.Environment.NewLine;
+                            notification = stu.name + " loves it! (progress + 1 as a bonus)" + System.Environment.NewLine;
+                            StartCoroutine(DelayedNotification(notification, delayTimer));
+                            delayTimer += notificationDelayInterval;
+                            //notificationSystem.Notify(notification);
+                            Debug.Log("Student " + stu.id.ToString() + " Loves the lecture! :)" + System.Environment.NewLine);
+                            progress += 1;
+                        }
+                        /*
+                        player = -1;
+                        if (minigame())
+                        {
+                            Debug.Log("Student " + stu.studentId.ToString() + " Loves the lecture! :)");
+                            progress += 1;
+                        }
+                        */
+                    }
+                    else if (stu.GetPref()[skillLecture] == -1)
+                    {
+                        int chance = randChance(100);
+                        if (chance > 70)
+                        {
+                            //notification += "But he hates it... (progress - 1 as a penalty)" + System.Environment.NewLine;
+                            notification = stu.name + " hates it... (progress - 1 as a penalty)" + System.Environment.NewLine;
+                            StartCoroutine(DelayedNotification(notification, delayTimer));
+                            delayTimer += notificationDelayInterval;
+                            //notificationSystem.Notify(notification);
+                            Debug.Log("Student " + stu.id.ToString() + " Hates the lecture! :(" + System.Environment.NewLine);
+                            progress -= 1;
+                        }
+                    }
+                    if (stu.progressLeft[skillLecture] > 0)
+                    {
+                        stu.progressLeft[skillLecture] = stu.progressLeft[skillLecture] - progress;
+                        if (stu.progressLeft[skillLecture] <= 0)
+                        {
+                            stu.progressLeft[skillLecture] = 0;
+                            //notification += "And He has Complete the course! Skill: " + skillLecture.ToString() + System.Environment.NewLine;
+                            notification = stu.name + " has Complete the course! Skill: " + skillLecture.ToString() + System.Environment.NewLine;
+                            StartCoroutine(DelayedNotification(notification, delayTimer));
+                            delayTimer += notificationDelayInterval;
+                            //notificationSystem.Notify(notification);
+                            Debug.Log("Student " + stu.id.ToString() + " has Complete the course! Skill: " + skillLecture.ToString());
+                        }
+                    }
+                }
             }
             else
             {
-                //notification += "Student" + stu.GetStudentID().ToString() + " is learning : Skill" + skillLecture.ToString() + System.Environment.NewLine;
-                notification = stu.name + " is learning : Skill" + skillLecture.ToString() + System.Environment.NewLine;
-                StartCoroutine(DelayedNotification(notification, delayTimer));
-                delayTimer += notificationDelayInterval;
-                //notificationSystem.Notify(notification);
-                Debug.Log(notification);
-                int progress = 1;
-                if (stu.GetPref()[skillLecture] == 1)
-                {
-                    int chance = randChance(100);
-                    if (chance > 70)
-                    {
-                        //notification += "And he loves it! (progress + 1 as a bonus)" + System.Environment.NewLine;
-                        notification = stu.name + " loves it! (progress + 1 as a bonus)" + System.Environment.NewLine;
-                        StartCoroutine(DelayedNotification(notification, delayTimer));
-                        delayTimer += notificationDelayInterval;
-                        //notificationSystem.Notify(notification);
-                        Debug.Log("Student " + stu.id.ToString() + " Loves the lecture! :)" + System.Environment.NewLine);
-                        progress += 1;
-                    }
-                    /*
-                    player = -1;
-                    if (minigame())
-                    {
-                        Debug.Log("Student " + stu.studentId.ToString() + " Loves the lecture! :)");
-                        progress += 1;
-                    }
-                    */
-                }
-                else if (stu.GetPref()[skillLecture] == -1)
-                {
-                    int chance = randChance(100);
-                    if (chance > 70)
-                    {
-                        //notification += "But he hates it... (progress - 1 as a penalty)" + System.Environment.NewLine;
-                        notification = stu.name + " hates it... (progress - 1 as a penalty)" + System.Environment.NewLine;
-                        StartCoroutine(DelayedNotification(notification, delayTimer));
-                        delayTimer += notificationDelayInterval;
-                        //notificationSystem.Notify(notification);
-                        Debug.Log("Student " + stu.id.ToString() + " Hates the lecture! :(" + System.Environment.NewLine);
-                        progress -= 1;
-                    }
-                }
-                if (stu.progressLeft[skillLecture] > 0)
-                {
-                    stu.progressLeft[skillLecture] = stu.progressLeft[skillLecture] - progress;
-                    if (stu.progressLeft[skillLecture] <= 0)
-                    {
-                        stu.progressLeft[skillLecture] = 0;
-                        //notification += "And He has Complete the course! Skill: " + skillLecture.ToString() + System.Environment.NewLine;
-                        notification = stu.name + " has Complete the course! Skill: " + skillLecture.ToString() + System.Environment.NewLine;
-                        StartCoroutine(DelayedNotification(notification, delayTimer));
-                        delayTimer += notificationDelayInterval;
-                        //notificationSystem.Notify(notification);
-                        Debug.Log("Student " + stu.id.ToString() + " has Complete the course! Skill: " + skillLecture.ToString());
-                    }
-                }
-            } 
-        }
+                Debug.Log("Student " + stu.id.ToString() + " has yet complete the prerequisite Skill: " + preReqSkill[skillLecture].ToString());
+            }
+        }     
         //gameManager.GetComponent<Notification>().Notify(notification);
     }
 
@@ -305,6 +326,18 @@ public class Room : MonoBehaviour
     public CanvasGroup minigameBoard;
     int player = -1;
 
+    private bool CheckPrerequisite(Student stu, int skillIndex)
+    {
+        int prerequisiteIndex = preReqSkill[skillIndex];
+        if(stu.progressLeft[prerequisiteIndex] == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     private bool minigame()
     {
         minigameBoard.alpha = 1;
