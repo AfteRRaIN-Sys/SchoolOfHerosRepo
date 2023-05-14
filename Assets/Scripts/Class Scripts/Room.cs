@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Room : MonoBehaviour
 {
+
+    public GameStateSO gameStateSO;
     public int id;
     public string facility;
     private int level = 0;
@@ -16,18 +18,7 @@ public class Room : MonoBehaviour
     private int currentCapacity;
 
     //                          |lvl1|  lvl2|   lvl3|   lvl4|   store index of skill that is prerequisite for each skill (-1 means no prerequisite needed)
-    private int[] preReqSkill = {    -1,     0,      1,      2,
-                                                            2,
-                                                    1,      5,
-                                            0,      7,      8,
-                                    -1,     10,     11,     12,
-                                            10,     14,     15,
-                                            10,     17,     18,
-                                    -1,     20,     21,     22,
-                                            20,     24,     25,
-                                    -1,     27,     28,     29,
-                                    -1,     31,     32,     33,
-                                                    32,     35};
+    private int[] preReqSkill;
 
     bool locked;
     bool assigned;
@@ -312,7 +303,7 @@ public class Room : MonoBehaviour
             }
             else
             {
-                Debug.Log("Student " + stu.id.ToString() + " has yet complete the prerequisite Skill: " + preReqSkill[skillLecture].ToString());
+                Debug.Log("Student " + stu.id.ToString() + " has yet complete the prerequisite Skill: " + gameStateSO.skillList[skillLecture-1].prereqID.ToString());
             }
         }     
         //gameManager.GetComponent<Notification>().Notify(notification);
@@ -328,7 +319,8 @@ public class Room : MonoBehaviour
 
     private bool CheckPrerequisite(Student stu, int skillIndex)
     {
-        int prerequisiteIndex = preReqSkill[skillIndex];
+        Skill skill = gameStateSO.skillList[skillIndex];
+        int prerequisiteIndex = skill.prereqID;
         if(stu.progressLeft[prerequisiteIndex] == 0)
         {
             return true;

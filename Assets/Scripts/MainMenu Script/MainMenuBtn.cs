@@ -68,6 +68,16 @@ public class MainMenuBtn : MonoBehaviour
             gameStateSO.profAvail[i] = true;
         }
 
+        List<Skill> skillList = new List<Skill>();
+        for (int i =0; i<37; i++) {
+            skillList.Add(new Skill(i+1));
+        }
+        int[] progressLeftTemplate = new int[37];
+        for (int i =0; i<37; i++) {
+            progressLeftTemplate[i] = skillList[i].turnsToComplete;
+        }
+        gameStateSO.skillList = skillList;
+        gameStateSO.progressLeftTemplate = progressLeftTemplate;
     }
 
     IEnumerator Delay(float sec)

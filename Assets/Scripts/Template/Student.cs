@@ -31,13 +31,14 @@ public class Student : MonoBehaviour
     // info from GameManager
     int n_skills;
 
-    public Student(int id, string name, int[] pref) {
+    public Student(int id, string name, int[] pref, int[] progressLeft) {
         this.name = name;
         this.id = id;
         this.preferences = pref;
         this.maxHP = 100;
         this.currentHP = 100;
         this.year = 1;
+        this.progressLeft = (int[])progressLeft.Clone();
     }
 
     public static Student CreateComponent(GameObject where, string name, int id) {

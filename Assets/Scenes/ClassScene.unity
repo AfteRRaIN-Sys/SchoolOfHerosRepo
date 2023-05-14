@@ -628,6 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 0}
   id: 2
   facility: 
   maxLevel: 4
@@ -921,6 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 0}
   id: 6
   facility: 
   maxLevel: 4
@@ -1153,6 +1155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
   id: 6
   facility: 
   maxLevel: 4
@@ -2134,6 +2137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
   id: 8
   facility: 
   maxLevel: 4
@@ -2947,6 +2951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
   id: 4
   facility: 
   maxLevel: 4
@@ -3267,6 +3272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
   id: 3
   facility: 
   maxLevel: 4
@@ -5042,6 +5048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 0}
   id: 4
   facility: 
   maxLevel: 4
@@ -5199,6 +5206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
   id: 1
   facility: 
   maxLevel: 4
@@ -5356,6 +5364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
   id: 5
   facility: 
   maxLevel: 4
@@ -5529,6 +5538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
   id: 7
   facility: 
   maxLevel: 4
@@ -5789,6 +5799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 0}
   id: 1
   facility: 
   maxLevel: 4
@@ -6089,6 +6100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 0}
   id: 3
   facility: 
   maxLevel: 4
@@ -6516,6 +6528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
   id: 2
   facility: 
   maxLevel: 4
@@ -7644,6 +7657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f407c2b3acc744b51b1b3d8862510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateSO: {fileID: 0}
   id: 5
   facility: 
   maxLevel: 4

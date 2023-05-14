@@ -220,8 +220,9 @@ public class DraftPanel : MonoBehaviour
                 gameStateSO.profAvail[p.id] = false; 
             }
 
-            gameStateSO.studentList.AddRange(slctStudents);
-            gameStateSO.professorList.AddRange(slctProfessors);
+            gameStateSO.studentList = slctStudents;
+            gameStateSO.professorList = slctProfessors;
+            
             NextScene();
         }
     }
