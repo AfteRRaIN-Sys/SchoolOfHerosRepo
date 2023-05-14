@@ -18,9 +18,37 @@ public class Menu_Btn : Game_Button
         menu = transform.parent.GetComponent<Menu>();
     }
 
-    public void Onclick()
+    public void ExpandBuyList(GameObject buyListMenu)
     {
-        menu.Onclick(description);
+        GameObject existedMenu = GameObject.Find("BuyList(Clone)");
+        if (existedMenu != null)
+        {
+            Destroy(existedMenu);
+        }
+
+        GameObject buyList = gameManager.InstantiateObjectAtCursor(buyListMenu);
+        buyList.GetComponent<BuyList>().SetID(menu.GetId());
+    }
+
+    public void Remove()
+    {
+        gameManager.RemoveRoom(menu.GetId());
+        Destroy(transform.parent.gameObject);
+    }
+    public void Upgrade()
+    {
+        gameManager.UpgradeRoom(menu.GetId());
+        Destroy(transform.parent.gameObject);
+    }
+    public void Degrade()
+    {
+        gameManager.DegradeRoom(menu.GetId());
+        Destroy(transform.parent.gameObject);
+    }
+
+    public void Cancel()
+    {
+        Destroy(transform.parent.gameObject);
     }
 
     public void SetText(string text)

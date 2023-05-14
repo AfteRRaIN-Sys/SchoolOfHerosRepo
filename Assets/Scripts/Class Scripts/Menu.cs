@@ -7,25 +7,26 @@ using UnityEngine.UI;
 public class Menu : MonoBehaviour
 {
     GameManager gameManager;
+    [SerializeField]
     int menuId;            //Same as Room Id
     Room room;
 
-    public GameObject classroom;
+    public GameObject buy;
+    public GameObject remove;
     public GameObject upgrade;
+    public GameObject degrade;
     public GameObject cancel;
 
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        SetRoom();
         TMP_Text roomDesc = gameObject.transform.GetChild(0).GetComponent<TMP_Text>();
-        roomDesc.text = "Room: " + room.facility + System.Environment.NewLine;
-        roomDesc.text += "Level: " + room.GetLevel().ToString();
-
-        Menu_Btn cancelButton = gameObject.transform.GetChild(transform.childCount - 1).GetComponent<Menu_Btn>();
-        cancelButton.SetDesc("Cancel");
+        //SetRoom();
+        Debug.Log(room.id.ToString());
+        roomDesc.text = room.facility + System.Environment.NewLine;
+        roomDesc.text += room.GetLevel().ToString(); 
     }
-
+    /*
     public void Onclick(string desc)
     {
         switch (desc)
@@ -67,26 +68,30 @@ public class Menu : MonoBehaviour
             downGradeButton.GetComponent<Menu_Btn>().SetDesc("Downgrade");
         }
     }
-
-    public void Cancel()
-    {
-        Destroy(gameObject);
-    }
+    */
 
     private void SetRoom()
     {
         room = GameObject.Find("RoomSlot" + menuId.ToString()).GetComponent<Room>();
-        Menu_Btn classroomButton = gameObject.transform.GetChild(1).GetComponent<Menu_Btn>();
 
         if (room.IsLocked())
         {
-            //classroomButton.SetText("Buy Classroom (+" + (gameManager.GetRoomPrice("Classroom") / 2).ToString() + ")");
-            classroomButton.SetText("Buy Classroom");
+            GameObject buyButton = Instantiate(buy, transform);
+            buyButton.GetComponent<RectTransform>().SetSiblingIndex(1);
         }
         else
         {
-            //classroomButton.SetText("Remove Classroom ( +" + room.GetValue().ToString() + " )");
-            classroomButton.SetText("Remove Classroom");
+            GameObject buyButton = Instantiate(remove, transform);
+            buyButton.GetComponent<RectTransform>().SetSiblingIndex(1);
+
+            GameObject upgradeButton = Instantiate(upgrade, transform);
+            upgradeButton.GetComponent<RectTransform>().SetSiblingIndex(2);
+
+            if (room.GetLevel() > 1)
+            {
+                GameObject downGradeButton = Instantiate(degrade, transform);
+                downGradeButton.GetComponent<RectTransform>().SetSiblingIndex(3);
+            }
         }
     }
 

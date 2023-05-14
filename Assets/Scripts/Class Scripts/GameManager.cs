@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
             Debug.Log(b);
         }
         money = gameStateSO.money;
-        money_text.text = "Money: " + money.ToString();
+        money_text.text = money.ToString();
         turn_text.text = "";
         shopping_text.text = "";
         semester = gameStateSO.cur_sem;
@@ -502,9 +502,9 @@ public class GameManager : MonoBehaviour
     public void ShowMoney()
     {
         shopping_text.GetComponent<CanvasGroup>().alpha = 1;
-        shopping_text.text = "Shopping Cart: -" + shoppingCart.ToString();
+        shopping_text.text = "Spending: -" + shoppingCart.ToString();
 
         int remaining = money - shoppingCart;
-        money_text.text = "Money: " + remaining.ToString();
+        money_text.text = remaining.ToString();
     }
 }

@@ -2643,6 +2643,90 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1040168936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1040168937}
+  - component: {fileID: 1040168938}
+  m_Layer: 0
+  m_Name: home menu bg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1040168937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040168936}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.045199998, y: -0.7642999, z: 0}
+  m_LocalScale: {x: 1.3593146, y: 1.1675122, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1040168938
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040168936}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -571869231
+  m_SortingLayer: -1
+  m_SortingOrder: -20
+  m_Sprite: {fileID: 21300000, guid: 1b1886768a99b0744a82f206b15ea773, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7490196}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 19.2, y: 10.8}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1062034439
 GameObject:
   m_ObjectHideFlags: 0
@@ -5065,12 +5149,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace5d3b76e8bbd94d8faa070310b062d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillNames:
+  - Attack I
+  - Attack II
+  - Attack III
+  - Attakc IV
+  - Critical Chance
+  - Life Steal I
+  - Life Steal II
+  - Poison Cloating
+  - Bleeding Effect
+  - Open Wound
+  - Guard I
+  - Guard II
+  - Guard III
+  - Guard IV
+  - Evade
+  - Reflect Damage
+  - Counter Attack
+  - Absorb Damage I
+  - Absorb Damage II
+  - ' Absorb Damage III'
+  - Buff I
+  - Buff II
+  - Buff III
+  - Buff IV
+  - Team Buff I
+  - Team Buff II
+  - Team Buff III
+  - Debuff I
+  - Debuff II
+  - Debuff III
+  - Debuff IV
+  - Heal I
+  - Heal II
+  - Revive I
+  - Revive II
+  - Team Heal I
+  - Team Heal II
+  skillLevels: 01000000020000000300000004000000040000000300000004000000020000000300000004000000010000000200000003000000040000000200000003000000040000000200000003000000040000000100000002000000030000000400000002000000030000000400000001000000020000000300000004000000010000000200000003000000040000000300000004000000
   playerPrefab:
   - {fileID: 5674484368629161613, guid: 10021f1ffb851ee42a2f9e2ce33428b7, type: 3}
   - {fileID: 5674484368629161613, guid: d93ad958cdd80f642a806628157d055f, type: 3}
   - {fileID: 5674484368629161613, guid: 06c3a1064f7a3834c8e5762a82024c4e, type: 3}
-  enemyPrefab: {fileID: 5046871492963100558, guid: 302bdc8dead690247957754e115acde3,
-    type: 3}
+  enemyPrefab: {fileID: 5046871492963100558, guid: 302bdc8dead690247957754e115acde3, type: 3}
   playerBattleStation:
   - {fileID: 776899475}
   - {fileID: 903105491}
@@ -5089,6 +5211,7 @@ MonoBehaviour:
   - {fileID: 713151405}
   dialogueText: {fileID: 1584004651}
   classSo: {fileID: 11400000, guid: e79f1f2d091e9f4489c93d20d98d175b, type: 2}
+  gameStateSO: {fileID: 0}
   enemyHUD: {fileID: 1290496122}
   state: 0
   slctStudents: []
@@ -5098,6 +5221,7 @@ MonoBehaviour:
   atkBut: {fileID: 1455883805}
   defBut: {fileID: 1240289235}
   supBut: {fileID: 1249564458}
+  angles: 
 --- !u!4 &1714929644
 Transform:
   m_ObjectHideFlags: 0
