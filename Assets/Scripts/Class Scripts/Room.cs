@@ -303,7 +303,7 @@ public class Room : MonoBehaviour
             }
             else
             {
-                Debug.Log("Student " + stu.id.ToString() + " has yet complete the prerequisite Skill: " + gameStateSO.skillList[skillLecture-1].prereqID.ToString());
+                Debug.Log("Student " + stu.id.ToString() + " has yet complete the prerequisite Skill: " + gameStateSO.skillList[skillLecture].prereqID.ToString());
             }
         }     
         //gameManager.GetComponent<Notification>().Notify(notification);
