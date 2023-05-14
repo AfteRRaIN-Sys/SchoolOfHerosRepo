@@ -25,12 +25,47 @@ public class GameState : MonoBehaviour {
                                         "Don","Justine","Anzu","Arthur",
                                         "Arnia"};
      public bool[] studentAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
-     public int[][] prefSkill = {};
+     public int[][] prefSkill = {new int[7]{0,1,2,3,4,5,6},
+                                 new int[7]{0,1,2,3,7,8,9},
+                                 new int[7]{0,1,2,3,10,11,12},
+                                 new int[7]{0,1,2,3,20,21,22},
+                                 new int[7]{0,1,2,3,31,32,33},
+                                 new int[7]{0,1,2,3,4,5,6},
+                                 new int[7]{0,1,2,3,7,8,9},
+                                 new int[7]{0,1,2,3,10,11,12},
+                                 new int[7]{0,1,2,3,20,21,22},
+                                 new int[7]{0,1,2,3,31,32,33},
+                                 new int[7]{0,1,2,3,4,5,6},
+                                 new int[7]{0,1,2,3,7,8,9},
+                                 new int[7]{0,1,2,3,10,11,12},
+                                 new int[7]{0,1,2,3,20,21,22},
+                                 new int[7]{0,1,2,3,31,32,33}};
+    public int[][] hateSkill = {new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16},
+                                 new int[7]{10,11,12,13,14,15,16}};
 
     // Constructor needed
     public Student StudentFactory(int id)
     {
         int[] pref = new int[38];
+        for(int i =0;i<7;i++){
+            pref[prefSkill[id][i]] = 1;
+        }
+        for(int i =0;i<7;i++){
+            pref[hateSkill[id][i]] = -1;
+        }
         Student student = new Student(id, StudentTemplateName[id], pref);
         return student;
     }
@@ -59,9 +94,16 @@ public class GameState : MonoBehaviour {
 
     //Professor Part
     public string[] ProfessorTemplateName = {"Sword_Master","Assassin_Master","Guard_Master","Couter_Master","Heal_Master","Priest_Master","Witch_Master"};
-    //public boolean[] profAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
     public bool[] profAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
     public int[] profCost = {100,200,100,100,200,100,100,200,100};
+    public int[][] teachSkill = {new int[6]{0,1,2,3,4,5},
+                                 new int[6]{6,7,8,9,10,11},
+                                 new int[6]{12,13,14,15,16,17},
+                                 new int[6]{18,19,20,21,22,23},
+                                 new int[6]{24,25,26,27,28,29},
+                                 new int[6]{24,25,26,27,28,29},
+                                 new int[6]{24,25,26,27,28,29}
+                                };
 
     //Skill Part
     public string[] SkillTemplateName = new string[38];
@@ -72,6 +114,9 @@ public class GameState : MonoBehaviour {
     public Professor ProfessorFactory(int id)
     {
         int[] subjects = new int[38];
+        for(int i =0;i<6;i++){
+            subjects[teachSkill[id][i]] = 1;
+        }
         Professor prof = new Professor(id, ProfessorTemplateName[id], profCost[id], subjects);
         return prof;
     }
