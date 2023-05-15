@@ -67,19 +67,12 @@ public class GameManager : MonoBehaviour
             // init student card
             GameObject studentCardObj = Instantiate(studentCardPrefab, new Vector3(0,0,0), Quaternion.identity);
             studentCardObj.transform.SetParent(studentGrid.transform, false);
-            /*
-            studentCardObj.GetComponent<Button>().enabled = true;
-            Destroy(studentCardObj.GetComponent<Button>());
-            studentCardObj.AddComponent<CanvasGroup>();
-            studentCardObj.AddComponent<DragDrop>();
-            studentCardObj.AddComponent<HoverTips>();
-            studentCardObj.GetComponent<HoverTips>().SetObject(studentCardObj);
-            studentCardObj.GetComponent<HoverTips>().isStudent = true;
-            */
 
             Student tmp = studentCardObj.AddComponent<Student>();
             tmp.CopyStudent(s);
-            Debug.Log($"student {s.name} {studentCardObj.GetComponent<Student>().name}");
+            TMP_Text name = studentCardObj.transform.GetChild(1).GetComponent<TMP_Text>();
+            name.text = tmp.name;
+            //Debug.Log($"student {s.name} {studentCardObj.GetComponent<Student>().name}");
         }
 
         List<Professor> slctProfessors = gameStateSO.professorList;
@@ -87,19 +80,13 @@ public class GameManager : MonoBehaviour
             // init Professor card
             GameObject professorCardObj = Instantiate(professorCardPrefab, new Vector3(0,0,0), Quaternion.identity);
             professorCardObj.transform.SetParent(professorGrid.transform, false);
-            /*
-            professorCardObj.GetComponent<Button>().enabled = true;
-            Destroy(professorCardObj.GetComponent<Button>());
-            professorCardObj.AddComponent<CanvasGroup>();
-            professorCardObj.AddComponent<DragDrop>();
-            professorCardObj.AddComponent<HoverTips>();
-            professorCardObj.GetComponent<HoverTips>().SetObject(professorCardObj);
-            professorCardObj.GetComponent<HoverTips>().isStudent = false;
-            */
+           
             professorCardObj.AddComponent<Professor>();
             Professor tmp = professorCardObj.GetComponent<Professor>();
             tmp.CopyProfessor(s);
-            Debug.Log($"professor {s.name} {professorCardObj.GetComponent<Professor>().name}");
+            TMP_Text name = professorCardObj.transform.GetChild(1).GetComponent<TMP_Text>();
+            name.text = tmp.name;
+            //Debug.Log($"professor {s.name} {professorCardObj.GetComponent<Professor>().name}");
         }
 
         // foreach(Student s in slctStudents){

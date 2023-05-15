@@ -168,6 +168,14 @@ public class Room : MonoBehaviour
     {
         if(host != null && students.Count > 0)
         {
+            foreach (Student stu in students)
+            {
+                if(!CheckPrerequisite(stu, skillLecture))
+                {
+                    ready = false;
+                    return;
+                }
+            }
             ready = true;
         }
         else
@@ -332,6 +340,7 @@ public class Room : MonoBehaviour
         }
         else
         {
+            ready = false;
             return false;
         }
     }
