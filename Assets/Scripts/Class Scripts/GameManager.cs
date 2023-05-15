@@ -47,9 +47,10 @@ public class GameManager : MonoBehaviour
     //This will be called in the start of the scene
     public void Start()
     {
-        foreach (bool b in gameStateSO.profAvail) {
-            Debug.Log(b);
-        }
+        //foreach (bool b in gameStateSO.profAvail) {
+            //Debug.Log(b);
+        //}
+
         money = gameStateSO.money;
         money_text.text = money.ToString();
         turn_text.text = "";
@@ -89,6 +90,16 @@ public class GameManager : MonoBehaviour
             //Debug.Log($"professor {s.name} {professorCardObj.GetComponent<Professor>().name}");
         }
 
+        List<Room> builtRooms = gameStateSO.roomList;
+        foreach (Room room in builtRooms)
+        {
+            // overwrite room data
+            int roomID = room.id;
+            Room targetRoom = GameObject.Find("RoomSlot" + roomID.ToString()).GetComponent<Room>();
+            targetRoom.loadRoomData(room);
+            //Debug.Log($"professor {s.name} {professorCardObj.GetComponent<Professor>().name}");
+        }
+
         // foreach(Student s in slctStudents){
         //     Debug.Log($"select s : {s.name}");
         // }
@@ -96,6 +107,9 @@ public class GameManager : MonoBehaviour
         // foreach(Professor p in slctProfessors){
         //     Debug.Log($"select p : {p.name}");
         // }
+
+
+
     }
 
     // Move to next scene in order from Built scenes
@@ -278,6 +292,19 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // Save room data to GameStateSO
+        GameObject roomSlot = GameObject.Find("RoomSlotGrid").gameObject;
+        List<Room> rooms = new List<Room>();
+        foreach (Transform child in roomSlot.transform)
+        {
+            Room room = child.gameObject.GetComponent<Room>();
+            if (!room.IsLocked())
+            {
+                rooms.Add(room);
+            }
+        }
+        gameStateSO.roomList = rooms;
+
         //Show the lecture phase elements
         Turn_Btn turnButton = GameObject.Find("Btn_EndTurn").GetComponent<Turn_Btn>(); ;
         turnButton.ShowButton();
@@ -297,6 +324,8 @@ public class GameManager : MonoBehaviour
             CanvasGroup slot = child.gameObject.GetComponent<CanvasGroup>();
             slot.ignoreParentGroups = true;
         }
+
+        gameStateSO.money = money;
     }
 
     // -------------------------------------------- Lecturing Phase -------------------------------------------

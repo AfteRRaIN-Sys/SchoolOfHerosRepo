@@ -54,6 +54,15 @@ public class Room : MonoBehaviour
         ChangeRoomImage("Ruined");
     }
 
+    public void loadRoomData(Room saved)
+    {
+        UnlockAs(saved.facility);
+        for (int i = 1; i < saved.level; i++)
+        {
+            Upgrade();
+        }
+    }
+
     public void ChangeRoomImage(string fac, int level = 0)
     {
         switch (fac)

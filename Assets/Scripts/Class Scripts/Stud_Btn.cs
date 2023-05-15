@@ -21,7 +21,7 @@ public class Stud_Btn : Game_Button
     {
         student.UnAssign();
         room.RemoveStudent(student);
-        Destroy(gameObject);
+        Destroy(gameObject.transform.parent.gameObject);
     }
 
     public void SetText(string text)

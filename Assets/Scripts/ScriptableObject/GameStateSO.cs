@@ -12,10 +12,12 @@ public class GameStateSO : ScriptableObject{
     public List<Student> slctTable{get; set;}
     public List<Student> studentList{ get; set; }
     public  List<Professor> professorList{ get; set; }
+    public List<Room> roomList { get; set; }
     public int cur_sem{ get; set; }
     // public Sprite studentArt, professorArt, roomArt;
+    public bool newGame { get; set; }
 
-    public GameManager roomManager;
+    
     public List<Skill> skillList{ get; set; }
     public int[] progressLeftTemplate{ get; set; }
 
