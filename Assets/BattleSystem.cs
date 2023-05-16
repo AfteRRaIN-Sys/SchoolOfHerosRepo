@@ -164,7 +164,7 @@ public class BattleSystem : MonoBehaviour
 					isAlive = true;
 		}
 		float act  = Random.value;
-		if(gameStateSO.cur_sem ==1){
+		if(gameStateSO.cur_sem >=1){
 			if(act > 0.85){
 				attack_mode = 0;
 				enemyUnit.damage += 10;
@@ -376,7 +376,7 @@ public class BattleSystem : MonoBehaviour
 
 	void EndBattle()
 	{
-		
+		StopAllCoroutines();
 
 		if(state == BattleState.WON)
 		{
@@ -891,7 +891,7 @@ public class BattleSystem : MonoBehaviour
 
 	void NextScene()
     {
-		List<Student> students = gameStateSO.studentList;
+		/*List<Student> students = gameStateSO.studentList;
 		string studentStr = "";
 		foreach (Student student in students)
         {
@@ -900,8 +900,9 @@ public class BattleSystem : MonoBehaviour
 			studentStr += tmp + System.Environment.NewLine;
         }
 		Debug.Log(studentStr);
-
+		*/
 		gameStateSO.newGame = false;
+		Debug.Log("Loading Scene...");
 		SceneManager.LoadScene(1);
     }
 

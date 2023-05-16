@@ -75,44 +75,39 @@ public class GameState : MonoBehaviour {
     {
         Debug.Log("start gen");
         List<Student>  draftStudent  = new List<Student>();
+        List<int> draftStudentId = new List<int>();
         int count = 5;
-        if (gameStateSO.newGame)
+
+        while (count > 0)
         {
-            while (count > 0)
+            int rnd = Random.Range(0, 15);
+            if (gameStateSO.studentAvail[rnd])
             {
-                int rnd = Random.Range(0, 15);
-                if (studentAvail[rnd])
+                bool isDuplicate = false;
+                foreach (int i in draftStudentId)
+                {
+                    if (i == rnd)
+                    {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate)
                 {
                     Student student = StudentFactory(rnd);
                     draftStudent.Add(student);
-                    studentAvail[rnd] = false;
+                    draftStudentId.Add(student.id);
                     count -= 1;
                 }
-            }
-            foreach (Student s in draftStudent)
-            {
-                Debug.Log(s.id);
             }
         }
-        else
+        foreach (Student s in draftStudent)
         {
-            while (count > 0)
-            {
-                int rnd = Random.Range(0, 15);
-                if (gameStateSO.studentAvail[rnd])
-                {
-                    Student student = StudentFactory(rnd);
-                    draftStudent.Add(student);
-                    count -= 1;
-                }
-            }
-            foreach (Student s in draftStudent)
-            {
-                Debug.Log(s.id);
-            }
+            Debug.Log(s.id);
         }
         return draftStudent;
     }
+
 
 
     //Professor Part
@@ -178,15 +173,31 @@ public class GameState : MonoBehaviour {
     public List<Professor> DraftProfGenerator ()
     {
         List<Professor> draftProf = new List<Professor>();
+        List<int> draftProfId = new List<int>();
         int count = 5;
-        while(count > 0){
+
+        while (count > 0)
+        {
             int rnd = Random.Range(0, 11);
-            if(profAvail[rnd]){
-                Professor prof = ProfessorFactory(rnd);
-                Debug.Log(prof.name);
-                draftProf.Add(prof);
-                profAvail[rnd] = false;
-                count -= 1 ;
+            if (gameStateSO.profAvail[rnd])
+            {
+                bool isDuplicate = false;
+                foreach (int i in draftProfId)
+                {
+                    if (i == rnd)
+                    {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate)
+                {
+                    Professor prof = ProfessorFactory(rnd);
+                    Debug.Log(prof.name);
+                    draftProf.Add(prof);
+                    draftProfId.Add(prof.id);
+                    count -= 1;
+                }
             }
         }
         return draftProf;

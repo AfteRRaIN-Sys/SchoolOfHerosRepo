@@ -2714,7 +2714,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -571869231
-  m_SortingLayer: 0
+  m_SortingLayer: -1
   m_SortingOrder: -20
   m_Sprite: {fileID: 21300000, guid: 1b1886768a99b0744a82f206b15ea773, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7490196}
@@ -4805,7 +4805,6 @@ GameObject:
   - component: {fileID: 1584004650}
   - component: {fileID: 1584004652}
   - component: {fileID: 1584004651}
-  - component: {fileID: 1584004653}
   m_Layer: 5
   m_Name: DialogueText
   m_TagString: Untagged
@@ -4875,18 +4874,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584004649}
   m_CullTransparentMesh: 0
---- !u!114 &1584004653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1584004649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ebe11b338c294a498049cf93d705ba6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1589395325
 GameObject:
   m_ObjectHideFlags: 0
@@ -5218,9 +5205,11 @@ MonoBehaviour:
   atkChance: 0
   defChance: 0
   supChance: 0
+  stunt: 0
   atkBut: {fileID: 1455883805}
   defBut: {fileID: 1240289235}
   supBut: {fileID: 1249564458}
+  bossChance: 0
   angles: 
 --- !u!4 &1714929644
 Transform:
