@@ -54,12 +54,42 @@ public class CardInfoBtnScript : MonoBehaviour
             foreach (string e in info) {
                 Debug.Log(e);
             }
-            
-            GameObject.Find("DraftArea").GetComponent<DraftPanel>().CardInfoPopup.GetComponentInChildren<CardInfoTxtAreaScript>().infoTxtProperties = info;
-            GameObject.Find("DraftArea").GetComponent<DraftPanel>().CardInfoPopup.SetActive(true);
 
         } else {
             Debug.Log("clicked prof info");
+            info = new List<string>();
+            info.Add($"Name : {professor.name}");
+            info.Add($"Cost : {professor.cost}");
+            info.Add($"Mastered Skill");
+            
+            List<Skill> allSkillList = GameObject.Find("DraftArea").GetComponent<DraftPanel>().getAllSkillList();
+
+            for (int i=0; i<professor.subjects.Length; i++) {
+                if (professor.subjects[i] == 1) {
+                    info.Add("  - " + allSkillList[i].name);
+                }
+            }
+            
+            // string preferedSkill = "";
+            // string unpreferredSkill = "";
+            // for (int i = 0; i<student.preferences.Length; i++) {
+            //     if (student.preferences[i] == 1){
+            //         preferedSkill += i.ToString()+", ";
+            //     }
+            //     else if (student.preferences[i] == -1){
+            //         unpreferredSkill += i.ToString()+", ";
+            //     }
+            // }
+            // info.Add($"Prefered skills : {preferedSkill}");
+            // info.Add($"Unpreferred skills : {unpreferredSkill}");
+
+            foreach (string e in info) {
+                Debug.Log(e);
+            }
+            
+            
         }
+        GameObject.Find("DraftArea").GetComponent<DraftPanel>().CardInfoPopup.GetComponentInChildren<CardInfoTxtAreaScript>().infoTxtProperties = info;
+        GameObject.Find("DraftArea").GetComponent<DraftPanel>().CardInfoPopup.SetActive(true);  
     }
 }

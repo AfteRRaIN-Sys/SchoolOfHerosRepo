@@ -8,9 +8,14 @@ using TMPro;
 public class ToggleTable : MonoBehaviour
 {
     Button button;
+    Image toggleBtnImage;
+
+    public Sprite x;
+    public Sprite eye;
 
     public void Start(){
         button = this.transform.GetComponentInParent<Button>();
+        toggleBtnImage = this.transform.GetComponentInParent<Image>();
         button.onClick.AddListener(delegate () { this.ButtonClicked(); });
     }
 
@@ -29,6 +34,16 @@ public class ToggleTable : MonoBehaviour
         } else {
             slctStudentTxt.alpha = 0f;
         }
+
+        if (table.gameObject.activeSelf){
+            toggleBtnImage.sprite = x;
+            toggleBtnImage.color = Color.green;
+
+        } else {
+            toggleBtnImage.sprite = eye;
+            toggleBtnImage.color = Color.white;
+        }
+        
 
         // currentPhrase += 1;
     }

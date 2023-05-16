@@ -232,6 +232,10 @@ public class DraftPanel : MonoBehaviour
         }
     }
 
+    public List<Skill> getAllSkillList() {
+        return gameStateSO.skillList;
+    }
+
     void NextScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
