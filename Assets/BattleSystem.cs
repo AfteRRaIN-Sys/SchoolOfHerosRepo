@@ -49,9 +49,13 @@ public class BattleSystem : MonoBehaviour
 	public double defChance = 0;
 	public double supChance = 0;
 
+	public int stunt = 0;
+
 	public Button atkBut;
 	public Button defBut;
 	public Button supBut;
+
+	public double bossChance = 0;
 
 	public bool[] angles;
 
@@ -59,7 +63,10 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
 		state = BattleState.START;
-		slctStudents = gameStateSO.studentList;
+		slctStudents = new List<Student>();
+		slctStudents.Add(gameStateSO.studentList[0]);
+		slctStudents.Add(gameStateSO.studentList[1]);
+		slctStudents.Add(gameStateSO.studentList[2]);
 		StartCoroutine(SetupBattle());
     }
 
@@ -74,19 +81,15 @@ public class BattleSystem : MonoBehaviour
 
 		
 		GameObject playerGO1 = Instantiate(playerPrefab[0], playerBattleStation[0]);
-		//playerUnit1 = playerGO1.GetComponent<Unit>();
-		//playerUnit1.name = playerPrefab[0].name;
-		//playerHUD1.SetHUD(playerUnit1);
 		playerUnits[0] = playerGO1.GetComponent<Unit>();
-		//playerUnits[0].name = playerPrefab[0].name;
+		playerUnits[0].name = slctStudents[0].name;
 		playerHUD1.SetHUD(playerUnits[0]);
 		playerHUDs[0] = playerHUD1;
-		//playerHUDs[0].player = playerUnits[0];
 		
 		
 		GameObject playerGO2 = Instantiate(playerPrefab[1], playerBattleStation[1]);
 		//playerUnit2 = playerGO2.GetComponent<Unit>();
-		//playerUnit2.name = playerPrefab[1].name;
+		playerUnits[1].name = slctStudents[1].name;
 		//playerHUD2.SetHUD(playerUnit2);
 		playerUnits[1] = playerGO2.GetComponent<Unit>();
 		playerHUD2.SetHUD(playerUnits[1]);
@@ -98,6 +101,7 @@ public class BattleSystem : MonoBehaviour
 		//playerUnit3 = playerGO3.GetComponent<Unit>();
 		//playerUnit3.name = playerPrefab[2].name;
 		//playerHUD3.SetHUD(playerUnit3);
+		playerUnits[2].name = slctStudents[2].name;
 		playerUnits[2] = playerGO3.GetComponent<Unit>();
 		playerHUD3.SetHUD(playerUnits[2]);
 		playerHUDs[2] = playerHUD3;
@@ -106,10 +110,6 @@ public class BattleSystem : MonoBehaviour
 		for(int i =0;i<3;i++){
 			playerHUDs[i].nameText.text = slctStudents[i].name;
 			playerUnits[i].skills = slctStudents[i].progressLeft;
-			for(int j=0;j<10;j++){
-				Debug.Log(slctStudents[0].progressLeft[j]);
-				Debug.Log(playerUnits[0].skills[j]);
-			}
 		}
 
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
@@ -129,87 +129,247 @@ public class BattleSystem : MonoBehaviour
 
 
 
-	IEnumerator PlayerAttack(int i)
-	{
-			yield return new WaitForSecondsRealtime(2f);
-			dialogueText.text = playerUnits[i].unitName + "'s Turn";
-			yield return new WaitForSecondsRealtime(2f);
-			enemyUnit.TakeDamage(playerUnits[i].damage);
-			enemyHUD.SetHP(enemyUnit.currentHP);
-			dialogueText.text = playerUnits[i].unitName +"'s attack is successful!";
-			//UnitMove(enemyUnit, -1);
-			yield return new WaitForSecondsRealtime(2f);
-	}
+	// IEnumerator PlayerAttack(int i)
+	// {
+	// 		yield return new WaitForSecondsRealtime(2f);
+	// 		dialogueText.text = playerUnits[i].unitName + "'s Turn";
+	// 		yield return new WaitForSecondsRealtime(2f);
+	// 		enemyUnit.TakeDamage(playerUnits[i].damage);
+	// 		enemyHUD.SetHP(enemyUnit.currentHP);
+	// 		dialogueText.text = playerUnits[i].unitName +"'s attack is successful!";
+	// 		//UnitMove(enemyUnit, -1);
+	// 		yield return new WaitForSecondsRealtime(2f);
+	// }
 
 	IEnumerator EnemyTurn()
 	{
 		dialogueText.text = enemyUnit.unitName + "'s Turn";
-		yield return new WaitForSecondsRealtime(2f);
-		float act  = Random.value;
-		if(act > 0.85){
-			enemyUnit.damage += 10;
-			dialogueText.text = enemyUnit.unitName + " Buff Himself!!!!";
-		}
-		else if(act > 0.6){
-			dialogueText.text = enemyUnit.unitName + " attacks all heroes!!!!";
-			for (int i = 0; i < 3; i++){
-				playerUnits[i].TakeDamage(enemyUnit.damage);
-				playerHUDs[i].SetHP(playerUnits[i].currentHP);
-					StartCoroutine(UnitMove(enemyUnit,1));
-					StartCoroutine(UnitMove(playerUnits[i],5));
-				//StartCoroutine(UnitMove(playerUnits[i],1));
-			}
+		if(stunt >0){
+			dialogueText.text = enemyUnit.unitName + "  is stun";
+			yield return new WaitForSecondsRealtime(2f);
+			stunt -= 1;
+			StartCoroutine(PlayerSelect());
 		}
 		else{
-			int target  = Random.Range(0,3);
-			int red = 0;
-			bool br = true;
-			for(int i =0;i<3;i++){
-				act  = Random.value;
-				if(playerUnits[i].skills[4]<=0&& br){
-					if(act>0.8 - defChance){
-						target = i;
-						red = 15;
-						br=false;
-						dialogueText.text = playerUnits[i].unitName+ "use High Protect";
-					}
-				}
-				else if(playerUnits[i].skills[3]<=0&&  br){
-					act  = Random.value;
-					if(act>0.6 - defChance){
-						target = i;
-						red = 25;
-						br=false;
-						dialogueText.text = playerUnits[i].unitName+ "use Protect";
+		yield return new WaitForSecondsRealtime(2f);
+		int damage;
+		int attack_mode = 0;
+		bool isAlive = false;
+		int target = 0;
+		while(isAlive){
+				target  = Random.Range(0,3);
+				if(playerUnits[target].currentHP >0)
+					isAlive = true;
+		}
+		float act  = Random.value;
+		if(gameStateSO.cur_sem ==1){
+			if(act > 0.85){
+				attack_mode = 0;
+				enemyUnit.damage += 10;
+				enemyUnit.Heal(20);
+				enemyHUD.SetHP(enemyUnit.currentHP);
+				dialogueText.text = enemyUnit.unitName + " Buff Himself!!!!";
+				yield return new WaitForSecondsRealtime(2f);
+			}
+			else if(act > 0.6){
+				dialogueText.text = enemyUnit.unitName + " attacks all heroes!!!!";
+				yield return new WaitForSecondsRealtime(2f);
+				attack_mode = 2;
+			}
+			else{
+				attack_mode = 1;
+			}
+		}
+		else if(gameStateSO.cur_sem ==2){
+			if(act > 0.8){
+				attack_mode = 0;
+				dialogueText.text = enemyUnit.unitName + " debuff all heross";
+				yield return new WaitForSecondsRealtime(2f);
+				dialogueText.text = "All heroes' atk is reduced by 10";
+				yield return new WaitForSecondsRealtime(2f);
+				for (int i = 0; i < 3; i++){
+				 	if(playerUnits[i].currentHP >0){
+				 		playerUnits[i].damage -= 10;
+				 		//StartCoroutine(UnitMove(enemyUnit,1));
+				 		//StartCoroutine(UnitMove(playerUnits[i],5));
 					}
 				}
 			}
-			yield return new WaitForSecondsRealtime(2f);
-			playerUnits[target].TakeDamage(enemyUnit.damage - red);
-			playerHUDs[target].SetHP(playerUnits[target].currentHP);
-			dialogueText.text = enemyUnit.unitName + " attacks " + playerUnits[target].unitName ;
-			yield return new WaitForSecondsRealtime(2f);
-					StartCoroutine(UnitMove(enemyUnit,1));
-					StartCoroutine(UnitMove(playerUnits[target],1));
-			//StartCoroutine(UnitMove(playerUnits[target],1));
-		}
-		yield return new WaitForSecondsRealtime(2f);
+			else if(act > 0.6){
+				dialogueText.text = enemyUnit.unitName + " attacks all heroes!!!!";
+				yield return new WaitForSecondsRealtime(2f);
+				attack_mode = 1;
+				dialogueText.text = enemyUnit.unitName + " punishs "+ playerUnits[target];
+				yield return new WaitForSecondsRealtime(2f);
+				dialogueText.text = playerUnits[target]+ "'s atk is reduced by 10";
+				yield return new WaitForSecondsRealtime(2f);
+			}
+			else{
+				attack_mode = 2;
+				dialogueText.text = enemyUnit.unitName + " take advantages of all heroes!!!!";
+				yield return new WaitForSecondsRealtime(2f);
+				attack_mode = 1;
+				dialogueText.text = enemyUnit.unitName + " punishs "+ playerUnits[target];
+				yield return new WaitForSecondsRealtime(2f);
+				dialogueText.text = playerUnits[target]+ "'s atk is reduced by 10";
+				yield return new WaitForSecondsRealtime(2f);
+			}
 
+		}
+		else if(gameStateSO.cur_sem == 3){
+
+		}
+		for(int i=0;i<3;i++){
+			if((attack_mode ==2 | i==target) & playerUnits[i].currentHP>0){
+				int real_target = -1;
+				int red = 0;
+				bool pr = true;
+				for(int j =0;j<3;j++){
+					act  = Random.value;
+					if(playerUnits[j].skills[13]<=0&& pr){
+						if(act>0.85 - defChance){
+							real_target = j;
+							red = 100;
+							pr=false;
+							dialogueText.text = playerUnits[j].unitName+ " use Protect IV";
+							yield return new WaitForSecondsRealtime(2f);
+						}
+					}
+					if(playerUnits[j].skills[12]<=0&& pr){
+						if(act>0.7 - defChance){
+							real_target = j;
+							red = 80;
+							pr=false;
+							dialogueText.text = playerUnits[j].unitName+ " use Protect III";
+							yield return new WaitForSecondsRealtime(2f);
+						}
+					}
+					if(playerUnits[j].skills[11]<=0&& pr){
+						if(act>0.55 - defChance){
+							real_target = j;
+							red = 60;
+							pr=false;
+							dialogueText.text = playerUnits[j].unitName+ " use Protect II";
+							yield return new WaitForSecondsRealtime(2f);
+						}
+					}
+					if(playerUnits[j].skills[10]<=0&& pr){
+						if(act>0.4 - defChance){
+							real_target = j;
+							red = 40;
+							pr=false;
+							dialogueText.text = playerUnits[j].unitName+ " use Protect I";
+							yield return new WaitForSecondsRealtime(2f);
+						}
+					}
+				}
+				if(real_target != -1){
+					act  = Random.value;
+					bool dr = true;
+					if(playerUnits[real_target].skills[16]<=0&& dr){
+						if(act>0.80 - defChance){
+							dr=false;
+							dialogueText.text = playerUnits[real_target].unitName+ " use Counter";
+							yield return new WaitForSecondsRealtime(2f);
+							dialogueText.text = "damage return to enemy and heroes attacks enemy 1 time";
+							yield return new WaitForSecondsRealtime(2f);
+							enemyUnit.TakeDamage(enemyUnit.damage);
+							enemyUnit.TakeDamage(playerUnits[real_target].damage);
+							enemyHUD.SetHP(enemyUnit.currentHP);
+				 			//playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
+						}
+					}
+					if(playerUnits[real_target].skills[19]<=0&& dr){
+						if(act>0.70 - defChance){
+							dr=false;
+							dialogueText.text = playerUnits[real_target].unitName+ " use absorb III";
+							yield return new WaitForSecondsRealtime(2f);
+							dialogueText.text = "hero aborbs all damage from enermy attack";
+							yield return new WaitForSecondsRealtime(2f);
+							playerUnits[real_target].Heal(enemyUnit.damage);
+				 			playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
+						}
+					}
+					if(playerUnits[real_target].skills[15]<=0&& dr){
+						if(act>0.50 - defChance){
+							dr=false;
+							dialogueText.text = playerUnits[real_target].unitName+ " use Reflect";
+							yield return new WaitForSecondsRealtime(2f);
+							dialogueText.text = "damage return to enemy";
+							yield return new WaitForSecondsRealtime(2f);
+							enemyUnit.TakeDamage(enemyUnit.damage);
+							enemyHUD.SetHP(enemyUnit.currentHP);
+				 			//playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
+						}
+					}
+					if(playerUnits[real_target].skills[18]<=0&& dr){
+						if(act>0.60 - defChance){
+							dr=false;
+							dialogueText.text = playerUnits[real_target].unitName+ " use absorb II";
+							yield return new WaitForSecondsRealtime(2f);
+							dialogueText.text = "hero aborbs half damage from enermy attack";
+							yield return new WaitForSecondsRealtime(2f);
+							playerUnits[real_target].Heal(enemyUnit.damage/2);
+				 			playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
+						}
+					}
+					if(playerUnits[real_target].skills[14]<=0&& dr){
+						if(act>0.30 - defChance){
+							dr=false;
+							dialogueText.text = playerUnits[real_target].unitName+ " use Evade";
+							yield return new WaitForSecondsRealtime(2f);
+							dialogueText.text = "hero does not get any damage";
+							yield return new WaitForSecondsRealtime(2f);
+							enemyUnit.TakeDamage(enemyUnit.damage);
+							enemyHUD.SetHP(enemyUnit.currentHP);
+				 			//playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
+						}
+					}
+					if(playerUnits[real_target].skills[18]<=0&& dr){
+						if(act>0.40 - defChance){
+							dr=false;
+							dialogueText.text = playerUnits[real_target].unitName+ " use absorb I";
+							yield return new WaitForSecondsRealtime(2f);
+							dialogueText.text = "hero aborbs some damage from enermy attack";
+							yield return new WaitForSecondsRealtime(2f);
+							playerUnits[real_target].Heal(20);
+				 			playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
+						}
+					}
+					if(dr){
+						dialogueText.text = playerUnits[real_target].unitName+ " guards "+playerUnits[i].unitName;
+						yield return new WaitForSecondsRealtime(2f);
+						playerUnits[real_target].TakeDamage(enemyUnit.damage*(100-red)/100);
+				 		playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
+				 		StartCoroutine(UnitMove(enemyUnit,1));
+				 		StartCoroutine(UnitMove(playerUnits[real_target],1));
+					}
+				}
+				else{
+					playerUnits[i].TakeDamage(enemyUnit.damage);
+				 	playerHUDs[i].SetHP(playerUnits[i].currentHP);
+				 	StartCoroutine(UnitMove(enemyUnit,1));
+				 	StartCoroutine(UnitMove(playerUnits[i],1));
+				}
+			}
+		}
 		int c =0;
 		for (int i = 0; i < 3; i++){
 				if(playerUnits[i].currentHP <= 0){
 					c += 1;
 				}
 			}
-		if(c==3)
-				state = BattleState.LOST;
-		if(state == BattleState.LOST)
+		if(c==3){
+			state = BattleState.LOST;
 			EndBattle();
-		else{
-			state = BattleState.PLAYERSELECT;
-			StartCoroutine(PlayerSelect());
 		}
-
+		if(enemyUnit.currentHP <= 0){
+			state = BattleState.WON;
+			EndBattle();
+		}
+		state = BattleState.PLAYERSELECT;
+		StartCoroutine(PlayerSelect());
+		}
 	}
 
 	void EndBattle()
@@ -232,7 +392,6 @@ public class BattleSystem : MonoBehaviour
 			gameStateSO.cur_sem += 1;
 			// move to draft
 			NextScene();
-
 		}
 	}
 
@@ -248,6 +407,15 @@ public class BattleSystem : MonoBehaviour
 	IEnumerator PlayerTurn()
 	{
 		for (int i = 0; i < 3; i++){
+			int mode = 0;
+			int level = 0;
+			bool isAlive = false;
+			int target = 0;
+			while(isAlive){
+				target  = Random.Range(0,3);
+				if(playerUnits[target].currentHP >0)
+					isAlive = true;
+			}
 			float act  = Random.value;
 			dialogueText.text = playerUnits[i].unitName + "'s Turn";
 			yield return new WaitForSecondsRealtime(2f);
@@ -257,14 +425,16 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[3]<=0 &br){
 					act  = Random.value;
 					if(act>=0.8 - atkChance){
-					enemyUnit.TakeDamage(playerUnits[i].damage*4);
-					enemyHUD.SetHP(enemyUnit.currentHP);
-					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[3]+" is successful!";
-					//UnitMove(enemyUnit, -1);
-					yield return new WaitForSecondsRealtime(2f);
-					br = false;
-					StartCoroutine(UnitMove(enemyUnit,-1));
-					StartCoroutine(UnitMove(playerUnits[i],-1));
+						//enemyUnit.TakeDamage(playerUnits[i].damage*4);
+						//enemyHUD.SetHP(enemyUnit.currentHP);
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[3]+" is successful!";
+						mode = 1;
+						level = 4;
+						//UnitMove(enemyUnit, -1);
+						yield return new WaitForSecondsRealtime(2f);
+						br = false;
+						//StartCoroutine(UnitMove(enemyUnit,-1));
+						//StartCoroutine(UnitMove(playerUnits[i],-1));
 					}
 				}
 				if(playerUnits[i].skills[26]<=0 && br){
@@ -283,14 +453,12 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[23]<=0 && br){
 					act  = Random.value;
 					if(act>=0.7 - supChance){
-						int target  = Random.Range(0,3);
-						playerUnits[target].damage += 40;
+						playerUnits[target].damage += 30;
 						angles[target] = true;
 						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[23]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						dialogueText.text = playerUnits[target].unitName +" is buffed";
 						yield return new WaitForSecondsRealtime(2f);
-						//UnitMove(enemyUnit, -1);
 						br = false;
 					}
 				}
@@ -298,6 +466,7 @@ public class BattleSystem : MonoBehaviour
 					act  = Random.value;
 					if(act>=0.8 - supChance){
 						enemyUnit.damage -= 20;
+						bossChance += 0.1;
 						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[30]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
@@ -342,22 +511,19 @@ public class BattleSystem : MonoBehaviour
 				//level 3
 				if(playerUnits[i].skills[2]<=0&br){
 					act  = Random.value;
-					if(act>=0.6 - atkChance){
-					enemyUnit.TakeDamage(playerUnits[i].damage*3);
-					enemyHUD.SetHP(enemyUnit.currentHP);
-					dialogueText.text = playerUnits[i].unitName +"'s critical strike is successful!";
-					//UnitMove(enemyUnit, -1);
-					yield return new WaitForSecondsRealtime(2f);
-					br = false;
-					StartCoroutine(UnitMove(enemyUnit,-1));
-					StartCoroutine(UnitMove(playerUnits[i],-1));
+					if(act>=0.65 - atkChance){
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[2]+" is successful!";
+						mode = 1;
+						level = 3;
+						//UnitMove(enemyUnit, -1);
+						yield return new WaitForSecondsRealtime(2f);
+						br = false;
 					}
 				}
 				if(playerUnits[i].skills[22]<=0 && br){
 					act  = Random.value;
 					if(act>=0.6 - supChance){
-						int target  = Random.Range(0,3);
-						playerUnits[target].damage += 30;
+						playerUnits[target].damage += 20;
 						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[22]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						dialogueText.text = playerUnits[target].unitName +" is buffed";
@@ -381,7 +547,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[29]<=0 && br){
 					act  = Random.value;
 					if(act>=0.7 - supChance){
-						enemyUnit.damage -= 10;
+						enemyUnit.damage -= 20;
 						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[29]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
@@ -390,7 +556,7 @@ public class BattleSystem : MonoBehaviour
 				}
 				if(playerUnits[i].skills[33]<=0 && br){
 					act  = Random.value;
-					if(act>=0.8 - supChance){
+					if(act>=0.5 - supChance){
 					//enemyUnit.TakeDamage(playerUnits[i].damage*2);
 					for(int j=0;j<3;j++){
 							playerUnits[j].Heal(10);
@@ -422,23 +588,55 @@ public class BattleSystem : MonoBehaviour
 					br = false;
 					}
 				}
-				//levle 2
+				//level 2
 				if(playerUnits[i].skills[1]<=0&br){
 					act  = Random.value;
-					if(act>=0.6 - atkChance){
-					enemyUnit.TakeDamage(playerUnits[i].damage*2);
-					enemyHUD.SetHP(enemyUnit.currentHP);
-					dialogueText.text = playerUnits[i].unitName +"'s critical strike is successful!";
-					//UnitMove(enemyUnit, -1);
-					yield return new WaitForSecondsRealtime(2f);
-					br = false;
-					StartCoroutine(UnitMove(enemyUnit,-1));
-					StartCoroutine(UnitMove(playerUnits[i],-1));
+					if(act>=0.5 - atkChance){
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[1]+" is successful!";
+						mode = 1;
+						level = 2;
+						//UnitMove(enemyUnit, -1);
+						yield return new WaitForSecondsRealtime(2f);
+						br = false;
 					}
 				}
-				if(playerUnits[i].skills[7]<=0 && br){
+				if(playerUnits[i].skills[21]<=0 && br){
 					act  = Random.value;
-					if(act>=0.8 - supChance){
+					if(act>=0.4 - supChance){
+						playerUnits[target].damage += 10;
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[21]+" is successful!";
+						yield return new WaitForSecondsRealtime(2f);
+						dialogueText.text = playerUnits[target].unitName +" is buffed";
+						yield return new WaitForSecondsRealtime(2f);
+						//UnitMove(enemyUnit, -1);
+						br = false;
+					}
+				}
+				if(playerUnits[i].skills[24]<=0 && br){
+					act  = Random.value;
+					if(act>=0.6 - supChance){
+					for(int j=0;j<3;j++){
+						playerUnits[j].damage += 5;
+					}
+					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[24]+" is successful!";
+					yield return new WaitForSecondsRealtime(2f);
+					//UnitMove(enemyUnit, -1);
+					br = false;
+					}
+				}
+				if(playerUnits[i].skills[28]<=0 && br){
+					act  = Random.value;
+					if(act>=0.7 - supChance){
+						enemyUnit.damage -= 15;
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[28]+" is successful!";
+						yield return new WaitForSecondsRealtime(2f);
+						//UnitMove(enemyUnit, -1);
+						br = false;
+					}
+				}
+				if(playerUnits[i].skills[32]<=0 && br){
+					act  = Random.value;
+					if(act>=0.4 - supChance){
 					//enemyUnit.TakeDamage(playerUnits[i].damage*2);
 					int k = 0;
 					int min = 100;
@@ -456,24 +654,45 @@ public class BattleSystem : MonoBehaviour
 					//UnitMove(enemyUnit, -1);
 					yield return new WaitForSecondsRealtime(2f);
 					br = false;
-					}
 				}
+				}
+				//level 1
 				if(playerUnits[i].skills[0]<=0 && br){
 					act  = Random.value;
-					if(act>=0.4 - atkChance){
-					enemyUnit.TakeDamage(playerUnits[i].damage);
-					enemyHUD.SetHP(enemyUnit.currentHP);
-					dialogueText.text = playerUnits[i].unitName +"'s strike is successful!";
-					//UnitMove(enemyUnit, -1);
-					yield return new WaitForSecondsRealtime(2f);
-					br = false;
-					StartCoroutine(UnitMove(enemyUnit,-1));
-					StartCoroutine(UnitMove(playerUnits[i],-1));
+					if(act>=0.3 - atkChance){
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[3]+" is successful!";
+						mode = 1;
+						level = 4;
+						//UnitMove(enemyUnit, -1);
+						yield return new WaitForSecondsRealtime(2f);
+						br = false;
 					}
 				}
-				if(playerUnits[i].skills[6]<=0 && br){
+				if(playerUnits[i].skills[20]<=0 && br){
 					act  = Random.value;
-					if(act>=0.6 - supChance){
+					if(act>=0.4 - supChance){
+						playerUnits[target].damage += 10;
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[20]+" is successful!";
+						yield return new WaitForSecondsRealtime(2f);
+						dialogueText.text = playerUnits[target].unitName +" is buffed";
+						yield return new WaitForSecondsRealtime(2f);
+						//UnitMove(enemyUnit, -1);
+						br = false;
+					}
+				}
+				if(playerUnits[i].skills[27]<=0 && br){
+					act  = Random.value;
+					if(act>=0.3 - supChance){
+						enemyUnit.damage -= 5;
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[27]+" is successful!";
+						yield return new WaitForSecondsRealtime(2f);
+						//UnitMove(enemyUnit, -1);
+						br = false;
+					}
+				}
+				if(playerUnits[i].skills[31]<=0 && br){
+					act  = Random.value;
+					if(act>=0.3 - supChance){
 					int k = 0;
 					int min = 100;
 					for(int j=0;j<3;j++){
@@ -482,7 +701,7 @@ public class BattleSystem : MonoBehaviour
 							min = playerUnits[j].currentHP;
 						}
 					}
-					playerUnits[k].Heal(30);
+					playerUnits[k].Heal(20);
 					playerHUDs[k].SetHP(playerUnits[k].currentHP);
 					dialogueText.text = playerUnits[i].unitName +"'s revive is successful!";
 					yield return new WaitForSecondsRealtime(2f);
@@ -492,51 +711,115 @@ public class BattleSystem : MonoBehaviour
 					br = false;
 					}
 				}
-				if(playerUnits[i].skills[8]<=0 && br){
+				if(mode ==1){
+					bool dr = true;
+					int dmg = playerUnits[i].damage + (level-1) * (20);
+					if(playerUnits[i].skills[4]<=0 && dr){
 					act  = Random.value;
-					if(act>=0.6 - supChance){
-					int k = 0;
-					int min = 0;
-					for(int j=0;j<3;j++){
-						if(playerUnits[j].damage<min){
-							k = j;
-							min = playerUnits[j].damage;
+						if(act>=0.6 - atkChance){
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[4]+" is successful!";
+						//UnitMove(enemyUnit, -1);
+						yield return new WaitForSecondsRealtime(2f);
+						enemyUnit.TakeDamage(dmg*2);
+				 		enemyHUD.SetHP(enemyUnit.currentHP);
+				 		StartCoroutine(UnitMove(enemyUnit,-1));
+				 		StartCoroutine(UnitMove(playerUnits[i],-1));
+						dr = false;
 						}
 					}
-					playerUnits[k].damage += 15;
-					dialogueText.text = playerUnits[i].unitName +"'s buff is successful!";
-					yield return new WaitForSecondsRealtime(2f);
-					dialogueText.text = playerUnits[k].unitName +" is buffed";
-					//UnitMove(enemyUnit, -1);
-					yield return new WaitForSecondsRealtime(2f);
-					br = false;
-					}
-				}
-				if(playerUnits[i].skills[9]<=0 && br){
+					if(playerUnits[i].skills[6]<=0 && dr){
 					act  = Random.value;
-					if(act>=0.8 - supChance){
-					enemyUnit.damage -= 10;
-					dialogueText.text = playerUnits[i].unitName +"'s debuff is successful!";
-					yield return new WaitForSecondsRealtime(2f);
-					dialogueText.text = enemyUnit.unitName +" is debuffed";
-					//UnitMove(enemyUnit, -1);
-					yield return new WaitForSecondsRealtime(2f);
-					br = false;
+						if(act>=0.6 - atkChance){
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[6]+" is successful!";
+						//UnitMove(enemyUnit, -1);
+						yield return new WaitForSecondsRealtime(2f);
+						enemyUnit.TakeDamage(dmg);
+				 		enemyHUD.SetHP(enemyUnit.currentHP);
+						playerUnits[i].Heal(dmg);
+						playerHUDs[i].SetHP(playerUnits[i].currentHP);
+				 		StartCoroutine(UnitMove(enemyUnit,-1));
+				 		StartCoroutine(UnitMove(playerUnits[i],-1));
+						dr = false;
+						}
 					}
+					if(playerUnits[i].skills[9]<=0 && dr){
+					act  = Random.value;
+						if(act>=0.6 - atkChance){
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[9]+" is successful!";
+						//UnitMove(enemyUnit, -1);
+						yield return new WaitForSecondsRealtime(2f);
+						enemyUnit.TakeDamage(dmg);
+				 		enemyHUD.SetHP(enemyUnit.currentHP);
+						playerUnits[i].damage += 15;
+						enemyUnit.damage -= 15;
+				 		StartCoroutine(UnitMove(enemyUnit,-1));
+				 		StartCoroutine(UnitMove(playerUnits[i],-1));
+						dr = false;
+						}
+					}
+					if(playerUnits[i].skills[5]<=0 && dr){
+					act  = Random.value;
+						if(act>=0.4 - atkChance){
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[5]+" is successful!";
+						//UnitMove(enemyUnit, -1);
+						yield return new WaitForSecondsRealtime(2f);
+						enemyUnit.TakeDamage(dmg);
+				 		enemyHUD.SetHP(enemyUnit.currentHP);
+						playerUnits[i].Heal(playerUnits[i].damage);
+						playerHUDs[i].SetHP(playerUnits[i].currentHP);
+				 		StartCoroutine(UnitMove(enemyUnit,-1));
+				 		StartCoroutine(UnitMove(playerUnits[i],-1));
+						dr = false;
+						}
+					}
+					if(playerUnits[i].skills[8]<=0 && dr){
+					act  = Random.value;
+						if(act>=0.4 - atkChance){
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[8]+" is successful!";
+						//UnitMove(enemyUnit, -1);
+						yield return new WaitForSecondsRealtime(2f);
+						enemyUnit.TakeDamage(dmg);
+				 		enemyHUD.SetHP(enemyUnit.currentHP);
+						enemyUnit.damage -= 15;
+				 		StartCoroutine(UnitMove(enemyUnit,-1));
+				 		StartCoroutine(UnitMove(playerUnits[i],-1));
+						dr = false;
+						}
+					}
+					if(playerUnits[i].skills[8]<=0 && dr){
+					act  = Random.value;
+						if(act>=0.3 - atkChance){
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[8]+" is successful!";
+						//UnitMove(enemyUnit, -1);
+						yield return new WaitForSecondsRealtime(2f);
+						enemyUnit.TakeDamage(dmg);
+				 		enemyHUD.SetHP(enemyUnit.currentHP);
+						enemyUnit.damage -= 10;
+				 		StartCoroutine(UnitMove(enemyUnit,-1));
+				 		StartCoroutine(UnitMove(playerUnits[i],-1));
+						dr = false;
+						}
+					}
+					if(dr){					
+						enemyUnit.TakeDamage(dmg);
+				 		enemyHUD.SetHP(enemyUnit.currentHP);
+				 		StartCoroutine(UnitMove(enemyUnit,-1));
+				 		StartCoroutine(UnitMove(playerUnits[i],-1));
+						dr = false;
+					}
+					if(enemyUnit.currentHP <= 0)
+					{
+						state = BattleState.WON;
+						EndBattle();
+					}
+					break;
 				}
-
 			}
 		}
-		if(enemyUnit.currentHP <= 0)
-		{
-			state = BattleState.WON;
-			EndBattle();
-		}
-		else{
 			state = BattleState.ENEMYTURN;
 			yield return new WaitForSecondsRealtime(1f);
 			StartCoroutine(EnemyTurn());
-		}
+		
 	}
 
 	IEnumerator PlayerHeal(int i)
