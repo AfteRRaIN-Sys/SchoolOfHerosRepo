@@ -63,6 +63,8 @@ public class DraftPanel : MonoBehaviour
         numSelected = 0;
         maxSlctStudent = 3;
         point = gameStateSO.point;
+        //Debug.Log(point);
+        //Debug.Log(gameStateSO.cur_sem);
 
         gameStateObj = GameObject.Find("GameState");
         // gameStateSO.slctTable = gameStateObj.GetComponent<GameState>().DraftStudentGenerator();
@@ -222,6 +224,7 @@ public class DraftPanel : MonoBehaviour
 
             gameStateSO.studentList = slctStudents;
             gameStateSO.professorList = slctProfessors;
+            gameStateSO.point = point;
             
             NextScene();
         }

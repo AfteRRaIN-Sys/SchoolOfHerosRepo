@@ -54,6 +54,15 @@ public class Room : MonoBehaviour
         ChangeRoomImage("Ruined");
     }
 
+    public void loadRoomData(Room saved)
+    {
+        UnlockAs(saved.facility);
+        for (int i = 1; i < saved.level; i++)
+        {
+            Upgrade();
+        }
+    }
+
     public void ChangeRoomImage(string fac, int level = 0)
     {
         switch (fac)
@@ -168,6 +177,14 @@ public class Room : MonoBehaviour
     {
         if(host != null && students.Count > 0)
         {
+            foreach (Student stu in students)
+            {
+                if(!CheckPrerequisite(stu, skillLecture))
+                {
+                    ready = false;
+                    return;
+                }
+            }
             ready = true;
         }
         else
@@ -249,7 +266,7 @@ public class Room : MonoBehaviour
                     //notificationSystem.Notify(notification);
                     Debug.Log(notification);
                     int progress = 1;
-                    if (stu.GetPref()[skillLecture] == 1)
+                    if (stu.preferences[skillLecture] == 1)
                     {
                         int chance = randChance(100);
                         if (chance > 70)
@@ -271,7 +288,7 @@ public class Room : MonoBehaviour
                         }
                         */
                     }
-                    else if (stu.GetPref()[skillLecture] == -1)
+                    else if (stu.preferences[skillLecture] == -1)
                     {
                         int chance = randChance(100);
                         if (chance > 70)
@@ -320,13 +337,19 @@ public class Room : MonoBehaviour
     private bool CheckPrerequisite(Student stu, int skillIndex)
     {
         Skill skill = gameStateSO.skillList[skillIndex];
-        int prerequisiteIndex = skill.prereqID;
-        if(stu.progressLeft[prerequisiteIndex] == 0)
+        int prerequisiteIndex = skill.prereqID-1;
+        Debug.Log(prerequisiteIndex);
+        if(skill.prereqID == 0)
+        {
+            return true;
+        }
+        else if(stu.progressLeft[prerequisiteIndex] == 0)
         {
             return true;
         }
         else
         {
+            ready = false;
             return false;
         }
     }

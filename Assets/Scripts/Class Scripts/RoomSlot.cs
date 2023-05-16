@@ -13,12 +13,9 @@ public class RoomSlot : MonoBehaviour, IDropHandler
     public GameObject studentButtonObject;
     public GameObject dropdownObject;
 
-    GameManager gameManager;
-
     void Start()
     {
         room = GetComponent<Room>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -41,10 +38,13 @@ public class RoomSlot : MonoBehaviour, IDropHandler
                         room.AddStudent(student);
                         student.Assign();
 
-                        GameObject studentButtonObjectClone = Instantiate(studentButtonObject, transform);
-                        Stud_Btn studentButton = studentButtonObjectClone.GetComponent<Stud_Btn>();
+                        GameObject studentButtonObjectClone = Instantiate(studentButtonObject, transform.GetChild(1).transform);
+                        GameObject studentButtonPanel = studentButtonObjectClone.transform.GetChild(0).gameObject;
+                        Image studentPic = studentButtonObjectClone.transform.GetChild(1).GetComponent<Image>();
 
-                        studentButton.SetText("Student" + student.id);
+                        Stud_Btn studentButton = studentButtonPanel.GetComponent<Stud_Btn>();
+
+                        studentButton.SetText(student.name);
                         studentButton.SetId(student.id);
                         studentButton.setStudent(student);
                         studentButton.setStudentRoom(room);
@@ -83,17 +83,21 @@ public class RoomSlot : MonoBehaviour, IDropHandler
                     room.Assign(prof);
                     prof.Assign();
 
-                    GameObject profButtonObjectClone = Instantiate(profButtonObject, transform);
-                    profButtonObjectClone.transform.SetSiblingIndex(0);
-                    Prof_Btn profButton = profButtonObjectClone.GetComponent<Prof_Btn>();
+                    GameObject profButtonObjectClone = Instantiate(profButtonObject, transform.GetChild(0).transform);
+                    GameObject profButtonObjectPanel = profButtonObjectClone.transform.GetChild(0).gameObject;
+                    Image profPic = profButtonObjectClone.transform.GetChild(1).GetComponent<Image>();
 
-                    profButton.SetText("Professor " + prof.id.ToString());
+                    profButtonObjectClone.transform.SetSiblingIndex(0);
+                    Prof_Btn profButton = profButtonObjectPanel.GetComponent<Prof_Btn>();
+
+                    profButton.SetText(prof.name);
                     profButton.SetId(prof.id);
                     profButton.setProfessor(prof);
                     profButton.setProfessorRoom(room);
 
-                    GameObject dropdownClone = Instantiate(dropdownObject, transform).gameObject;
-                    dropdownClone.transform.SetSiblingIndex(1);
+                    //GameObject dropdownClone = Instantiate(dropdownObject, transform).gameObject;
+                    //dropdownClone.transform.SetSiblingIndex(1);
+                    GameObject dropdownClone = Instantiate(dropdownObject, profButtonObjectPanel.transform).gameObject;
                     dropdownClone.GetComponent<DropDownHandler>().SkillOptionEdit(dropdownClone.GetComponent<TMP_Dropdown>(), prof.getSubjects(prof.id));
 
                     int selectedSkill = dropdownClone.GetComponent<DropDownHandler>().GetSelectedSkill();

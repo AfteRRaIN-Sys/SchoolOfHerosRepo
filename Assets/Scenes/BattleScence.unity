@@ -2714,7 +2714,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -571869231
-  m_SortingLayer: -1
+  m_SortingLayer: 0
   m_SortingOrder: -20
   m_Sprite: {fileID: 21300000, guid: 1b1886768a99b0744a82f206b15ea773, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7490196}
@@ -5211,7 +5211,7 @@ MonoBehaviour:
   - {fileID: 713151405}
   dialogueText: {fileID: 1584004651}
   classSo: {fileID: 11400000, guid: e79f1f2d091e9f4489c93d20d98d175b, type: 2}
-  gameStateSO: {fileID: 0}
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
   enemyHUD: {fileID: 1290496122}
   state: 0
   slctStudents: []

@@ -54,6 +54,7 @@ public class DragDrop : MonoBehaviour, IDragHandler, IPointerDownHandler, IBegin
                 prof.UnAssign();
             }
         }
+        
         transform.SetParent(parentAfterDrag);
     }
 
