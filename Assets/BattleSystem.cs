@@ -88,10 +88,8 @@ public class BattleSystem : MonoBehaviour
 		
 		
 		GameObject playerGO2 = Instantiate(playerPrefab[1], playerBattleStation[1]);
-		//playerUnit2 = playerGO2.GetComponent<Unit>();
-		playerUnits[1].name = slctStudents[1].name;
-		//playerHUD2.SetHUD(playerUnit2);
 		playerUnits[1] = playerGO2.GetComponent<Unit>();
+		playerUnits[1].name = slctStudents[1].name;
 		playerHUD2.SetHUD(playerUnits[1]);
 		playerHUDs[1] = playerHUD2;
 		//playerHUDs[1].player = playerUnits[1];
@@ -101,15 +99,19 @@ public class BattleSystem : MonoBehaviour
 		//playerUnit3 = playerGO3.GetComponent<Unit>();
 		//playerUnit3.name = playerPrefab[2].name;
 		//playerHUD3.SetHUD(playerUnit3);
-		playerUnits[2].name = slctStudents[2].name;
 		playerUnits[2] = playerGO3.GetComponent<Unit>();
+		playerUnits[2].name = slctStudents[2].name;
+		
 		playerHUD3.SetHUD(playerUnits[2]);
 		playerHUDs[2] = playerHUD3;
 		//playerHUDs[2].player = playerUnits[2];
 
+		Debug.Log("Set skill");
 		for(int i =0;i<3;i++){
 			playerHUDs[i].nameText.text = slctStudents[i].name;
+			Debug.Log("slctStudents skill length: " + slctStudents[i].progressLeft.Length.ToString());
 			playerUnits[i].skills = slctStudents[i].progressLeft;
+			Debug.Log("playerUnits skill length: " + playerUnits[i].skills.Length.ToString());
 		}
 
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
@@ -374,6 +376,8 @@ public class BattleSystem : MonoBehaviour
 
 	void EndBattle()
 	{
+		
+
 		if(state == BattleState.WON)
 		{
 			dialogueText.text = "You won the battle!";
@@ -381,7 +385,6 @@ public class BattleSystem : MonoBehaviour
 			dialogueText.text = "You get 700 points";
 			gameStateSO.point += 700;
 			gameStateSO.money += 700;
-			gameStateSO.cur_sem += 1;
 			//yield return new WaitForSecondsRealtime(2f);
 			// move to draft
 			NextScene();
@@ -389,10 +392,11 @@ public class BattleSystem : MonoBehaviour
 		} else if (state == BattleState.LOST)
 		{
 			dialogueText.text = "You were defeated.";
-			gameStateSO.cur_sem += 1;
 			// move to draft
 			NextScene();
 		}
+
+		
 	}
 
 	IEnumerator PlayerSelect()
@@ -887,7 +891,18 @@ public class BattleSystem : MonoBehaviour
 
 	void NextScene()
     {
-        SceneManager.LoadScene(1);
+		List<Student> students = gameStateSO.studentList;
+		string studentStr = "";
+		foreach (Student student in students)
+        {
+			string tmp = student.name + student.currentHP.ToString(); ;
+
+			studentStr += tmp + System.Environment.NewLine;
+        }
+		Debug.Log(studentStr);
+
+		gameStateSO.newGame = false;
+		SceneManager.LoadScene(1);
     }
 
 }

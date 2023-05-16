@@ -98,7 +98,19 @@ public class RoomSlot : MonoBehaviour, IDropHandler
                     //GameObject dropdownClone = Instantiate(dropdownObject, transform).gameObject;
                     //dropdownClone.transform.SetSiblingIndex(1);
                     GameObject dropdownClone = Instantiate(dropdownObject, profButtonObjectPanel.transform).gameObject;
-                    dropdownClone.GetComponent<DropDownHandler>().SkillOptionEdit(dropdownClone.GetComponent<TMP_Dropdown>(), prof.getSubjects(prof.id));
+
+                    Debug.Log("prof: " + prof.name);
+                    Debug.Log("prof skills: " + prof.subjects.Length.ToString());
+                    for (int i = 0; i < prof.subjects.Length; i++)
+                    {
+                        Debug.Log("prof skill: " + prof.subjects[i].ToString());
+                        /*if (prof.subjects[i] == 1)
+                        {
+                            Debug.Log("prof skill: " + prof.subjects[i]);
+                        }*/
+                    }
+
+                    dropdownClone.GetComponent<DropDownHandler>().SkillOptionEdit(dropdownClone.GetComponent<TMP_Dropdown>(), prof.subjects);
 
                     int selectedSkill = dropdownClone.GetComponent<DropDownHandler>().GetSelectedSkill();
                     room.SetLectureSkill(selectedSkill);

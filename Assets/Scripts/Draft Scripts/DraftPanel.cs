@@ -194,18 +194,16 @@ public class DraftPanel : MonoBehaviour
             List<Student> slctStudents = new List<Student>();
             foreach(StudentCard s in studentCards) {
                 if (s.isSelected) {
-                    slctStudents.Add(s.student);
+                    gameStateSO.studentList.Add(s.student);
                 }
             }
-            gameStateSO.studentList = slctStudents;
 
             List<Professor> slctProfessors = new List<Professor>();
             foreach(ProfessorCard s in professorCards) {
                 if (s.isSelected) {
-                    slctProfessors.Add(s.professor);
+                    gameStateSO.professorList.Add(s.professor);
                 }
             }
-            gameStateSO.professorList = slctProfessors;
 
             foreach(Student s in slctStudents){
                 Debug.Log($"select s : {s.name}");
@@ -224,8 +222,6 @@ public class DraftPanel : MonoBehaviour
                 gameStateSO.profAvail[p.id] = false; 
             }
 
-            gameStateSO.studentList = slctStudents;
-            gameStateSO.professorList = slctProfessors;
             gameStateSO.point = point;
             
             NextScene();

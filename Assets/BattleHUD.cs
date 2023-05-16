@@ -27,10 +27,13 @@ public class BattleHUD : MonoBehaviour
 		currentHPText.text = unit.currentHP.ToString();
 		Fill.color = MaxHealthColor; 
 		string list = "";
-        for(int i=0;i<10;i++){
+		/*
+		Debug.Log(player.skills.Length.ToString());
+        for(int i=0;i<37;i++){
             if(player.skills[i]<=0)
                 list += i.ToString() + ", ";
         }
+		*/
         descText.text = player.name + "\nATK =  "+player.damage + "\nSkills : " + list;
 	}
 
@@ -46,7 +49,7 @@ public class BattleHUD : MonoBehaviour
     public void OnMouseOver()
     {
         string list = "";
-        for(int i=0;i<10;i++){
+        for(int i=0;i<37;i++){
             if(player.skills[i]<=0)
                 list += i.ToString() + ", ";
         }

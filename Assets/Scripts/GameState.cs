@@ -76,17 +76,40 @@ public class GameState : MonoBehaviour {
         Debug.Log("start gen");
         List<Student>  draftStudent  = new List<Student>();
         int count = 5;
-        while(count > 0){
-            int rnd = Random.Range(0, 15);
-            if(studentAvail[rnd]){
-                Student student = StudentFactory(rnd);
-                draftStudent.Add(student);
-                studentAvail[rnd] = false;
-                count -= 1 ;
+        if (gameStateSO.newGame)
+        {
+            while (count > 0)
+            {
+                int rnd = Random.Range(0, 15);
+                if (studentAvail[rnd])
+                {
+                    Student student = StudentFactory(rnd);
+                    draftStudent.Add(student);
+                    studentAvail[rnd] = false;
+                    count -= 1;
+                }
+            }
+            foreach (Student s in draftStudent)
+            {
+                Debug.Log(s.id);
             }
         }
-        foreach (Student s in draftStudent) {
-            Debug.Log(s.id);
+        else
+        {
+            while (count > 0)
+            {
+                int rnd = Random.Range(0, 15);
+                if (gameStateSO.studentAvail[rnd])
+                {
+                    Student student = StudentFactory(rnd);
+                    draftStudent.Add(student);
+                    count -= 1;
+                }
+            }
+            foreach (Student s in draftStudent)
+            {
+                Debug.Log(s.id);
+            }
         }
         return draftStudent;
     }

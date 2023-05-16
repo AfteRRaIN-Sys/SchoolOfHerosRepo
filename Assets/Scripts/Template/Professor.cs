@@ -6,7 +6,7 @@ public class Professor : MonoBehaviour
 {
     public string name;
 
-    public int n_subjects = 10;
+    //public int n_subjects = 10;
     public int id;
 
     public int cost;
@@ -27,7 +27,7 @@ public class Professor : MonoBehaviour
         this.cost = cost;
         this.subjects = subjects;
     }
-
+    /*
     public static Professor CreateComponent(GameObject where, string name, int id) {
         Professor myC = where.AddComponent<Professor>();
         myC.id = id;
@@ -38,7 +38,7 @@ public class Professor : MonoBehaviour
         
         return myC;
     }
-
+    
     public int getCost(int id) {
         if (id < 4) {
             return 100;
@@ -47,7 +47,7 @@ public class Professor : MonoBehaviour
             return 200;
         }
     }
-
+    */
     public void Assign()
     {
         assigned = true;
@@ -66,11 +66,12 @@ public class Professor : MonoBehaviour
     {
         this.id = p.id;
         this.cost = p.cost;
-        this.n_subjects = p.n_subjects;
+        //this.n_subjects = p.n_subjects;
         this.name = p.name;
         this.subjects = p.subjects;
     }
 
+    /*
     public int[] getSubjects(int sid) {
 
         // default like 3, doesnt like 3
@@ -110,6 +111,6 @@ public class Professor : MonoBehaviour
             return subject;
         }
     }
-
+    */
 
 }
