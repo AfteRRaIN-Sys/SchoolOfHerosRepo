@@ -11,6 +11,12 @@ public class MainMenuBtn : MonoBehaviour
 
     public GameStateSO gameStateSO;
     public CanvasGroup loadingScreen;
+    [SerializeField]
+    int numStudent = 15;
+    [SerializeField]
+    int numProf = 11;
+    [SerializeField]
+    int numSkill = 37;
 
 
     /*
@@ -58,25 +64,25 @@ public class MainMenuBtn : MonoBehaviour
         gameStateSO.newGame = true;
         gameStateSO.cur_sem = 1;
         gameStateSO.money = 1000;
-        gameStateSO.point = 700;
+        gameStateSO.point = 500;
         gameStateSO.studentList = new List<Student>();
         gameStateSO.professorList = new List<Professor>();
         gameStateSO.roomList = new List<Room>();
-        gameStateSO.studentAvail = new bool[15];
-        for (int i =0; i<15;i++) {
+        gameStateSO.studentAvail = new bool[numStudent];
+        for (int i =0; i< numStudent; i++) {
             gameStateSO.studentAvail[i] = true;
         }
-        gameStateSO.profAvail = new bool[7];
-        for (int i =0; i<7;i++) {
+        gameStateSO.profAvail = new bool[numProf];
+        for (int i =0; i< numProf; i++) {
             gameStateSO.profAvail[i] = true;
         }
 
         List<Skill> skillList = new List<Skill>();
-        for (int i =0; i<37; i++) {
+        for (int i =0; i<numSkill; i++) {
             skillList.Add(new Skill(i+1));
         }
-        int[] progressLeftTemplate = new int[37];
-        for (int i =0; i<37; i++) {
+        int[] progressLeftTemplate = new int[numSkill];
+        for (int i =0; i<numSkill; i++) {
             progressLeftTemplate[i] = skillList[i].turnsToComplete;
         }
         gameStateSO.skillList = skillList;

@@ -219,6 +219,8 @@ public class DraftPanel : MonoBehaviour
                 gameStateSO.studentAvail[s.id] = false; 
             }
             foreach (Professor p in slctProfessors) {
+                Debug.Log("p.id:" + p.id.ToString());
+                Debug.Log("array lenght: " + gameStateSO.profAvail.Length.ToString());
                 gameStateSO.profAvail[p.id] = false; 
             }
 

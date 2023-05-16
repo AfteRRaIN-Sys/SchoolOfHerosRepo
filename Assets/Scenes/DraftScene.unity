@@ -633,7 +633,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 262585129}
-  - component: {fileID: 262585128}
+  - component: {fileID: 262585130}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -641,7 +641,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &262585128
+--- !u!4 &262585129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262585127}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 312.8904, y: 177.23212, z: 0.4263177}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &262585130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -672,15 +687,20 @@ MonoBehaviour:
   - Arnia
   studentAvail: 010101010101010101010101010101
   ProfessorTemplateName:
-  - Sword_Master
-  - Assassin_Master
-  - Guard_Master
-  - Couter_Master
-  - Heal_Master
-  - Priest_Master
-  - Witch_Master
+  - Sword Master
+  - Vampire Lord
+  - Assassin Master
+  - Guard Master
+  - Resister
+  - Paladin
+  - Priest
+  - Angel
+  - Witch
+  - Doctor
+  - Herbalist
   profAvail: 010101010101010101010101010101
-  profCost: 64000000c80000006400000064000000c80000006400000064000000c800000064000000
+  profCost: 64000000c8000000c800000064000000c8000000c800000064000000c8000000c800000064000000c8000000
+  n_skills: 37
   SkillTemplateName:
   - 
   - 
@@ -719,24 +739,8 @@ MonoBehaviour:
   - 
   - 
   - 
-  - 
-  prereqID: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  turnsToComplete: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
---- !u!4 &262585129
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 262585127}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 312.8904, y: 177.23212, z: 0.4263177}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  prereqID: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  turnsToComplete: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!1 &324896005
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,9 +874,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Skill 1\r\n - Desc\r\n - Turn to complete\r\n - lv\r\n - category\r\n\r\nSkill
-    2\r\n - Desc\r\n - Turn to complete\r\n - lv\r\n - category\r\n\r\nSkill 3\r\n
-    - Desc\r\n - Turn to complete\r\n - lv\r\n - category\r\n\r\nSkill 4\r\n - Desc\r\n
-    - Turn to complete\r\n - lv\r\n - category"
+    2\r\n - Desc\r\n - Turn to complete\r\n - lv\r\n - category\r\n\r\nSkill 3\r\n-
+    Desc\r\n - Turn to complete\r\n - lv\r\n - category\r\n\r\nSkill 4\r\n - Desc\r\n-
+    Turn to complete\r\n - lv\r\n - category"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

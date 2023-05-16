@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
         //foreach (bool b in gameStateSO.profAvail) {
             //Debug.Log(b);
         //}
-
         money = gameStateSO.money;
         money_text.text = money.ToString();
         turn_text.text = "";
