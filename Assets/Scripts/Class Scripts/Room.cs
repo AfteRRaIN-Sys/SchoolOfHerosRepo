@@ -54,6 +54,15 @@ public class Room : MonoBehaviour
         ChangeRoomImage("Ruined");
     }
 
+    public void loadRoomData(Room saved)
+    {
+        UnlockAs(saved.facility);
+        for (int i = 1; i < saved.level; i++)
+        {
+            Upgrade();
+        }
+    }
+
     public void ChangeRoomImage(string fac, int level = 0)
     {
         switch (fac)
@@ -168,6 +177,14 @@ public class Room : MonoBehaviour
     {
         if(host != null && students.Count > 0)
         {
+            foreach (Student stu in students)
+            {
+                if(!CheckPrerequisite(stu, skillLecture))
+                {
+                    ready = false;
+                    return;
+                }
+            }
             ready = true;
         }
         else
@@ -332,6 +349,7 @@ public class Room : MonoBehaviour
         }
         else
         {
+            ready = false;
             return false;
         }
     }

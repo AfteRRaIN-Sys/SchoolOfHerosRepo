@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems; // 1
+using TMPro;
 
 public class ToggleTable : MonoBehaviour
 {
@@ -20,6 +21,14 @@ public class ToggleTable : MonoBehaviour
 
         Image table = GameObject.Find("DraftArea").GetComponent<DraftPanel>().decisionTable;
         table.gameObject.SetActive(!table.gameObject.activeSelf);
+
+        CanvasGroup slctStudentTxt = GameObject.Find("Background").GetComponentInChildren<CanvasGroup>();
+        // Debug.Log($"clicked : txt : {slctStudentTxt.text}");
+        if (slctStudentTxt.alpha == 0f) {
+            slctStudentTxt.alpha = 1f;
+        } else {
+            slctStudentTxt.alpha = 0f;
+        }
 
         // currentPhrase += 1;
     }

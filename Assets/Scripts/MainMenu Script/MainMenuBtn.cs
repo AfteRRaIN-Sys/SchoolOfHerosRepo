@@ -55,11 +55,13 @@ public class MainMenuBtn : MonoBehaviour
     }
     void InitGame()
     {
+        gameStateSO.newGame = true;
         gameStateSO.cur_sem = 1;
         gameStateSO.money = 1000;
         gameStateSO.point = 700;
         gameStateSO.studentList = new List<Student>();
         gameStateSO.professorList = new List<Professor>();
+        gameStateSO.roomList = new List<Room>();
         gameStateSO.studentAvail = new bool[15];
         for (int i =0; i<15;i++) {
             gameStateSO.studentAvail[i] = true;

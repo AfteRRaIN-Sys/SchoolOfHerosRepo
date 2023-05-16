@@ -33,7 +33,13 @@ public class Room_Btn : Game_Button
         {
             Destroy(existedMenu);
         }
-        
+
+        existedMenu = GameObject.Find("BuyList(Clone)");
+        if (existedMenu != null)
+        {
+            Destroy(existedMenu);
+        }
+
         GameObject roomMenu = gameManager.InstantiateObjectAtCursor(menu);
 
         SetUpRoomMenu(roomMenu);
