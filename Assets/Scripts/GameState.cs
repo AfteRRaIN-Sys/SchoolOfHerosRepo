@@ -59,7 +59,7 @@ public class GameState : MonoBehaviour {
     // Constructor needed
     public Student StudentFactory(int id)
     {
-        int[] pref = new int[38];
+        int[] pref = new int[37];
         for(int i =0;i<7;i++){
             pref[prefSkill[id][i]] = 1;
         }
@@ -93,31 +93,62 @@ public class GameState : MonoBehaviour {
 
 
     //Professor Part
-    public string[] ProfessorTemplateName = {"Sword_Master","Assassin_Master","Guard_Master","Couter_Master","Heal_Master","Priest_Master","Witch_Master"};
+    public string[] ProfessorTemplateName = {
+        "Sword Master",
+        "Vampire Lord",
+        "Assassin Master",
+        "Guard Master",
+        "Resister",
+        "Paladin",
+        "Priest",
+        "Angel",
+        "Witch",
+        "Doctor",
+        "Herbalist"
+    };
+    
     public bool[] profAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
-    public int[] profCost = {100,200,100,100,200,100,100,200,100};
-    public int[][] teachSkill = {new int[6]{0,1,2,3,4,5},
-                                 new int[6]{6,7,8,9,10,11},
-                                 new int[6]{12,13,14,15,16,17},
-                                 new int[6]{18,19,20,21,22,23},
-                                 new int[6]{24,25,26,27,28,29},
-                                 new int[6]{24,25,26,27,28,29},
-                                 new int[6]{24,25,26,27,28,29}
-                                };
+    public int[] profCost = {
+        100, 200, 200,
+        100, 200, 200,
+        100, 200, 200,
+        100, 200
+    };
+    public int[][] teachSkill = {
+        new int[4]{0,1,2,3},
+        new int[4]{1,4,5,6},
+        new int[4]{0,7,8,9},
+
+        new int[4]{10,11,12,13},
+        new int[4]{10,14,15,16},
+        new int[4]{10,17,18,19},
+
+        new int[4]{20, 21, 22 , 23},
+        new int[4]{20, 24, 25, 26},
+        
+        new int[4]{27,28,29,30},
+        new int[4]{31,32,33,34},
+        new int[4]{31,32,35,36},
+    };
+
+    public int n_skills = 37;
 
     //Skill Part
-    public string[] SkillTemplateName = new string[38];
-    public int[] prereqID = new int[38];
-    public int[] turnsToComplete = new int[38];
+    public string[] SkillTemplateName = new string[37];
+    public int[] prereqID = new int[37];
+    public int[] turnsToComplete = new int[37];
 
     //Constructor needed
     public Professor ProfessorFactory(int id)
     {
-        int[] subjects = new int[38];
-        for(int i =0;i<6;i++){
+        Debug.Log(id);
+        Debug.Log(ProfessorTemplateName.Length);
+        int[] subjects = new int[37];
+        for(int i=0; i<4; i++){
             subjects[teachSkill[id][i]] = 1;
         }
         Professor prof = new Professor(id, ProfessorTemplateName[id], profCost[id], subjects);
+        Debug.Log($"factory : {prof.name}");
         return prof;
     }
 
@@ -126,9 +157,10 @@ public class GameState : MonoBehaviour {
         List<Professor> draftProf = new List<Professor>();
         int count = 5;
         while(count > 0){
-            int rnd = Random.Range(0, 7);
+            int rnd = Random.Range(0, 11);
             if(profAvail[rnd]){
                 Professor prof = ProfessorFactory(rnd);
+                Debug.Log(prof.name);
                 draftProf.Add(prof);
                 profAvail[rnd] = false;
                 count -= 1 ;
