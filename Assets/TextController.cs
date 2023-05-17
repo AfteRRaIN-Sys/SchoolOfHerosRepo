@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,10 @@ public class TextController : MonoBehaviour
 {
     [SerializeField]
     TMP_Text introTextBox;
+
+    [SerializeField]
+    GameStateSO gameStateSO;
+
     string[] allDialogues = {"Once upon the time, the world has been invaded by the powerful beings....",
                              "They, are very very powerful, and their intelligence exceed any other beings...",
                              "They, want to seize control over this pathetic world...",
@@ -44,8 +49,17 @@ public class TextController : MonoBehaviour
         }
         else
         {
+            CheckGameState();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+    }
+
+    private void CheckGameState()
+    {
+        Debug.Log("Current semester: " + gameStateSO.cur_sem.ToString());
+        Debug.Log("Current points: " + gameStateSO.point.ToString());
+        Debug.Log("Number of students: " + gameStateSO.studentAvail.Length.ToString());
+        Debug.Log("Number of professors: " + gameStateSO.profAvail.Length.ToString());
     }
 }
 
