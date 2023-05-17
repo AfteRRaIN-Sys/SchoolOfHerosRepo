@@ -38,6 +38,8 @@ public class Room : MonoBehaviour
 
     public Sprite ruinedSprite;
     public Sprite classroom1, classroom2, classroom3, classroom4;
+    [SerializeField]
+    Sprite preferLecture, hateLecture, masteredLecture, needPrerequisite;
 
     public void Start()
     {
@@ -392,6 +394,11 @@ public class Room : MonoBehaviour
             ready = false;
             return false;
         }
+    }
+
+    private void StudentIconChange(Student stu, int skillIndex)
+    {
+
     }
     private bool minigame()
     {
