@@ -96,6 +96,8 @@ public class GameManager : MonoBehaviour
             int roomID = room.id;
             Room targetRoom = GameObject.Find("RoomSlot" + roomID.ToString()).GetComponent<Room>();
             targetRoom.loadRoomData(room);
+            Room_Btn targetRoomButton = GameObject.Find("RoomButton" + roomID.ToString()).GetComponent<Room_Btn>();
+            targetRoomButton.ToggleLock(false);
             //Debug.Log($"professor {s.name} {professorCardObj.GetComponent<Professor>().name}");
         }
 

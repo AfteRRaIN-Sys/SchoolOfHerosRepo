@@ -37,6 +37,8 @@ public class BattleSystem : MonoBehaviour
 	public Sprite charac; 
 	public BattleHUD[] playerHUDs;
 
+	public Sprite boss1, boss2;
+
 	public Text dialogueText;
 	public DraftSO classSo;
 	public GameStateSO gameStateSO;
@@ -129,11 +131,13 @@ public class BattleSystem : MonoBehaviour
 			enemyUnit.unitName = "Typical Bad Teacher";
 			enemyUnit.currentHP = 400;
 			enemyUnit.maxHP = 400;
+			enemyPrefab.GetComponent<SpriteRenderer>().sprite = boss1;
 		}
 		if(gameStateSO.cur_sem==2){
 			enemyUnit.unitName = "Sadism Bad Teacher";
 			enemyUnit.currentHP = 600;
 			enemyUnit.maxHP = 600;
+			enemyPrefab.GetComponent<SpriteRenderer>().sprite = boss2;
 		}
 		enemyHUD.SetHUD(enemyUnit);
 		
@@ -219,9 +223,9 @@ public class BattleSystem : MonoBehaviour
 				dialogueText.text = enemyUnit.unitName + " attacks all heroes!!!!";
 				yield return new WaitForSecondsRealtime(2f);
 				attack_mode = 1;
-				dialogueText.text = enemyUnit.unitName + " punishs "+ playerUnits[target];
+				dialogueText.text = enemyUnit.unitName + " punishs "+ playerUnits[target].unitName;
 				yield return new WaitForSecondsRealtime(2f);
-				dialogueText.text = playerUnits[target]+ "'s atk is reduced by 10";
+				dialogueText.text = playerUnits[target].unitName + "'s atk is reduced by 10";
 				yield return new WaitForSecondsRealtime(2f);
 			}
 			else{
@@ -229,9 +233,9 @@ public class BattleSystem : MonoBehaviour
 				dialogueText.text = enemyUnit.unitName + " take advantages of all heroes!!!!";
 				yield return new WaitForSecondsRealtime(2f);
 				attack_mode = 1;
-				dialogueText.text = enemyUnit.unitName + " punishs "+ playerUnits[target];
+				dialogueText.text = enemyUnit.unitName + " punishs "+ playerUnits[target].unitName;
 				yield return new WaitForSecondsRealtime(2f);
-				dialogueText.text = playerUnits[target]+ "'s atk is reduced by 10";
+				dialogueText.text = playerUnits[target].unitName + "'s atk is reduced by 10";
 				yield return new WaitForSecondsRealtime(2f);
 			}
 
@@ -240,7 +244,8 @@ public class BattleSystem : MonoBehaviour
 
 		}
 		for(int i=0;i<3;i++){
-			if((attack_mode ==2 | i==target) & playerUnits[i].currentHP>0){
+			if((attack_mode ==2 | i==target) & playerUnits[i].currentHP>0 & (attack_mode != 0))
+				{
 				int real_target = -1;
 				int red = 0;
 				bool pr = true;
@@ -353,14 +358,14 @@ public class BattleSystem : MonoBehaviour
 							dialogueText.text = "hero aborbs some damage from enermy attack";
 							yield return new WaitForSecondsRealtime(2f);
 							playerUnits[real_target].Heal(20);
-				 			playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
+				 			playerHUDs[real_target].SetHP(playerUnits[real_target].currentHP);
 						}
 					}
 					if(dr){
 						dialogueText.text = playerUnits[real_target].unitName+ " guards "+slctStudents[i].name;
 						yield return new WaitForSecondsRealtime(2f);
 						playerUnits[real_target].TakeDamage(enemyUnit.damage*(100-red)/100);
-				 		playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
+				 		playerHUDs[real_target].SetHP(playerUnits[real_target].currentHP);
 				 		StartCoroutine(UnitMove(enemyUnit,1));
 				 		StartCoroutine(UnitMove(playerUnits[real_target],1));
 					}
@@ -586,7 +591,7 @@ public class BattleSystem : MonoBehaviour
 					}
 					dialogueText.text = slctStudents[i].name +"'s " + skillNames[33]+" is successful!";
 					yield return new WaitForSecondsRealtime(2f);
-					dialogueText.text = "All player is revived";
+					dialogueText.text = "All player is healed";
 					//UnitMove(enemyUnit, -1);
 					yield return new WaitForSecondsRealtime(2f);
 					br = false;
@@ -670,9 +675,9 @@ public class BattleSystem : MonoBehaviour
 					}
 					playerUnits[k].Heal(30);
 					playerHUDs[k].SetHP(playerUnits[k].currentHP);
-					dialogueText.text = slctStudents[i].name +"'s revive is successful!";
+					dialogueText.text = slctStudents[i].name +"'s " + skillNames[32] + "is successful!";
 					yield return new WaitForSecondsRealtime(2f);
-					dialogueText.text = playerUnits[k].unitName +" is revived";
+					dialogueText.text = playerUnits[k].unitName +" is healed";
 					//UnitMove(enemyUnit, -1);
 					yield return new WaitForSecondsRealtime(2f);
 					br = false;
@@ -733,109 +738,124 @@ public class BattleSystem : MonoBehaviour
 					br = false;
 					}
 				}
-				if(mode ==1){
+				if (mode == 1)
+				{
 					bool dr = true;
-					int dmg = playerUnits[i].damage + (level-1) * (20);
-					if(playerUnits[i].skills[4]<=0 && dr){
-					act  = Random.value;
-						if(act>=0.6 - atkChance){
-						dialogueText.text = slctStudents[i].name +"'s " + skillNames[4]+" is successful!";
-						//UnitMove(enemyUnit, -1);
-						yield return new WaitForSecondsRealtime(2f);
-						enemyUnit.TakeDamage(dmg*2);
-				 		enemyHUD.SetHP(enemyUnit.currentHP);
-				 		StartCoroutine(UnitMove(enemyUnit,-1));
-				 		StartCoroutine(UnitMove(playerUnits[i],-1));
-						dr = false;
-						}
-					}
-					if(playerUnits[i].skills[6]<=0 && dr){
-					act  = Random.value;
-						if(act>=0.6 - atkChance){
-						dialogueText.text = slctStudents[i].name +"'s " + skillNames[6]+" is successful!";
-						//UnitMove(enemyUnit, -1);
-						yield return new WaitForSecondsRealtime(2f);
-						enemyUnit.TakeDamage(dmg);
-				 		enemyHUD.SetHP(enemyUnit.currentHP);
-						playerUnits[i].Heal(dmg);
-						playerHUDs[i].SetHP(playerUnits[i].currentHP);
-				 		StartCoroutine(UnitMove(enemyUnit,-1));
-				 		StartCoroutine(UnitMove(playerUnits[i],-1));
-						dr = false;
-						}
-					}
-					if(playerUnits[i].skills[9]<=0 && dr){
-					act  = Random.value;
-						if(act>=0.6 - atkChance){
-						dialogueText.text = slctStudents[i].name +"'s " + skillNames[9]+" is successful!";
-						//UnitMove(enemyUnit, -1);
-						yield return new WaitForSecondsRealtime(2f);
-						enemyUnit.TakeDamage(dmg);
-				 		enemyHUD.SetHP(enemyUnit.currentHP);
-						playerUnits[i].damage += 15;
-						enemyUnit.damage -= 15;
-				 		StartCoroutine(UnitMove(enemyUnit,-1));
-				 		StartCoroutine(UnitMove(playerUnits[i],-1));
-						dr = false;
-						}
-					}
-					if(playerUnits[i].skills[5]<=0 && dr){
-					act  = Random.value;
-						if(act>=0.4 - atkChance){
-						dialogueText.text = slctStudents[i].name +"'s " + skillNames[5]+" is successful!";
-						//UnitMove(enemyUnit, -1);
-						yield return new WaitForSecondsRealtime(2f);
-						enemyUnit.TakeDamage(dmg);
-				 		enemyHUD.SetHP(enemyUnit.currentHP);
-						playerUnits[i].Heal(playerUnits[i].damage);
-						playerHUDs[i].SetHP(playerUnits[i].currentHP);
-				 		StartCoroutine(UnitMove(enemyUnit,-1));
-				 		StartCoroutine(UnitMove(playerUnits[i],-1));
-						dr = false;
-						}
-					}
-					if(playerUnits[i].skills[8]<=0 && dr){
-					act  = Random.value;
-						if(act>=0.4 - atkChance){
-						dialogueText.text = slctStudents[i].name +"'s " + skillNames[8]+" is successful!";
-						//UnitMove(enemyUnit, -1);
-						yield return new WaitForSecondsRealtime(2f);
-						enemyUnit.TakeDamage(dmg);
-				 		enemyHUD.SetHP(enemyUnit.currentHP);
-						enemyUnit.damage -= 15;
-				 		StartCoroutine(UnitMove(enemyUnit,-1));
-				 		StartCoroutine(UnitMove(playerUnits[i],-1));
-						dr = false;
-						}
-					}
-					if(playerUnits[i].skills[8]<=0 && dr){
-					act  = Random.value;
-						if(act>=0.3 - atkChance){
-						dialogueText.text = slctStudents[i].name +"'s " + skillNames[8]+" is successful!";
-						//UnitMove(enemyUnit, -1);
-						yield return new WaitForSecondsRealtime(2f);
-						enemyUnit.TakeDamage(dmg);
-				 		enemyHUD.SetHP(enemyUnit.currentHP);
-						enemyUnit.damage -= 10;
-				 		StartCoroutine(UnitMove(enemyUnit,-1));
-				 		StartCoroutine(UnitMove(playerUnits[i],-1));
-						dr = false;
-						}
-					}
-					if(dr){					
-						enemyUnit.TakeDamage(dmg);
-				 		enemyHUD.SetHP(enemyUnit.currentHP);
-				 		StartCoroutine(UnitMove(enemyUnit,-1));
-				 		StartCoroutine(UnitMove(playerUnits[i],-1));
-						dr = false;
-					}
-					if(enemyUnit.currentHP <= 0)
+					int dmg = playerUnits[i].damage + (level - 1) * (20);
+					if (playerUnits[i].skills[4] <= 0 && dr)
 					{
-						state = BattleState.WON;
-						EndBattle();
+						act = Random.value;
+						if (act >= 0.6 - atkChance)
+						{
+							dialogueText.text = slctStudents[i].name + "'s " + skillNames[4] + " is successful!";
+							//UnitMove(enemyUnit, -1);
+							yield return new WaitForSecondsRealtime(2f);
+							enemyUnit.TakeDamage(dmg * 2);
+							enemyHUD.SetHP(enemyUnit.currentHP);
+							StartCoroutine(UnitMove(enemyUnit, -1));
+							StartCoroutine(UnitMove(playerUnits[i], -1));
+							dr = false;
+						}
 					}
-					break;
+					if (playerUnits[i].skills[6] <= 0 && dr)
+					{
+						act = Random.value;
+						if (act >= 0.6 - atkChance)
+						{
+							dialogueText.text = slctStudents[i].name + "'s " + skillNames[6] + " is successful!";
+							//UnitMove(enemyUnit, -1);
+							yield return new WaitForSecondsRealtime(2f);
+							enemyUnit.TakeDamage(dmg);
+							enemyHUD.SetHP(enemyUnit.currentHP);
+							playerUnits[i].Heal(dmg);
+							playerHUDs[i].SetHP(playerUnits[i].currentHP);
+							StartCoroutine(UnitMove(enemyUnit, -1));
+							StartCoroutine(UnitMove(playerUnits[i], -1));
+							dr = false;
+						}
+					}
+					if (playerUnits[i].skills[9] <= 0 && dr)
+					{
+						act = Random.value;
+						if (act >= 0.6 - atkChance)
+						{
+							dialogueText.text = slctStudents[i].name + "'s " + skillNames[9] + " is successful!";
+							//UnitMove(enemyUnit, -1);
+							yield return new WaitForSecondsRealtime(2f);
+							enemyUnit.TakeDamage(dmg);
+							enemyHUD.SetHP(enemyUnit.currentHP);
+							playerUnits[i].damage += 15;
+							enemyUnit.damage -= 15;
+							StartCoroutine(UnitMove(enemyUnit, -1));
+							StartCoroutine(UnitMove(playerUnits[i], -1));
+							dr = false;
+						}
+					}
+					if (playerUnits[i].skills[5] <= 0 && dr)
+					{
+						act = Random.value;
+						if (act >= 0.4 - atkChance)
+						{
+							dialogueText.text = slctStudents[i].name + "'s " + skillNames[5] + " is successful!";
+							//UnitMove(enemyUnit, -1);
+							yield return new WaitForSecondsRealtime(2f);
+							enemyUnit.TakeDamage(dmg);
+							enemyHUD.SetHP(enemyUnit.currentHP);
+							playerUnits[i].Heal(playerUnits[i].damage);
+							playerHUDs[i].SetHP(playerUnits[i].currentHP);
+							StartCoroutine(UnitMove(enemyUnit, -1));
+							StartCoroutine(UnitMove(playerUnits[i], -1));
+							dr = false;
+						}
+					}
+					if (playerUnits[i].skills[8] <= 0 && dr)
+					{
+						act = Random.value;
+						if (act >= 0.4 - atkChance)
+						{
+							dialogueText.text = slctStudents[i].name + "'s " + skillNames[8] + " is successful!";
+							//UnitMove(enemyUnit, -1);
+							yield return new WaitForSecondsRealtime(2f);
+							enemyUnit.TakeDamage(dmg);
+							enemyHUD.SetHP(enemyUnit.currentHP);
+							enemyUnit.damage -= 15;
+							StartCoroutine(UnitMove(enemyUnit, -1));
+							StartCoroutine(UnitMove(playerUnits[i], -1));
+							dr = false;
+						}
+					}
+					if (playerUnits[i].skills[8] <= 0 && dr)
+					{
+						act = Random.value;
+						if (act >= 0.3 - atkChance)
+						{
+							dialogueText.text = slctStudents[i].name + "'s " + skillNames[8] + " is successful!";
+							//UnitMove(enemyUnit, -1);
+							yield return new WaitForSecondsRealtime(2f);
+							enemyUnit.TakeDamage(dmg);
+							enemyHUD.SetHP(enemyUnit.currentHP);
+							enemyUnit.damage -= 10;
+							StartCoroutine(UnitMove(enemyUnit, -1));
+							StartCoroutine(UnitMove(playerUnits[i], -1));
+							dr = false;
+						}
+					}
+					if (dr)
+					{
+						enemyUnit.TakeDamage(dmg);
+						enemyHUD.SetHP(enemyUnit.currentHP);
+						StartCoroutine(UnitMove(enemyUnit, -1));
+						StartCoroutine(UnitMove(playerUnits[i], -1));
+						dr = false;
+					}
 				}
+
+				if(enemyUnit.currentHP <= 0)
+				{
+					state = BattleState.WON;
+					EndBattle();
+				}
+				
 			}
 		}
 			state = BattleState.ENEMYTURN;
