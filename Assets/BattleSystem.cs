@@ -87,7 +87,6 @@ public class BattleSystem : MonoBehaviour
 		playerUnits[0] = playerGO1.GetComponent<Unit>();
 		playerUnits[0].name = slctStudents[0].name;
 		playerHUD1.SetHUD(playerUnits[0]);
-		playerGO1.layer = 3;
 		playerHUDs[0] = playerHUD1;
 		
 		
@@ -671,7 +670,7 @@ public class BattleSystem : MonoBehaviour
 					if(act>=0.3 - atkChance){
 						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[0]+" is successful!";
 						mode = 1;
-						level = 4;
+						level = 1;
 						//UnitMove(enemyUnit, -1);
 						yield return new WaitForSecondsRealtime(2f);
 						br = false;
