@@ -17,6 +17,9 @@ public class DraftPanel : MonoBehaviour
 
 
     // prefab
+    public GameObject Background;
+    public Sprite backgroundSprite2;
+    
     public GameObject DraftArea;
     public GameObject CardInfoPopup;
     public Sprite studentCardSprite;
@@ -153,6 +156,8 @@ public class DraftPanel : MonoBehaviour
         } else if (currentPhrase == 1) {
             Debug.Log($"Prof Phrase");
 
+            Background.GetComponent<Image>().sprite = backgroundSprite2;
+
             // Sprite ProfCardBackGround = Resources.Load<Sprite>("Assets/Card_Shirts_Lite/PNG/Card_shirt_01") as Sprite;
 
             for (int i=0; i<this.studentCardObjList.Count;i++) {
@@ -206,7 +211,7 @@ public class DraftPanel : MonoBehaviour
                     gameStateSO.profAvail[p.GetComponent<Professor>().id] = false;
                 }
             }
-            
+
             gameStateSO.point = point;
             NextScene();
 

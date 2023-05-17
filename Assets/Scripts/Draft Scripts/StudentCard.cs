@@ -50,7 +50,7 @@ public class StudentCard : MonoBehaviour //, IPointerClickHandler
         } else {
             // img.color = Color.red;
             Color currentColor = img.color;
-            currentColor.a = 0.4f;
+            currentColor.a = 0.5f;
             img.color = currentColor;
         }
     }
