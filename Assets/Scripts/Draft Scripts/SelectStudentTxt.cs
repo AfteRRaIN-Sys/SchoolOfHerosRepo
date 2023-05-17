@@ -40,7 +40,9 @@ public class SelectStudentTxt : MonoBehaviour
                 txt.color = Color.red;
             }
             else {
-                txt.color = gold;
+                Color tmpColor = gold;
+                tmpColor.a = 1;
+                txt.color = tmpColor;
             }
         }
 
