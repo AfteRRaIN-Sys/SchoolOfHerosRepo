@@ -65,9 +65,19 @@ public class BattleSystem : MonoBehaviour
     {
 		state = BattleState.START;
 		slctStudents = new List<Student>();
-		slctStudents.Add(gameStateSO.studentList[0]);
-		slctStudents.Add(gameStateSO.studentList[1]);
-		slctStudents.Add(gameStateSO.studentList[2]);
+		List<int> slctStudentsId = new List<int>();
+		while(slctStudents.Count<3){
+			int rnd = Random.Range(0,slctStudents.Count);
+			bool isIn = false;
+			for(int i=0;i<gameStateSO.studentList.Count;i++){
+				if(i==rnd)
+					isIn = true;
+			}
+			if(isIn==false) {
+				slctStudentsId.Add(rnd);
+				slctStudents.Add(gameStateSO.studentList[rnd]);
+			}
+		}
 		StartCoroutine(SetupBattle());
     }
 
@@ -82,28 +92,24 @@ public class BattleSystem : MonoBehaviour
 
 		
 		GameObject playerGO1 = Instantiate(playerPrefab[0], playerBattleStation[0]);
-		Image m_Image = playerGO1.GetComponent<Image>();
 		//m_Image.sprite = charac;
 		playerUnits[0] = playerGO1.GetComponent<Unit>();
-		playerUnits[0].name = slctStudents[0].name;
+		playerUnits[0].unitName = slctStudents[0].name;
 		playerHUD1.SetHUD(playerUnits[0]);
 		playerHUDs[0] = playerHUD1;
 		
 		
 		GameObject playerGO2 = Instantiate(playerPrefab[1], playerBattleStation[1]);
 		playerUnits[1] = playerGO2.GetComponent<Unit>();
-		playerUnits[1].name = slctStudents[1].name;
+		playerUnits[1].unitName = slctStudents[1].name;
 		playerHUD2.SetHUD(playerUnits[1]);
 		playerHUDs[1] = playerHUD2;
 		//playerHUDs[1].player = playerUnits[1];
 
 
 		GameObject playerGO3 = Instantiate(playerPrefab[2], playerBattleStation[2]);
-		//playerUnit3 = playerGO3.GetComponent<Unit>();
-		//playerUnit3.name = playerPrefab[2].name;
-		//playerHUD3.SetHUD(playerUnit3);
 		playerUnits[2] = playerGO3.GetComponent<Unit>();
-		playerUnits[2].name = slctStudents[2].name;
+		playerUnits[2].unitName = slctStudents[2].name;
 		
 		playerHUD3.SetHUD(playerUnits[2]);
 		playerHUDs[2] = playerHUD3;
@@ -119,8 +125,16 @@ public class BattleSystem : MonoBehaviour
 
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
 		enemyUnit = enemyGO.GetComponent<Unit>();
-		enemyUnit.currentHP = 400;
-		enemyUnit.maxHP = 400;
+		if(gameStateSO.cur_sem==1){
+			enemyUnit.unitName = "Typical Bad Teacher";
+			enemyUnit.currentHP = 400;
+			enemyUnit.maxHP = 400;
+		}
+		if(gameStateSO.cur_sem==2){
+			enemyUnit.unitName = "Sadism Bad Teacher";
+			enemyUnit.currentHP = 600;
+			enemyUnit.maxHP = 600;
+		}
 		enemyHUD.SetHUD(enemyUnit);
 		
 
@@ -168,7 +182,7 @@ public class BattleSystem : MonoBehaviour
 					isAlive = false;
 		}
 		float act  = Random.value;
-		if(gameStateSO.cur_sem >=1){
+		if(gameStateSO.cur_sem ==1){
 			if(act > 0.85){
 				attack_mode = 0;
 				enemyUnit.damage += 10;
