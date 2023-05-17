@@ -98,8 +98,8 @@ public class BattleSystem : MonoBehaviour
 		playerHUD1.SetHUD(playerUnits[0]);
 		playerHUDs[0] = playerHUD1;
 		
-		
 		GameObject playerGO2 = Instantiate(playerPrefab[1], playerBattleStation[1]);
+		playerPrefab[1].gameObject.GetComponent<SpriteRenderer>().sprite = charac;
 		playerUnits[1] = playerGO2.GetComponent<Unit>();
 		playerUnits[1].unitName = slctStudents[1].name;
 		playerHUD2.SetHUD(playerUnits[1]);
