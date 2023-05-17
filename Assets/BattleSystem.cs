@@ -8,7 +8,7 @@ public enum BattleState { START, PLAYERSELECT, PLAYERTURN, ENEMYTURN, WON, LOST 
 
 public class BattleSystem : MonoBehaviour
 {
-     public string[] skillNames = {"Attack I","Attack II","Attack III","Attakc IV","Critical Chance",
+     public string[] skillNames = {"Attack I","Attack II","Attack III","Attack IV","Critical Chance",
                         "Life Steal I","Life Steal II","Poison Cloating","Bleeding Effect", "Open Wound",
                          "Guard I","Guard II","Guard III","Guard IV","Evade","Reflect Damage","Counter Attack",
                          "Absorb Damage I","Absorb Damage II"," Absorb Damage III",

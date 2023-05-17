@@ -191,40 +191,25 @@ public class DraftPanel : MonoBehaviour
         else if (currentPhrase == 2) {
 
             // slctStudents
-            List<Student> slctStudents = new List<Student>();
+            // List<Student> slctStudents = new List<Student>();
             foreach(StudentCard s in studentCards) {
                 if (s.isSelected) {
                     gameStateSO.studentList.Add(s.student);
+                    gameStateSO.studentAvail[s.GetComponent<Student>().id] = false;
                 }
             }
 
-            List<Professor> slctProfessors = new List<Professor>();
-            foreach(ProfessorCard s in professorCards) {
-                if (s.isSelected) {
-                    gameStateSO.professorList.Add(s.professor);
+            // List<Professor> slctProfessors = new List<Professor>();
+            foreach(ProfessorCard p in professorCards) {
+                if (p.isSelected) {
+                    gameStateSO.professorList.Add(p.professor);
+                    gameStateSO.profAvail[p.GetComponent<Professor>().id] = false;
                 }
             }
-
-            foreach(Student s in slctStudents){
-                Debug.Log($"select s : {s.name}");
-            }
-
-            foreach(Professor p in slctProfessors){
-                Debug.Log($"select p : {p.name}");
-            }
-
-            foreach (Student s in slctStudents) {
-                gameStateSO.studentAvail[s.id] = false; 
-            }
-            foreach (Professor p in slctProfessors) {
-                Debug.Log("p.id:" + p.id.ToString());
-                Debug.Log("array lenght: " + gameStateSO.profAvail.Length.ToString());
-                gameStateSO.profAvail[p.id] = false; 
-            }
-
-            gameStateSO.point = point;
             
+            gameStateSO.point = point;
             NextScene();
+
         }
     }
 

@@ -75,7 +75,6 @@ public class GameState : MonoBehaviour {
     {
         Debug.Log("start gen");
         List<Student>  draftStudent  = new List<Student>();
-        List<int> draftStudentId = new List<int>();
         int count = 5;
 
         while (count > 0)
@@ -84,9 +83,9 @@ public class GameState : MonoBehaviour {
             if (gameStateSO.studentAvail[rnd])
             {
                 bool isDuplicate = false;
-                foreach (int i in draftStudentId)
+                foreach (Student s in draftStudent)
                 {
-                    if (i == rnd)
+                    if (s.id == rnd)
                     {
                         isDuplicate = true;
                         break;
@@ -96,19 +95,12 @@ public class GameState : MonoBehaviour {
                 {
                     Student student = StudentFactory(rnd);
                     draftStudent.Add(student);
-                    draftStudentId.Add(student.id);
                     count -= 1;
                     Debug.Log($"Student factory : {student.name}");
                 }
                 
             }
         }
-        /*
-        foreach (Student s in draftStudent)
-        {
-            Debug.Log(s.id);
-        }
-        */
         return draftStudent;
     }
 
@@ -179,7 +171,6 @@ public class GameState : MonoBehaviour {
     public List<Professor> DraftProfGenerator ()
     {
         List<Professor> draftProf = new List<Professor>();
-        List<int> draftProfId = new List<int>();
         int count = 5;
 
         while (count > 0)
@@ -188,9 +179,9 @@ public class GameState : MonoBehaviour {
             if (gameStateSO.profAvail[rnd])
             {
                 bool isDuplicate = false;
-                foreach (int i in draftProfId)
+                foreach (Professor p in draftProf)
                 {
-                    if (i == rnd)
+                    if (p.id == rnd)
                     {
                         isDuplicate = true;
                         break;
@@ -199,9 +190,7 @@ public class GameState : MonoBehaviour {
                 if (!isDuplicate)
                 {
                     Professor prof = ProfessorFactory(rnd);
-                    //Debug.Log(prof.name);
                     draftProf.Add(prof);
-                    draftProfId.Add(prof.id);
                     count -= 1;
                 }
             }
