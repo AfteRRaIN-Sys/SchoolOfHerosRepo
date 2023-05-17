@@ -15,9 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/2DraftScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/4ClassScene.unity
+    path: Assets/Scenes/3ClassScene.unity
     guid: 57af522c817829e4ea95f12ee4815e52
   - enabled: 1
-    path: Assets/Scenes/5BattleScence.unity
+    path: Assets/Scenes/4BattleScence.unity
     guid: 03cda56cb758d5146b70af8c7bffb526
   m_configObjects: {}

@@ -347,7 +347,7 @@ public class GameManager : MonoBehaviour
                 Room room = child.GetComponent<Room>();
                 int index = room.transform.GetSiblingIndex();
                 string facility = room.facility;
-                if (!room.IsLocked())
+                if (!room.IsLocked() & !room.IsEmpty())
                 {
                     switch (facility)
                     {

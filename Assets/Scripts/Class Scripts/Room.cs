@@ -151,7 +151,7 @@ public class Room : MonoBehaviour
         assigned = true;
         host = professor;
 
-        Debug.Log("Professor " + professor.id + " Added.");
+        Debug.Log("Professor " + professor.name + " Added.");
 
         CheckCapacity();
         CheckReady();
@@ -160,7 +160,7 @@ public class Room : MonoBehaviour
 
     public void UnAssign()
     {
-        Debug.Log("Professor " + host.id.ToString() + " Unassigned.");
+        Debug.Log("Professor " + host.name + " Unassigned.");
         assigned = false;
         host = null;
         skillLecture = -1;
@@ -228,8 +228,10 @@ public class Room : MonoBehaviour
         students.Add(student);
         CheckReady();
         gameManager.CheckTurnButton();
+        StudentIconChange(skillLecture);
 
-        Debug.Log("Student " + student.id.ToString() + " Added.");
+        Debug.Log("Student " + student.name + " Added.");
+        Debug.Log("Learn from:  " + host.name);
         Debug.Log("Capacity:" + currentCapacity.ToString() + " / " + maxCapacity.ToString());
     }
 
@@ -241,7 +243,7 @@ public class Room : MonoBehaviour
         CheckReady();
         gameManager.CheckTurnButton();
 
-        Debug.Log("Student " + student.id.ToString() + " Removed.");
+        Debug.Log("Student " + student.name + " Removed.");
         Debug.Log("Capacity:" + currentCapacity.ToString() + " / " + maxCapacity.ToString());
     }
 
@@ -255,6 +257,9 @@ public class Room : MonoBehaviour
             }     
         }
         skillLecture = skill;
+        StudentIconChange(skillLecture);
+        CheckReady();
+        gameManager.CheckTurnButton();
     }
     /**/
     IEnumerator DelayedNotification(string notification, float delayTimer)
@@ -268,6 +273,8 @@ public class Room : MonoBehaviour
     public void Learn()
     {
         turnSummary = "Room ( " + id.ToString() + " ): " + facility + System.Environment.NewLine;
+        //Debug.Log(turnSummary);//Checked Clear
+        //Debug.Log(host.name);//host missing??!!!
         turnSummary += "Professor: " + host.name + System.Environment.NewLine;
         turnSummary += "Lecter Skill: " + gameStateSO.skillList[skillLecture].name + System.Environment.NewLine;
 
@@ -308,7 +315,7 @@ public class Room : MonoBehaviour
                             StartCoroutine(DelayedNotification(notification, delayTimer));
                             delayTimer += notificationDelayInterval;
                             //notificationSystem.Notify(notification);
-                            Debug.Log("Student " + stu.id.ToString() + " Loves the lecture! :)" + System.Environment.NewLine);
+                            Debug.Log("Student " + stu.name + " Loves the lecture! :)" + System.Environment.NewLine);
                             progress += 1;
                         }
                         /*
@@ -330,7 +337,7 @@ public class Room : MonoBehaviour
                             StartCoroutine(DelayedNotification(notification, delayTimer));
                             delayTimer += notificationDelayInterval;
                             //notificationSystem.Notify(notification);
-                            Debug.Log("Student " + stu.id.ToString() + " Hates the lecture! :(" + System.Environment.NewLine);
+                            Debug.Log("Student " + stu.name + " Hates the lecture! :(" + System.Environment.NewLine);
                             progress -= 1;
                         }
                     }
@@ -346,7 +353,7 @@ public class Room : MonoBehaviour
                             StartCoroutine(DelayedNotification(notification, delayTimer));
                             delayTimer += notificationDelayInterval;
                             //notificationSystem.Notify(notification);
-                            Debug.Log("Student " + stu.id.ToString() + " has Complete the course! Skill: " + gameStateSO.skillList[skillLecture].name);
+                            Debug.Log("Student " + stu.name + " has Complete the course! Skill: " + gameStateSO.skillList[skillLecture].name);
                         }
                         else
                         {
@@ -360,7 +367,7 @@ public class Room : MonoBehaviour
                 Debug.Log("Student " + stu.id.ToString() + " has yet complete the prerequisite Skill: " + gameStateSO.skillList[skillLecture].prereqID.ToString());
             }
         }
-        
+        StudentIconChange(skillLecture);
         turnSummary += mastered + System.Environment.NewLine + learning + System.Environment.NewLine + "------------------------------------------------" + System.Environment.NewLine;
         //gameManager.GetComponent<Notification>().Notify(notification);
     }
@@ -380,7 +387,7 @@ public class Room : MonoBehaviour
     {
         Skill skill = gameStateSO.skillList[skillIndex];
         int prerequisiteIndex = skill.prereqID-1;
-        Debug.Log(prerequisiteIndex);
+        //Debug.Log(prerequisiteIndex);
         if(skill.prereqID == 0)
         {
             return true;
@@ -394,11 +401,50 @@ public class Room : MonoBehaviour
             ready = false;
             return false;
         }
+
     }
 
-    private void StudentIconChange(Student stu, int skillIndex)
+    private void StudentIconChange(int skillIndex)
     {
+        GameObject studentButtonSlot = transform.GetChild(1).gameObject;
+        Debug.Log(studentButtonSlot.name);
+        Debug.Log(students.Count);
+        for (int i = 0; i < students.Count; i++)
+        {
+            Student stu = students[i];
+            Debug.Log(stu.name);
+            GameObject stuButton = studentButtonSlot.transform.GetChild(i).gameObject;
+            Image stuIcon = stuButton.transform.GetChild(0).GetChild(1).GetComponent<Image>();
 
+            stuIcon.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+            if (CheckPrerequisite(stu, skillIndex))
+            {
+                if(stu.progressLeft[skillIndex] != 0)
+                {
+                    if(stu.preferences[skillIndex] == 1)
+                    {
+                        stuIcon.sprite = preferLecture;
+                    }
+                    else if (stu.preferences[skillIndex] == -1)
+                    {
+                        stuIcon.sprite = hateLecture;
+                    }
+                    else
+                    {
+                        stuIcon.gameObject.GetComponent<CanvasGroup>().alpha = 0f;
+                        stuIcon.sprite = null;
+                    }
+                }
+                else
+                {
+                    stuIcon.sprite = masteredLecture;
+                }
+            }
+            else
+            {
+                stuIcon.sprite = needPrerequisite;
+            }
+        }
     }
     private bool minigame()
     {
