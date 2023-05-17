@@ -34,6 +34,7 @@ public class BattleSystem : MonoBehaviour
 	public BattleHUD playerHUD2;
 	public BattleHUD playerHUD3;
 
+	public Sprite charac; 
 	public BattleHUD[] playerHUDs;
 
 	public Text dialogueText;
@@ -81,9 +82,12 @@ public class BattleSystem : MonoBehaviour
 
 		
 		GameObject playerGO1 = Instantiate(playerPrefab[0], playerBattleStation[0]);
+		Image m_Image = playerGO1.GetComponent<Image>();
+		//m_Image.sprite = charac;
 		playerUnits[0] = playerGO1.GetComponent<Unit>();
 		playerUnits[0].name = slctStudents[0].name;
 		playerHUD1.SetHUD(playerUnits[0]);
+		playerGO1.layer = 3;
 		playerHUDs[0] = playerHUD1;
 		
 		
@@ -116,7 +120,8 @@ public class BattleSystem : MonoBehaviour
 
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
 		enemyUnit = enemyGO.GetComponent<Unit>();
-		enemyUnit.currentHP = 20;
+		enemyUnit.currentHP = 400;
+		enemyUnit.maxHP = 400;
 		enemyHUD.SetHUD(enemyUnit);
 		
 
@@ -156,12 +161,12 @@ public class BattleSystem : MonoBehaviour
 		yield return new WaitForSecondsRealtime(2f);
 		int damage;
 		int attack_mode = 0;
-		bool isAlive = false;
+		bool isAlive = true;
 		int target = 0;
 		while(isAlive){
 				target  = Random.Range(0,3);
 				if(playerUnits[target].currentHP >0)
-					isAlive = true;
+					isAlive = false;
 		}
 		float act  = Random.value;
 		if(gameStateSO.cur_sem >=1){
@@ -413,12 +418,12 @@ public class BattleSystem : MonoBehaviour
 		for (int i = 0; i < 3; i++){
 			int mode = 0;
 			int level = 0;
-			bool isAlive = false;
+			bool isAlive = true;
 			int target = 0;
 			while(isAlive){
 				target  = Random.Range(0,3);
 				if(playerUnits[target].currentHP >0)
-					isAlive = true;
+					isAlive = false;
 			}
 			float act  = Random.value;
 			dialogueText.text = playerUnits[i].unitName + "'s Turn";
@@ -664,7 +669,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[0]<=0 && br){
 					act  = Random.value;
 					if(act>=0.3 - atkChance){
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[3]+" is successful!";
+						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[0]+" is successful!";
 						mode = 1;
 						level = 4;
 						//UnitMove(enemyUnit, -1);
