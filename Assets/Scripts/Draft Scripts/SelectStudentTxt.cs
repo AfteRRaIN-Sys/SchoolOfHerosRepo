@@ -12,6 +12,8 @@ public class SelectStudentTxt : MonoBehaviour
     // public DraftPanel DraftPanel;
     public TMP_Text txt;
 
+    Color gold = new Color(0.937255f, 0.6666667f, 0.2509804f, 1f);
+
     // Update is called once per frame
     void Update()
     {
@@ -28,7 +30,8 @@ public class SelectStudentTxt : MonoBehaviour
                 txt.color = Color.red;
             }
             else {
-                txt.color = Color.white;
+                // txt.color = Color.white;
+                txt.color = gold;
             }
         }
         else if (currentPhrase == 1) {
@@ -37,7 +40,7 @@ public class SelectStudentTxt : MonoBehaviour
                 txt.color = Color.red;
             }
             else {
-                txt.color = Color.white;
+                txt.color = gold;
             }
         }
 

@@ -9,6 +9,9 @@ public class ContinueBtn : MonoBehaviour
     Button button;
     Image img;
 
+    public Sprite enabled;
+    public Sprite disabled;
+
     public void Start(){
         button = this.transform.GetComponentInParent<Button>();
         img = this.transform.GetComponentInParent<Image>();
@@ -34,13 +37,15 @@ public class ContinueBtn : MonoBehaviour
 
         if (currentPhrase == 0) {
             if (numSelected == maxSlctStudent) {
-                img.color = Color.green;
+                // img.color = Color.green;
+                img.sprite = enabled;
                 button.enabled = true;
                 // ColorBlock cb = button.colors;
                 // cb.normalColor = new Color(74,219,94,255);
             }
             else {
-                img.color = Color.red;
+                // img.color = Color.red;
+                img.sprite = disabled;
                 button.enabled = false;
             }
         }
