@@ -16,12 +16,16 @@ public class CardInfoBtnScript : MonoBehaviour
     Student student;
     Professor professor;
 
+    List<Skill> allSkillList;
+
     public void Start(){
         button = this.transform.GetComponentInParent<Button>();
         button.onClick.AddListener(delegate () { this.ButtonClicked(); });
 
         student = this.GetComponentInParent<Student>();
         professor = this.GetComponentInParent<Professor>();
+
+        allSkillList = GameObject.Find("DraftArea").GetComponent<DraftPanel>().getAllSkillList();
 
         if (student) {
             isStudent = true;
@@ -37,19 +41,20 @@ public class CardInfoBtnScript : MonoBehaviour
             info.Add($"Name : {student.name}");
             info.Add($"Year : {student.year}");
             info.Add($"Max HP : {student.maxHP}");
-            
-            string preferedSkill = "";
-            string unpreferredSkill = "";
+
+            info.Add($"Prefered skills");
             for (int i = 0; i<student.preferences.Length; i++) {
-                if (student.preferences[i] == 1){
-                    preferedSkill += i.ToString()+", ";
-                }
-                else if (student.preferences[i] == -1){
-                    unpreferredSkill += i.ToString()+", ";
+                if (student.preferences[i] == 1) {
+                    info.Add("  - " + allSkillList[i].name);
                 }
             }
-            info.Add($"Prefered skills : {preferedSkill}");
-            info.Add($"Unpreferred skills : {unpreferredSkill}");
+
+            info.Add($"\nUnpreferred skills");
+            for (int i = 0; i<student.preferences.Length; i++) {
+                if (student.preferences[i] == -1) {
+                    info.Add("  - " + allSkillList[i].name);
+                }
+            }
 
             foreach (string e in info) {
                 Debug.Log(e);
