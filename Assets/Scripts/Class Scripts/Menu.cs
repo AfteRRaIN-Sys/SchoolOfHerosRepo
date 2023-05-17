@@ -22,7 +22,7 @@ public class Menu : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         TMP_Text roomDesc = gameObject.transform.GetChild(0).GetComponent<TMP_Text>();
         //SetRoom();
-        Debug.Log(room.id.ToString());
+        Debug.Log("Clicked room: " + room.id.ToString());
         roomDesc.text = room.facility + System.Environment.NewLine;
         roomDesc.text += room.GetLevel().ToString(); 
     }

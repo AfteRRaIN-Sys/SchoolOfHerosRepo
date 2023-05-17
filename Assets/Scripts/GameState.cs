@@ -98,13 +98,17 @@ public class GameState : MonoBehaviour {
                     draftStudent.Add(student);
                     draftStudentId.Add(student.id);
                     count -= 1;
+                    Debug.Log($"Student factory : {student.name}");
                 }
+                
             }
         }
+        /*
         foreach (Student s in draftStudent)
         {
             Debug.Log(s.id);
         }
+        */
         return draftStudent;
     }
 
@@ -159,14 +163,16 @@ public class GameState : MonoBehaviour {
     //Constructor needed
     public Professor ProfessorFactory(int id)
     {
+        /*
         Debug.Log(id);
         Debug.Log(ProfessorTemplateName.Length);
+        */
         int[] subjects = new int[37];
         for(int i=0; i<4; i++){
             subjects[teachSkill[id][i]] = 1;
         }
         Professor prof = new Professor(id, ProfessorTemplateName[id], profCost[id], subjects);
-        Debug.Log($"factory : {prof.name}");
+        Debug.Log($"Professor factory : {prof.name}");
         return prof;
     }
 
@@ -193,7 +199,7 @@ public class GameState : MonoBehaviour {
                 if (!isDuplicate)
                 {
                     Professor prof = ProfessorFactory(rnd);
-                    Debug.Log(prof.name);
+                    //Debug.Log(prof.name);
                     draftProf.Add(prof);
                     draftProfId.Add(prof.id);
                     count -= 1;

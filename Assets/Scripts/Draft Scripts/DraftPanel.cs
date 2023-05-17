@@ -136,7 +136,7 @@ public class DraftPanel : MonoBehaviour
                 student.CopyStudent(students[i]);
                 students[i] = student;
                 StudentCard tmp2 = StudentCard.CreateComponent(studentCardObj, student);
-                Debug.Log(tmp2.student.id);
+                //Debug.Log(tmp2.student.id);
                 studentCards.Add(tmp2);
                 
                 // add script to btn
@@ -171,7 +171,7 @@ public class DraftPanel : MonoBehaviour
                 professor.CopyProfessor(professors[i]);
                 professors[i] = professor;
                 ProfessorCard tmp2 = ProfessorCard.CreateComponent(professorCardObj, professor);
-                Debug.Log(tmp2.professor.id);
+                //Debug.Log(tmp2.professor.id);
                 professorCards.Add(tmp2);
 
                 // add script to btn

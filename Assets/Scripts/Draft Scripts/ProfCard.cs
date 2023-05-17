@@ -27,7 +27,7 @@ public class ProfessorCard : MonoBehaviour
     public static ProfessorCard CreateComponent(GameObject where, Professor professor) {
         ProfessorCard myC = where.AddComponent<ProfessorCard>();
         myC.professor = professor;
-        Debug.Log(myC.professor.id);
+        //Debug.Log(myC.professor.id);
         return myC;
     }
 
