@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
         turn_text.text = "";
         shopping_text.text = "";
         semester = gameStateSO.cur_sem;
+        addSemester(1);
         semesterEnd = true;
         turn = 0;
         shoppingCart = 0;
@@ -265,7 +266,6 @@ public class GameManager : MonoBehaviour
     public void StartSemester()
     {
         semesterSwitch();
-        addSemester(1);
 
         GameObject gameObject = GameObject.Find("Txt_Semester").gameObject;
         TMP_Text semester_txt = gameObject.GetComponent<TMP_Text>();

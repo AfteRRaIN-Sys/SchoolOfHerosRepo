@@ -23,7 +23,8 @@ public class GameStateSO : ScriptableObject{
 
     // //Student Part
     public string[] StudentTemplateName{ get; set; }
-     public bool[] studentAvail{ get; set; }
+    public int[] StudentGenderTemplate { get; set; }
+    public bool[] studentAvail{ get; set; }
      public int[][] prefSkill{ get; set; }
 
     //Professor Part

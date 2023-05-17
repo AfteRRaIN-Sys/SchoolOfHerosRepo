@@ -130,7 +130,7 @@ public class BattleSystem : MonoBehaviour
 
 			enemyPrefab.GetComponent<SpriteRenderer>().sprite = boss1;
 		}
-		if(gameStateSO.cur_sem==2){
+		if(gameStateSO.cur_sem>=2){
 
 			enemyPrefab.GetComponent<SpriteRenderer>().sprite = boss2;
 		}
@@ -144,7 +144,7 @@ public class BattleSystem : MonoBehaviour
 			enemyUnit.maxHP = 400;
 
 		}
-		if(gameStateSO.cur_sem==2){
+		if(gameStateSO.cur_sem>=2){
 			enemyUnit.unitName = "Sadism Bad Teacher";
 			enemyUnit.currentHP = 600;
 			enemyUnit.maxHP = 600;
@@ -213,7 +213,7 @@ public class BattleSystem : MonoBehaviour
 				attack_mode = 1;
 			}
 		}
-		else if(gameStateSO.cur_sem ==2){
+		else if(gameStateSO.cur_sem >=2){
 			if(act > 0.8){
 				attack_mode = 0;
 				dialogueText.text = enemyUnit.unitName + " debuff all heross";
@@ -223,27 +223,21 @@ public class BattleSystem : MonoBehaviour
 				for (int i = 0; i < 3; i++){
 				 	if(playerUnits[i].currentHP >0){
 				 		playerUnits[i].damage -= 10;
-				 		//StartCoroutine(UnitMove(enemyUnit,1));
-				 		//StartCoroutine(UnitMove(playerUnits[i],5));
 					}
 				}
 			}
 			else if(act > 0.6){
 				dialogueText.text = enemyUnit.unitName + " attacks all heroes!!!!";
 				yield return new WaitForSecondsRealtime(2f);
-				attack_mode = 1;
-				dialogueText.text = enemyUnit.unitName + " punishs "+ playerUnits[target].unitName;
-				yield return new WaitForSecondsRealtime(2f);
-				dialogueText.text = playerUnits[target].unitName + "'s atk is reduced by 10";
-				yield return new WaitForSecondsRealtime(2f);
+				attack_mode = 2;
 			}
 			else{
-				attack_mode = 2;
-				dialogueText.text = enemyUnit.unitName + " take advantages of all heroes!!!!";
-				yield return new WaitForSecondsRealtime(2f);
 				attack_mode = 1;
+				dialogueText.text = enemyUnit.unitName + " take advantages a hero!!!!";
+				yield return new WaitForSecondsRealtime(2f);
 				dialogueText.text = enemyUnit.unitName + " punishs "+ playerUnits[target].unitName;
 				yield return new WaitForSecondsRealtime(2f);
+				playerUnits[target].damage -= 10;
 				dialogueText.text = playerUnits[target].unitName + "'s atk is reduced by 10";
 				yield return new WaitForSecondsRealtime(2f);
 			}
@@ -354,12 +348,10 @@ public class BattleSystem : MonoBehaviour
 							yield return new WaitForSecondsRealtime(2f);
 							dialogueText.text = "hero does not get any damage";
 							yield return new WaitForSecondsRealtime(2f);
-							enemyUnit.TakeDamage(enemyUnit.damage);
-							enemyHUD.SetHP(enemyUnit.currentHP);
 				 			//playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
 						}
 					}
-					if(playerUnits[real_target].skills[18]<=0&& dr){
+					if(playerUnits[real_target].skills[17]<=0&& dr){
 						if(act>0.40 - defChance){
 							dr=false;
 							dialogueText.text = playerUnits[real_target].unitName+ " use absorb I";
@@ -639,7 +631,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[21]<=0 && br){
 					act  = Random.value;
 					if(act>=0.4 - supChance){
-						playerUnits[target].damage += 10;
+						playerUnits[target].damage += 20;
 						dialogueText.text = slctStudents[i].name +"'s " + skillNames[21]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						dialogueText.text = slctStudents[target].name +" is buffed";
@@ -793,8 +785,8 @@ public class BattleSystem : MonoBehaviour
 							yield return new WaitForSecondsRealtime(2f);
 							enemyUnit.TakeDamage(dmg);
 							enemyHUD.SetHP(enemyUnit.currentHP);
-							playerUnits[i].damage += 15;
-							enemyUnit.damage -= 15;
+							playerUnits[i].damage += 10;
+							enemyUnit.damage -= 10;
 							StartCoroutine(UnitMove(enemyUnit, -1));
 							StartCoroutine(UnitMove(playerUnits[i], -1));
 							dr = false;
@@ -827,7 +819,7 @@ public class BattleSystem : MonoBehaviour
 							yield return new WaitForSecondsRealtime(2f);
 							enemyUnit.TakeDamage(dmg);
 							enemyHUD.SetHP(enemyUnit.currentHP);
-							enemyUnit.damage -= 15;
+							enemyUnit.damage -= 10;
 							StartCoroutine(UnitMove(enemyUnit, -1));
 							StartCoroutine(UnitMove(playerUnits[i], -1));
 							dr = false;
@@ -843,7 +835,7 @@ public class BattleSystem : MonoBehaviour
 							yield return new WaitForSecondsRealtime(2f);
 							enemyUnit.TakeDamage(dmg);
 							enemyHUD.SetHP(enemyUnit.currentHP);
-							enemyUnit.damage -= 10;
+							enemyUnit.damage -= 5;
 							StartCoroutine(UnitMove(enemyUnit, -1));
 							StartCoroutine(UnitMove(playerUnits[i], -1));
 							dr = false;

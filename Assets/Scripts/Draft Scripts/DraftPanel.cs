@@ -47,6 +47,9 @@ public class DraftPanel : MonoBehaviour
 
     public int point;
 
+    [SerializeField]
+    Sprite maleStudent1, maleStudent2, maleStudent3, femaleStudent1, femaleStudent2;
+
     public int currentPhraseProperties {
         get {
             return currentPhrase;

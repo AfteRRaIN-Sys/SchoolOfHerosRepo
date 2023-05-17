@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameState : MonoBehaviour {
-    
+
     //Game State Attributes
 
     public GameStateSO gameStateSO;
@@ -14,7 +14,7 @@ public class GameState : MonoBehaviour {
     // public  List<Professor> profList = new List<Professor>();
     // public int cur_sem = 1;
     // // public Sprite studentArt, professorArt, roomArt;
-    
+
     // public GameManager roomManager;
     // public List<Skill> skillList = new List<Skill>();
 
@@ -24,6 +24,7 @@ public class GameState : MonoBehaviour {
                                           "Zero","Yamada","Satoshi",
                                         "Don","Justine","Anzu","Arthur",
                                         "Arnia"};
+    int[] genderTemplate = { 0,1,0,0,0,0,0,0,0,0,0,1,1,0,1}; //0: male 1: female
      public bool[] studentAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
      public int[][] prefSkill = {new int[7]{0,1,2,3,4,5,6},
                                  new int[7]{0,1,2,3,7,8,9},
@@ -55,6 +56,12 @@ public class GameState : MonoBehaviour {
                                  new int[7]{10,11,12,13,14,15,16},
                                  new int[7]{10,11,12,13,14,15,16},
                                  new int[7]{10,11,12,13,14,15,16}};
+
+    [SerializeField]
+    Sprite stu1F, stu2F, stu3F, stu4F, stu5F, stu1B, stu2B, stu3B, stu4B, stu5B;
+
+    [SerializeField]
+    Sprite maleStudent1, maleStudent2, maleStudent3, femaleStudent1, femaleStudent2;
 
     // Constructor needed
     public Student StudentFactory(int id)
