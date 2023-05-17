@@ -130,7 +130,7 @@ public class BattleSystem : MonoBehaviour
 
 			enemyPrefab.GetComponent<SpriteRenderer>().sprite = boss1;
 		}
-		if(gameStateSO.cur_sem==2){
+		if(gameStateSO.cur_sem>=2){
 
 			enemyPrefab.GetComponent<SpriteRenderer>().sprite = boss2;
 		}
@@ -144,7 +144,7 @@ public class BattleSystem : MonoBehaviour
 			enemyUnit.maxHP = 400;
 
 		}
-		if(gameStateSO.cur_sem==2){
+		if(gameStateSO.cur_sem>=2){
 			enemyUnit.unitName = "Sadism Bad Teacher";
 			enemyUnit.currentHP = 600;
 			enemyUnit.maxHP = 600;
@@ -213,7 +213,7 @@ public class BattleSystem : MonoBehaviour
 				attack_mode = 1;
 			}
 		}
-		else if(gameStateSO.cur_sem ==2){
+		else if(gameStateSO.cur_sem >=2){
 			if(act > 0.8){
 				attack_mode = 0;
 				dialogueText.text = enemyUnit.unitName + " debuff all heross";
