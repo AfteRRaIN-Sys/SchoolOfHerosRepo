@@ -62,7 +62,7 @@ public class MainMenuBtn : MonoBehaviour
     void InitGame()
     {
         gameStateSO.newGame = true;
-        gameStateSO.cur_sem = 1;
+        gameStateSO.cur_sem = 0;
         gameStateSO.money = 1000;
         gameStateSO.point = 500;
         gameStateSO.studentList = new List<Student>();
