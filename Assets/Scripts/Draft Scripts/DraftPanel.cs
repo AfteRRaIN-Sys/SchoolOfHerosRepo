@@ -18,6 +18,7 @@ public class DraftPanel : MonoBehaviour
 
     // prefab
     public GameObject Background;
+    public Sprite backgroundSprite1;
     public Sprite backgroundSprite2;
     
     public GameObject DraftArea;
@@ -130,6 +131,9 @@ public class DraftPanel : MonoBehaviour
 
     public void ChangePhrase(){
         if (currentPhrase == 0) {
+
+            Background.GetComponent<Image>().sprite = backgroundSprite1;
+
             for (int i =0; i<5; i++) {
                 // Student tmp = this.gameObject.AddComponent<Student>();
                 GameObject studentCardObj = Instantiate(CardPrefab, new Vector3(0,0,0), Quaternion.identity);
