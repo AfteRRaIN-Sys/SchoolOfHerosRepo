@@ -27,7 +27,7 @@ public class StudentCard : MonoBehaviour //, IPointerClickHandler
     public static StudentCard CreateComponent(GameObject where, Student student) {
         StudentCard myC = where.AddComponent<StudentCard>();
         myC.student = student;
-        Debug.Log(myC.student.id);
+        //Debug.Log(myC.student.id);
         return myC;
     }
 

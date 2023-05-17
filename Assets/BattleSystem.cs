@@ -34,6 +34,7 @@ public class BattleSystem : MonoBehaviour
 	public BattleHUD playerHUD2;
 	public BattleHUD playerHUD3;
 
+	public Sprite charac; 
 	public BattleHUD[] playerHUDs;
 
 	public Text dialogueText;
@@ -64,9 +65,19 @@ public class BattleSystem : MonoBehaviour
     {
 		state = BattleState.START;
 		slctStudents = new List<Student>();
-		slctStudents.Add(gameStateSO.studentList[0]);
-		slctStudents.Add(gameStateSO.studentList[1]);
-		slctStudents.Add(gameStateSO.studentList[2]);
+		List<int> slctStudentsId = new List<int>();
+		while(slctStudents.Count<3){
+			int rnd = Random.Range(0,gameStateSO.studentList.Count);
+			bool isIn = false;
+			for(int i=0;i<slctStudentsId.Count;i++){
+				if(slctStudentsId[i]==rnd)
+					isIn = true;
+			}
+			if(isIn==false) {
+				slctStudentsId.Add(rnd);
+				slctStudents.Add(gameStateSO.studentList[rnd]);
+			}
+		}
 		StartCoroutine(SetupBattle());
     }
 
@@ -81,26 +92,24 @@ public class BattleSystem : MonoBehaviour
 
 		
 		GameObject playerGO1 = Instantiate(playerPrefab[0], playerBattleStation[0]);
+		//m_Image.sprite = charac;
 		playerUnits[0] = playerGO1.GetComponent<Unit>();
-		playerUnits[0].name = slctStudents[0].name;
+		playerUnits[0].unitName = slctStudents[0].name;
 		playerHUD1.SetHUD(playerUnits[0]);
 		playerHUDs[0] = playerHUD1;
 		
-		
 		GameObject playerGO2 = Instantiate(playerPrefab[1], playerBattleStation[1]);
+		playerPrefab[1].gameObject.GetComponent<SpriteRenderer>().sprite = charac;
 		playerUnits[1] = playerGO2.GetComponent<Unit>();
-		playerUnits[1].name = slctStudents[1].name;
+		playerUnits[1].unitName = slctStudents[1].name;
 		playerHUD2.SetHUD(playerUnits[1]);
 		playerHUDs[1] = playerHUD2;
 		//playerHUDs[1].player = playerUnits[1];
 
 
 		GameObject playerGO3 = Instantiate(playerPrefab[2], playerBattleStation[2]);
-		//playerUnit3 = playerGO3.GetComponent<Unit>();
-		//playerUnit3.name = playerPrefab[2].name;
-		//playerHUD3.SetHUD(playerUnit3);
 		playerUnits[2] = playerGO3.GetComponent<Unit>();
-		playerUnits[2].name = slctStudents[2].name;
+		playerUnits[2].unitName = slctStudents[2].name;
 		
 		playerHUD3.SetHUD(playerUnits[2]);
 		playerHUDs[2] = playerHUD3;
@@ -116,7 +125,16 @@ public class BattleSystem : MonoBehaviour
 
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
 		enemyUnit = enemyGO.GetComponent<Unit>();
-		enemyUnit.currentHP = 20;
+		if(gameStateSO.cur_sem==1){
+			enemyUnit.unitName = "Typical Bad Teacher";
+			enemyUnit.currentHP = 400;
+			enemyUnit.maxHP = 400;
+		}
+		if(gameStateSO.cur_sem==2){
+			enemyUnit.unitName = "Sadism Bad Teacher";
+			enemyUnit.currentHP = 600;
+			enemyUnit.maxHP = 600;
+		}
 		enemyHUD.SetHUD(enemyUnit);
 		
 
@@ -156,12 +174,12 @@ public class BattleSystem : MonoBehaviour
 		yield return new WaitForSecondsRealtime(2f);
 		int damage;
 		int attack_mode = 0;
-		bool isAlive = false;
+		bool isAlive = true;
 		int target = 0;
 		while(isAlive){
 				target  = Random.Range(0,3);
 				if(playerUnits[target].currentHP >0)
-					isAlive = true;
+					isAlive = false;
 		}
 		float act  = Random.value;
 		if(gameStateSO.cur_sem ==1){
@@ -339,7 +357,7 @@ public class BattleSystem : MonoBehaviour
 						}
 					}
 					if(dr){
-						dialogueText.text = playerUnits[real_target].unitName+ " guards "+playerUnits[i].unitName;
+						dialogueText.text = playerUnits[real_target].unitName+ " guards "+slctStudents[i].name;
 						yield return new WaitForSecondsRealtime(2f);
 						playerUnits[real_target].TakeDamage(enemyUnit.damage*(100-red)/100);
 				 		playerHUDs[real_target].SetHP(playerUnits[i].currentHP);
@@ -376,7 +394,7 @@ public class BattleSystem : MonoBehaviour
 
 	void EndBattle()
 	{
-		
+		StopAllCoroutines();
 
 		if(state == BattleState.WON)
 		{
@@ -413,15 +431,15 @@ public class BattleSystem : MonoBehaviour
 		for (int i = 0; i < 3; i++){
 			int mode = 0;
 			int level = 0;
-			bool isAlive = false;
+			bool isAlive = true;
 			int target = 0;
 			while(isAlive){
 				target  = Random.Range(0,3);
 				if(playerUnits[target].currentHP >0)
-					isAlive = true;
+					isAlive = false;
 			}
 			float act  = Random.value;
-			dialogueText.text = playerUnits[i].unitName + "'s Turn";
+			dialogueText.text = slctStudents[i].name + "'s Turn";
 			yield return new WaitForSecondsRealtime(2f);
 			bool br = true;
 			if(playerUnits[i].currentHP > 0){
@@ -431,7 +449,7 @@ public class BattleSystem : MonoBehaviour
 					if(act>=0.8 - atkChance){
 						//enemyUnit.TakeDamage(playerUnits[i].damage*4);
 						//enemyHUD.SetHP(enemyUnit.currentHP);
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[3]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[3]+" is successful!";
 						mode = 1;
 						level = 4;
 						//UnitMove(enemyUnit, -1);
@@ -448,7 +466,7 @@ public class BattleSystem : MonoBehaviour
 						playerUnits[j].damage += 20;
 						angles[j] = true;
 					}
-					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[26]+" is successful!";
+					dialogueText.text = slctStudents[i].name +"'s " + skillNames[26]+" is successful!";
 					yield return new WaitForSecondsRealtime(2f);
 					//UnitMove(enemyUnit, -1);
 					br = false;
@@ -459,9 +477,9 @@ public class BattleSystem : MonoBehaviour
 					if(act>=0.7 - supChance){
 						playerUnits[target].damage += 30;
 						angles[target] = true;
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[23]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[23]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
-						dialogueText.text = playerUnits[target].unitName +" is buffed";
+						dialogueText.text = slctStudents[target].name +" is buffed";
 						yield return new WaitForSecondsRealtime(2f);
 						br = false;
 					}
@@ -471,7 +489,7 @@ public class BattleSystem : MonoBehaviour
 					if(act>=0.8 - supChance){
 						enemyUnit.damage -= 20;
 						bossChance += 0.1;
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[30]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[30]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
 						br = false;
@@ -486,7 +504,7 @@ public class BattleSystem : MonoBehaviour
 							playerHUDs[j].SetHP(playerUnits[j].currentHP);
 						
 					}
-					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[34]+" is successful!";
+					dialogueText.text = slctStudents[i].name +"'s " + skillNames[34]+" is successful!";
 					yield return new WaitForSecondsRealtime(2f);
 					dialogueText.text = "All player is revived";
 					//UnitMove(enemyUnit, -1);
@@ -504,7 +522,7 @@ public class BattleSystem : MonoBehaviour
 							playerHUDs[j].SetHP(playerUnits[j].currentHP);
 						}
 					}
-					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[36]+" is successful!";
+					dialogueText.text = slctStudents[i].name +"'s " + skillNames[36]+" is successful!";
 					yield return new WaitForSecondsRealtime(2f);
 					dialogueText.text = "All player is healed";
 					//UnitMove(enemyUnit, -1);
@@ -516,7 +534,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[2]<=0&br){
 					act  = Random.value;
 					if(act>=0.65 - atkChance){
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[2]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[2]+" is successful!";
 						mode = 1;
 						level = 3;
 						//UnitMove(enemyUnit, -1);
@@ -528,9 +546,9 @@ public class BattleSystem : MonoBehaviour
 					act  = Random.value;
 					if(act>=0.6 - supChance){
 						playerUnits[target].damage += 20;
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[22]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[22]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
-						dialogueText.text = playerUnits[target].unitName +" is buffed";
+						dialogueText.text = slctStudents[target].name +" is buffed";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
 						br = false;
@@ -542,7 +560,7 @@ public class BattleSystem : MonoBehaviour
 					for(int j=0;j<3;j++){
 						playerUnits[j].damage += 15;
 					}
-					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[25]+" is successful!";
+					dialogueText.text = slctStudents[i].name +"'s " + skillNames[25]+" is successful!";
 					yield return new WaitForSecondsRealtime(2f);
 					//UnitMove(enemyUnit, -1);
 					br = false;
@@ -552,7 +570,7 @@ public class BattleSystem : MonoBehaviour
 					act  = Random.value;
 					if(act>=0.7 - supChance){
 						enemyUnit.damage -= 20;
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[29]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[29]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
 						br = false;
@@ -566,7 +584,7 @@ public class BattleSystem : MonoBehaviour
 							playerUnits[j].Heal(10);
 							playerHUDs[j].SetHP(playerUnits[j].currentHP);
 					}
-					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[33]+" is successful!";
+					dialogueText.text = slctStudents[i].name +"'s " + skillNames[33]+" is successful!";
 					yield return new WaitForSecondsRealtime(2f);
 					dialogueText.text = "All player is revived";
 					//UnitMove(enemyUnit, -1);
@@ -584,7 +602,7 @@ public class BattleSystem : MonoBehaviour
 							playerHUDs[j].SetHP(playerUnits[j].currentHP);
 						}
 					}
-					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[35]+" is successful!";
+					dialogueText.text = slctStudents[i].name +"'s " + skillNames[35]+" is successful!";
 					yield return new WaitForSecondsRealtime(2f);
 					dialogueText.text = "All player is healed";
 					//UnitMove(enemyUnit, -1);
@@ -596,7 +614,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[1]<=0&br){
 					act  = Random.value;
 					if(act>=0.5 - atkChance){
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[1]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[1]+" is successful!";
 						mode = 1;
 						level = 2;
 						//UnitMove(enemyUnit, -1);
@@ -608,9 +626,9 @@ public class BattleSystem : MonoBehaviour
 					act  = Random.value;
 					if(act>=0.4 - supChance){
 						playerUnits[target].damage += 10;
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[21]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[21]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
-						dialogueText.text = playerUnits[target].unitName +" is buffed";
+						dialogueText.text = slctStudents[target].name +" is buffed";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
 						br = false;
@@ -622,7 +640,7 @@ public class BattleSystem : MonoBehaviour
 					for(int j=0;j<3;j++){
 						playerUnits[j].damage += 5;
 					}
-					dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[24]+" is successful!";
+					dialogueText.text = slctStudents[i].name +"'s " + skillNames[24]+" is successful!";
 					yield return new WaitForSecondsRealtime(2f);
 					//UnitMove(enemyUnit, -1);
 					br = false;
@@ -632,7 +650,7 @@ public class BattleSystem : MonoBehaviour
 					act  = Random.value;
 					if(act>=0.7 - supChance){
 						enemyUnit.damage -= 15;
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[28]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[28]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
 						br = false;
@@ -652,7 +670,7 @@ public class BattleSystem : MonoBehaviour
 					}
 					playerUnits[k].Heal(30);
 					playerHUDs[k].SetHP(playerUnits[k].currentHP);
-					dialogueText.text = playerUnits[i].unitName +"'s revive is successful!";
+					dialogueText.text = slctStudents[i].name +"'s revive is successful!";
 					yield return new WaitForSecondsRealtime(2f);
 					dialogueText.text = playerUnits[k].unitName +" is revived";
 					//UnitMove(enemyUnit, -1);
@@ -664,9 +682,9 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[0]<=0 && br){
 					act  = Random.value;
 					if(act>=0.3 - atkChance){
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[3]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[0]+" is successful!";
 						mode = 1;
-						level = 4;
+						level = 1;
 						//UnitMove(enemyUnit, -1);
 						yield return new WaitForSecondsRealtime(2f);
 						br = false;
@@ -676,9 +694,9 @@ public class BattleSystem : MonoBehaviour
 					act  = Random.value;
 					if(act>=0.4 - supChance){
 						playerUnits[target].damage += 10;
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[20]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[20]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
-						dialogueText.text = playerUnits[target].unitName +" is buffed";
+						dialogueText.text = slctStudents[target].name+" is buffed";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
 						br = false;
@@ -688,7 +706,7 @@ public class BattleSystem : MonoBehaviour
 					act  = Random.value;
 					if(act>=0.3 - supChance){
 						enemyUnit.damage -= 5;
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[27]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[27]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
 						br = false;
@@ -707,7 +725,7 @@ public class BattleSystem : MonoBehaviour
 					}
 					playerUnits[k].Heal(20);
 					playerHUDs[k].SetHP(playerUnits[k].currentHP);
-					dialogueText.text = playerUnits[i].unitName +"'s revive is successful!";
+					dialogueText.text = slctStudents[i].name +"'s revive is successful!";
 					yield return new WaitForSecondsRealtime(2f);
 					dialogueText.text = playerUnits[k].unitName +" is healed";
 					//UnitMove(enemyUnit, -1);
@@ -721,7 +739,7 @@ public class BattleSystem : MonoBehaviour
 					if(playerUnits[i].skills[4]<=0 && dr){
 					act  = Random.value;
 						if(act>=0.6 - atkChance){
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[4]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[4]+" is successful!";
 						//UnitMove(enemyUnit, -1);
 						yield return new WaitForSecondsRealtime(2f);
 						enemyUnit.TakeDamage(dmg*2);
@@ -734,7 +752,7 @@ public class BattleSystem : MonoBehaviour
 					if(playerUnits[i].skills[6]<=0 && dr){
 					act  = Random.value;
 						if(act>=0.6 - atkChance){
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[6]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[6]+" is successful!";
 						//UnitMove(enemyUnit, -1);
 						yield return new WaitForSecondsRealtime(2f);
 						enemyUnit.TakeDamage(dmg);
@@ -749,7 +767,7 @@ public class BattleSystem : MonoBehaviour
 					if(playerUnits[i].skills[9]<=0 && dr){
 					act  = Random.value;
 						if(act>=0.6 - atkChance){
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[9]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[9]+" is successful!";
 						//UnitMove(enemyUnit, -1);
 						yield return new WaitForSecondsRealtime(2f);
 						enemyUnit.TakeDamage(dmg);
@@ -764,7 +782,7 @@ public class BattleSystem : MonoBehaviour
 					if(playerUnits[i].skills[5]<=0 && dr){
 					act  = Random.value;
 						if(act>=0.4 - atkChance){
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[5]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[5]+" is successful!";
 						//UnitMove(enemyUnit, -1);
 						yield return new WaitForSecondsRealtime(2f);
 						enemyUnit.TakeDamage(dmg);
@@ -779,7 +797,7 @@ public class BattleSystem : MonoBehaviour
 					if(playerUnits[i].skills[8]<=0 && dr){
 					act  = Random.value;
 						if(act>=0.4 - atkChance){
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[8]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[8]+" is successful!";
 						//UnitMove(enemyUnit, -1);
 						yield return new WaitForSecondsRealtime(2f);
 						enemyUnit.TakeDamage(dmg);
@@ -793,7 +811,7 @@ public class BattleSystem : MonoBehaviour
 					if(playerUnits[i].skills[8]<=0 && dr){
 					act  = Random.value;
 						if(act>=0.3 - atkChance){
-						dialogueText.text = playerUnits[i].unitName +"'s " + skillNames[8]+" is successful!";
+						dialogueText.text = slctStudents[i].name +"'s " + skillNames[8]+" is successful!";
 						//UnitMove(enemyUnit, -1);
 						yield return new WaitForSecondsRealtime(2f);
 						enemyUnit.TakeDamage(dmg);
@@ -891,7 +909,7 @@ public class BattleSystem : MonoBehaviour
 
 	void NextScene()
     {
-		List<Student> students = gameStateSO.studentList;
+		/*List<Student> students = gameStateSO.studentList;
 		string studentStr = "";
 		foreach (Student student in students)
         {
@@ -900,8 +918,9 @@ public class BattleSystem : MonoBehaviour
 			studentStr += tmp + System.Environment.NewLine;
         }
 		Debug.Log(studentStr);
-
+		*/
 		gameStateSO.newGame = false;
+		Debug.Log("Loading Scene...");
 		SceneManager.LoadScene(1);
     }
 

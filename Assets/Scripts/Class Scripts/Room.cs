@@ -163,6 +163,21 @@ public class Room : MonoBehaviour
         host = null;
         skillLecture = -1;
 
+        int numStudents = students.Count;
+        for (int i = 0; i < numStudents; i++)
+        {
+            students[0].UnAssign();
+            RemoveStudent(students[0]);
+        }
+
+        GameObject studentButtonSlot = transform.GetChild(1).gameObject;
+        numStudents = studentButtonSlot.transform.childCount;
+        Debug.Log("Number of button(s) in room: " + numStudents.ToString());
+        for (int i = 0; i < numStudents; i++)
+        {
+            Destroy(studentButtonSlot.transform.GetChild(i).gameObject);
+        }
+
         CheckCapacity();
         CheckReady();
         gameManager.CheckTurnButton();
@@ -230,6 +245,13 @@ public class Room : MonoBehaviour
 
     public void SetLectureSkill(int skill)
     {
+        foreach (Student student in students)
+        {
+            if(student != null)
+            {
+                CheckPrerequisite(student, skill);
+            }     
+        }
         skillLecture = skill;
     }
     /**/

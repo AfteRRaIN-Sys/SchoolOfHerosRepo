@@ -14,6 +14,12 @@ public class BattleHUD : MonoBehaviour
 	public Image Fill; 
 	public Text descText;
 	public GameObject descBack;
+	public string[] skillNames = {"Attack I","Attack II","Attack III","Attakc IV","Critical Chance",
+                        "Life Steal I","Life Steal II","Poison Cloating","Bleeding Effect", "Open Wound",
+                         "Guard I","Guard II","Guard III","Guard IV","Evade","Reflect Damage","Counter Attack",
+                         "Absorb Damage I","Absorb Damage II"," Absorb Damage III",
+                         "Buff I","Buff II","Buff III","Buff IV","Team Buff I","Team Buff II","Team Buff III",
+                         "Debuff I","Debuff II","Debuff III","Debuff IV","Heal I","Heal II","Revive I","Revive II","Team Heal I", "Team Heal II"};
 
 
 	public void SetHUD(Unit unit)
@@ -27,13 +33,12 @@ public class BattleHUD : MonoBehaviour
 		currentHPText.text = unit.currentHP.ToString();
 		Fill.color = MaxHealthColor; 
 		string list = "";
-		/*
+		
 		Debug.Log(player.skills.Length.ToString());
         for(int i=0;i<37;i++){
-            if(player.skills[i]<=0)
-                list += i.ToString() + ", ";
+             if(player.skills[i]<=0)
+                 list += skillNames[i] + ", ";
         }
-		*/
         descText.text = player.name + "\nATK =  "+player.damage + "\nSkills : " + list;
 	}
 
@@ -50,8 +55,8 @@ public class BattleHUD : MonoBehaviour
     {
         string list = "";
         for(int i=0;i<37;i++){
-            if(player.skills[i]<=0)
-                list += i.ToString() + ", ";
+             if(player.skills[i]<=0)
+                 list += skillNames[i] + ", ";
         }
         descText.text = player.name + "\nATK =  "+player.damage + "\nSkills : " + list;
 		Debug.Log('1');

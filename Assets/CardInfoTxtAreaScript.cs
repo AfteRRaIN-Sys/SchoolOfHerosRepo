@@ -29,7 +29,7 @@ public class CardInfoTxtAreaScript : MonoBehaviour
         foreach (string e in infoTxt) {
             tmp += $"{e}\n\n";
         }
-        Debug.Log("txttt" + this.txt.text);
+        //Debug.Log("txttt" + this.txt.text);
         this.txt.text = tmp;
     }
 }
