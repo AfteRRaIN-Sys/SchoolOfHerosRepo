@@ -39,7 +39,7 @@ public class BattleHUD : MonoBehaviour
              if(player.skills[i]<=0)
                  list += skillNames[i] + ", ";
         }
-        descText.text = player.name + "\nATK =  "+player.damage + "\nSkills : " + list;
+        descText.text = "ATK =  "+player.damage + "\nSkills : " + list;
 	}
 
 
@@ -58,7 +58,7 @@ public class BattleHUD : MonoBehaviour
              if(player.skills[i]<=0)
                  list += skillNames[i] + ", ";
         }
-        descText.text = player.name + "\nATK =  "+player.damage + "\nSkills : " + list;
+        descText.text = "ATK =  "+player.damage + "\nSkills : " + list;
 		Debug.Log('1');
         descText.gameObject.SetActive(true);
 		descBack.gameObject.SetActive(true);

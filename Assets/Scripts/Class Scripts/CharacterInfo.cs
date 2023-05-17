@@ -135,7 +135,7 @@ public class CharacterInfo : MonoBehaviour
 
     public void ClassroomShowBossInfo(GameObject infoPrefab)
     {
-        GameObject existedObject = GameObject.Find("CharacterInfoWindow(Clone)");
+        GameObject existedObject = GameObject.Find("BossInfoWindow(Clone)");
         if (existedObject != null)
         {
             Destroy(existedObject);
@@ -166,11 +166,33 @@ public class CharacterInfo : MonoBehaviour
         if (existedObject == null)
         {
             existedObject = GameObject.Find("BossInfoWindow(Clone)");
+
+            if (existedObject == null)
+            {
+                existedObject = GameObject.Find("TurnLogWindow(Clone)");
+            }
         }
 
         if (existedObject != null)
         {
             Destroy(existedObject);
         }
+    }
+
+    public void ShowTurnLog(GameObject turnWindow)
+    {
+        GameObject existedObject = GameObject.Find("TurnLogWindow(Clone)");
+        if (existedObject != null)
+        {
+            Destroy(existedObject);
+        }
+
+        GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        GameObject infoPanel = Instantiate(turnWindow, Vector3.zero, Quaternion.identity, canvas.transform);
+
+        TMP_Text logTxt = infoPanel.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+        logTxt.text = gameManager.getLog();
     }
 }

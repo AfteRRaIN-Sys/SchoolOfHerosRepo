@@ -262,8 +262,16 @@ public class Room : MonoBehaviour
     }
 
     string notification;
+    string turnSummary;
     public void Learn()
     {
+        turnSummary = "Room ( " + id.ToString() + " ): " + facility + System.Environment.NewLine;
+        turnSummary += "Professor: " + host.name + System.Environment.NewLine;
+        turnSummary += "Lecter Skill: " + gameStateSO.skillList[skillLecture].name + System.Environment.NewLine;
+
+        string mastered = "Mastered Student(s): " + System.Environment.NewLine; 
+        string learning = "Learning Student(s): " + System.Environment.NewLine;
+
         //notification = "";
         float delayTimer = .5f;
         foreach (Student stu in students)
@@ -273,7 +281,7 @@ public class Room : MonoBehaviour
                 if (stu.progressLeft[skillLecture] == 0)
                 {
                     //notification += "Student" + stu.GetStudentID().ToString() + " has already learned: Skill" + skillLecture.ToString() + System.Environment.NewLine;
-                    notification = stu.name + " has already learned: Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                    notification = stu.name + " has already learned: " + gameStateSO.skillList[skillLecture].name + System.Environment.NewLine;
                     StartCoroutine(DelayedNotification(notification, delayTimer));
                     delayTimer += notificationDelayInterval;
                     //notificationSystem.Notify(notification);
@@ -282,7 +290,7 @@ public class Room : MonoBehaviour
                 else
                 {
                     //notification += "Student" + stu.GetStudentID().ToString() + " is learning : Skill" + skillLecture.ToString() + System.Environment.NewLine;
-                    notification = stu.name + " is learning : Skill" + skillLecture.ToString() + System.Environment.NewLine;
+                    notification = stu.name + " is learning : " + gameStateSO.skillList[skillLecture].name + System.Environment.NewLine;
                     StartCoroutine(DelayedNotification(notification, delayTimer));
                     delayTimer += notificationDelayInterval;
                     //notificationSystem.Notify(notification);
@@ -331,11 +339,16 @@ public class Room : MonoBehaviour
                         {
                             stu.progressLeft[skillLecture] = 0;
                             //notification += "And He has Complete the course! Skill: " + skillLecture.ToString() + System.Environment.NewLine;
-                            notification = stu.name + " has Complete the course! Skill: " + skillLecture.ToString() + System.Environment.NewLine;
+                            notification = stu.name + " has Complete the course!: " + gameStateSO.skillList[skillLecture].name + System.Environment.NewLine;
+                            mastered += stu.name + System.Environment.NewLine;
                             StartCoroutine(DelayedNotification(notification, delayTimer));
                             delayTimer += notificationDelayInterval;
                             //notificationSystem.Notify(notification);
-                            Debug.Log("Student " + stu.id.ToString() + " has Complete the course! Skill: " + skillLecture.ToString());
+                            Debug.Log("Student " + stu.id.ToString() + " has Complete the course! Skill: " + gameStateSO.skillList[skillLecture].name);
+                        }
+                        else
+                        {
+                            learning += stu.name + " (turns remaining: " + stu.progressLeft[skillLecture] + ") " + System.Environment.NewLine;
                         }
                     }
                 }
@@ -344,10 +357,15 @@ public class Room : MonoBehaviour
             {
                 Debug.Log("Student " + stu.id.ToString() + " has yet complete the prerequisite Skill: " + gameStateSO.skillList[skillLecture].prereqID.ToString());
             }
-        }     
+        }
+        
+        turnSummary += mastered + System.Environment.NewLine + learning + System.Environment.NewLine + "------------------------------------------------" + System.Environment.NewLine;
         //gameManager.GetComponent<Notification>().Notify(notification);
     }
-
+    public string GetTurnSummary()
+    {
+        return turnSummary;
+    }
     public string GetLearnNotification()
     {
         return notification;

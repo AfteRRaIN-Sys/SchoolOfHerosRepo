@@ -333,13 +333,15 @@ public class GameManager : MonoBehaviour
 
     //If player click to end turn
     //string learnNotification = "";
+    string turnSummary = "";
+    string turnTemp = "";
     public void EndTurn()
     {
         if (turn < maxTurn)
         {
             //proceed the lecture or the usage for each and every room available
             GameObject rooms = GameObject.Find("RoomSlotGrid").gameObject;
-
+            notificationSystem.ClearWindow();
             foreach (Transform child in rooms.transform)
             {
                 Room room = child.GetComponent<Room>();
@@ -352,6 +354,9 @@ public class GameManager : MonoBehaviour
                         case "Classroom":
                             Delay(delayTimer);
                             room.Learn();
+                            turnTemp = "Turn:" + turn.ToString() + "/ " + maxTurn.ToString() + System.Environment.NewLine;
+                            turnTemp += room.GetTurnSummary();
+                            turnSummary = turnTemp + turnSummary;
                             //learnNotification = room.GetLearnNotification();
                             continue;
                         case "Medic":
@@ -514,6 +519,11 @@ public class GameManager : MonoBehaviour
     public void addMoney(int amount)
     {
         money += amount;
+    }
+
+    public string getLog()
+    {
+        return turnSummary;
     }
 
     public void ShowMoney()

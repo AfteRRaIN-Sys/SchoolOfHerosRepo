@@ -38,6 +38,7 @@ public class BattleSystem : MonoBehaviour
 	public BattleHUD[] playerHUDs;
 
 	public Sprite boss1, boss2;
+	public Sprite char1, char2,char3;
 
 	public Text dialogueText;
 	public DraftSO classSo;
@@ -92,7 +93,7 @@ public class BattleSystem : MonoBehaviour
 		playerHUDs = new BattleHUD[3];
 		angles = new bool[3];
 
-		
+		playerPrefab[0].GetComponent<SpriteRenderer>().sprite = char1;
 		GameObject playerGO1 = Instantiate(playerPrefab[0], playerBattleStation[0]);
 		//m_Image.sprite = charac;
 		playerUnits[0] = playerGO1.GetComponent<Unit>();
@@ -100,15 +101,15 @@ public class BattleSystem : MonoBehaviour
 		playerHUD1.SetHUD(playerUnits[0]);
 		playerHUDs[0] = playerHUD1;
 		
+		playerPrefab[1].GetComponent<SpriteRenderer>().sprite = char2;
 		GameObject playerGO2 = Instantiate(playerPrefab[1], playerBattleStation[1]);
-		playerPrefab[1].gameObject.GetComponent<SpriteRenderer>().sprite = charac;
 		playerUnits[1] = playerGO2.GetComponent<Unit>();
 		playerUnits[1].unitName = slctStudents[1].name;
 		playerHUD2.SetHUD(playerUnits[1]);
 		playerHUDs[1] = playerHUD2;
 		//playerHUDs[1].player = playerUnits[1];
 
-
+		playerPrefab[2].GetComponent<SpriteRenderer>().sprite = char3;
 		GameObject playerGO3 = Instantiate(playerPrefab[2], playerBattleStation[2]);
 		playerUnits[2] = playerGO3.GetComponent<Unit>();
 		playerUnits[2].unitName = slctStudents[2].name;
@@ -125,22 +126,30 @@ public class BattleSystem : MonoBehaviour
 			Debug.Log("playerUnits skill length: " + playerUnits[i].skills.Length.ToString());
 		}
 
+		if(gameStateSO.cur_sem==1){
+
+			enemyPrefab.GetComponent<SpriteRenderer>().sprite = boss1;
+		}
+		if(gameStateSO.cur_sem==2){
+
+			enemyPrefab.GetComponent<SpriteRenderer>().sprite = boss2;
+		}
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
 		enemyUnit = enemyGO.GetComponent<Unit>();
+		enemyHUD.SetHUD(enemyUnit);
+
 		if(gameStateSO.cur_sem==1){
 			enemyUnit.unitName = "Typical Bad Teacher";
 			enemyUnit.currentHP = 400;
 			enemyUnit.maxHP = 400;
-			enemyPrefab.GetComponent<SpriteRenderer>().sprite = boss1;
+
 		}
 		if(gameStateSO.cur_sem==2){
 			enemyUnit.unitName = "Sadism Bad Teacher";
 			enemyUnit.currentHP = 600;
 			enemyUnit.maxHP = 600;
-			enemyPrefab.GetComponent<SpriteRenderer>().sprite = boss2;
+
 		}
-		enemyHUD.SetHUD(enemyUnit);
-		
 
 		dialogueText.text = enemyUnit.unitName + " approaches...";
 

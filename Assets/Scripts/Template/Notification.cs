@@ -37,4 +37,13 @@ public class Notification : MonoBehaviour
 
         Destroy(notification);
     }
+
+    public void ClearWindow()
+    {
+        int numNotif = notificationWindow.transform.childCount;
+        for (int i = 0; i < numNotif; i++)
+        {
+            Destroy(notificationWindow.transform.GetChild(i).gameObject);
+        }
+    }
 }
