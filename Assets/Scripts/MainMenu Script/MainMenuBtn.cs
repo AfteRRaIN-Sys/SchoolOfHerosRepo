@@ -87,7 +87,18 @@ public class MainMenuBtn : MonoBehaviour
         }
         gameStateSO.skillList = skillList;
         gameStateSO.progressLeftTemplate = progressLeftTemplate;
+
+        int[] studentsGender = { 0,1,0,0,0,0,0,0,0,0,0,1,1,0,1}; //0: male 1: female
+        string[] StudentTemplateName = {"Somchai","Somying","Ramuel","Karl","Grimgor",
+                                         "Emhyr","Paul",
+                                          "Zero","Yamada","Satoshi",
+                                        "Don","Justine","Anzu","Arthur",
+                                        "Arnia"};
+
+        gameStateSO.StudentGenderTemplate = studentsGender;
+        gameStateSO.StudentTemplateName = StudentTemplateName;
     }
+        
 
     IEnumerator Delay(float sec)
     {

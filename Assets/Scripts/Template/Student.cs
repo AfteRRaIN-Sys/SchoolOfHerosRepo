@@ -11,6 +11,7 @@ public class Student : MonoBehaviour
     public string name;
     public int id;
     public int year;
+    public int sex; //0: male, 1: female
 
     // hp
     public int maxHP;
