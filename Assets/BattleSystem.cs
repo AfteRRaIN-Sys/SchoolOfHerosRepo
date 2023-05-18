@@ -423,11 +423,11 @@ public class BattleSystem : MonoBehaviour
 		if(state == BattleState.WON)
 		{
 			dialogueText.text = "You won the battle!";
-			// yield return new WaitForSecondsRealtime(2f);
+			//yield return new WaitForSecondsRealtime(2f);
 			dialogueText.text = "You get 400 points and 700 money";
 			gameStateSO.point += 400;
 			gameStateSO.money += 700;
-            // yield return new WaitForSecondsRealtime(2f);
+            //yield return new WaitForSecondsRealtime(2f);
             // move to draft
             //NextScene();
             GameObject newObject = Instantiate(victory, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
@@ -435,7 +435,7 @@ public class BattleSystem : MonoBehaviour
         } else if (state == BattleState.LOST)
 		{
 			dialogueText.text = "You were defeated.";
-			// yield return new WaitForSecondsRealtime(2f);
+			//yield return new WaitForSecondsRealtime(2f);
             // move to draft
             //NextScene();
             GameObject newObject = Instantiate(defeat, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
@@ -515,7 +515,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[30]<=0 && br){
 					act  = Random.value;
 					if(act>=0.8 - supChance){
-						enemyUnit.damage -= 20;
+						enemyUnit.damage -= 15;
 						bossChance += 0.1;
 						dialogueText.text = slctStudents[i].name +"'s " + skillNames[30]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
@@ -597,7 +597,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[29]<=0 && br){
 					act  = Random.value;
 					if(act>=0.7 - supChance){
-						enemyUnit.damage -= 20;
+						enemyUnit.damage -= 15;
 						dialogueText.text = slctStudents[i].name +"'s " + skillNames[29]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
@@ -677,7 +677,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[28]<=0 && br){
 					act  = Random.value;
 					if(act>=0.7 - supChance){
-						enemyUnit.damage -= 15;
+						enemyUnit.damage -= 10;
 						dialogueText.text = slctStudents[i].name +"'s " + skillNames[28]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
