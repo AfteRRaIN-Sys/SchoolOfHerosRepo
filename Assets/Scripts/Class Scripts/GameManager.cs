@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
             //Debug.Log($"professor {s.name} {professorCardObj.GetComponent<Professor>().name}");
         }
 
+        /*
         List<Room> builtRooms = gameStateSO.roomList;
         foreach (Room room in builtRooms)
         {
@@ -101,6 +102,7 @@ public class GameManager : MonoBehaviour
             targetRoomButton.ToggleLock(false);
             //Debug.Log($"professor {s.name} {professorCardObj.GetComponent<Professor>().name}");
         }
+        */
 
         // foreach(Student s in slctStudents){
         //     Debug.Log($"select s : {s.name}");

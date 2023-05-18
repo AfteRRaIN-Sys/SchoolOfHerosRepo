@@ -66,7 +66,8 @@ public class BattleSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		state = BattleState.START;
+        loadWindow.alpha = 0;
+        state = BattleState.START;
 		slctStudents = new List<Student>();
 		List<int> slctStudentsId = new List<int>();
 		while(slctStudents.Count<3){
@@ -398,6 +399,8 @@ public class BattleSystem : MonoBehaviour
 		}
 	}
 
+    [SerializeField]
+    GameObject victory, defeat;
 	void EndBattle()
 	{
 		StopAllCoroutines();
@@ -409,16 +412,18 @@ public class BattleSystem : MonoBehaviour
 			dialogueText.text = "You get 700 points";
 			gameStateSO.point += 700;
 			gameStateSO.money += 700;
-			//yield return new WaitForSecondsRealtime(2f);
-			// move to draft
-			NextScene();
+            //yield return new WaitForSecondsRealtime(2f);
+            // move to draft
+            //NextScene();
+            GameObject newObject = Instantiate(victory, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
 
-		} else if (state == BattleState.LOST)
+        } else if (state == BattleState.LOST)
 		{
 			dialogueText.text = "You were defeated.";
-			// move to draft
-			NextScene();
-		}
+            // move to draft
+            //NextScene();
+            GameObject newObject = Instantiate(defeat, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
+        }
 
 		
 	}
@@ -943,6 +948,30 @@ public class BattleSystem : MonoBehaviour
 		gameStateSO.newGame = false;
 		Debug.Log("Loading Scene...");
 		SceneManager.LoadScene(1);
+    }
+
+    [SerializeField]
+    CanvasGroup loadWindow;
+    public void RestartBattle()
+    {
+        loadWindow.alpha = 1;
+        Delay();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    IEnumerable Delay()
+    {
+        yield return new WaitForSecondsRealtime(1);
+    }
+
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void Continue()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
 }
