@@ -50,7 +50,8 @@ public class TextController : MonoBehaviour
                             "...",
                             "..",
                             "'Or is it...?",
-                            "(Click to continue)"};
+                            "This is the end of our demo. Thanks for playing!",
+                            "(Click to exit)"};
     int dialoguePointer;
     void Start()
     {

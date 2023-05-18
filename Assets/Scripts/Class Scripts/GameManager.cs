@@ -118,6 +118,67 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ShowSkillTree (GameObject skillTree)
+    {
+        GameObject existedObject = GameObject.Find("SkillTree(Clone)");
+        if (existedObject != null)
+        {
+            Destroy(existedObject);
+        }
+
+        Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        Instantiate(skillTree, Vector3.zero, Quaternion.identity, canvas.transform);
+    }
+
+    string allSkillInfoText = "";
+    public void ShowSkillDescrisbtion(GameObject skillDes)
+    {
+        GameObject existedObject = GameObject.Find("SkillTree(Clone)");
+        if (existedObject != null)
+        {
+            Destroy(existedObject);
+        }
+
+        Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        GameObject infoPanel = Instantiate(skillDes, Vector3.zero, Quaternion.identity, canvas.transform);
+
+        if(allSkillInfoText == "")
+        {
+            foreach (Skill s in gameStateSO.skillList)
+            {
+                Debug.Log(s.name + s.id.ToString() + " -- " + s.prereqID + " -- " + s.type.ToString());
+                allSkillInfoText += $"{s.name}\n";
+                allSkillInfoText += $"  - Type : {s.typeName[s.type - 1]}\n";
+                allSkillInfoText += $"  - Level : {s.level}\n";
+                if (s.prereqID == 0)
+                {
+                    allSkillInfoText += $"  - Prerequisite : -\n";
+                }
+                else
+                {
+                    allSkillInfoText += $"  - Prerequisite : {s.skillNames[s.prereqID - 1]}\n";
+                }
+                allSkillInfoText += $"  - Turn to complete : {s.turnsToComplete}\n";
+                allSkillInfoText += $"  - Description : {s.description}\n";
+            }
+        }
+        TMP_Text container = infoPanel.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+        container.text = allSkillInfoText;
+        
+    }
+
+    public void CloseDescription()
+    {
+        GameObject skillDes = GameObject.Find("DecisionTable(Clone)").gameObject;
+        Destroy(skillDes);
+    }
+
+    public void CloseTree()
+    {
+        GameObject skillTree = GameObject.Find("SkillTree(Clone)").gameObject;
+        Destroy(skillTree);
+    }
+
     public Sprite getSpriteByGender(int id)
     {
         if (gameStateSO.StudentGenderTemplate[id] == 0)
