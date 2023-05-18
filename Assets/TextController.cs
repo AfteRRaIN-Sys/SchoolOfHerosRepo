@@ -14,7 +14,7 @@ public class TextController : MonoBehaviour
     [SerializeField]
     GameStateSO gameStateSO;
 
-    string[] allDialogues = {"Once upon the time, the world has been invaded by the powerful beings....",
+    string[] allPrologues = {"Once upon the time, the world has been invaded by the powerful beings....",
                              "They, are very very powerful, and their intelligence exceed any other beings...",
                              "They, want to seize control over this pathetic world...",
                              "They even send the warning messeges to the world for more 'entertaining' means...",
@@ -29,6 +29,28 @@ public class TextController : MonoBehaviour
                             "..",
                             "This is your story as the founder of the 'School of Heroes'...!",
                             "(Click to continue)"};
+
+    string[] allBetweenlogues = {"'We won!!' cry the heroes, the crownd cheer as they returned as victorious",
+                            "But you know that this is just the begining",
+                            ".....",
+                            "'I must start preparing for the next battle'",
+                            "(Click to continue)"};
+
+    string[] allEpilogues = {"Heroes are all celebrating thier hard fought victory against higher beings.",
+                             "All their studies and training has finally been fruitful.",
+                             "The heroes now reunion with thier mentor and begin the victory feast together.",
+                             "The world has the peace it deserve. Everyone is happy. Such a 'happy ending'",
+                             "...",
+                             "Ofcourse, there still a long way to go for these awe-spiring heroes and many more new faces.",
+                             "They still has to train nevertheless",
+                            "As of now they has been titled 'Heroes of the World'.",
+                            "They are the hope to shape this world better and better",
+                            "The triumphant of heroes is the sign of the world's 'golden age'",
+                            "....",
+                            "...",
+                            "..",
+                            "'Or is it...?",
+                            "(Click to continue)"};
     int dialoguePointer;
     void Start()
     {
@@ -37,21 +59,65 @@ public class TextController : MonoBehaviour
     }
     public void Continue ()
     {
-        Debug.Log("Continue Prologue..");
-        if(dialoguePointer < allDialogues.Length)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            if(dialoguePointer == 5)
+            Debug.Log("Continue Prologue..");
+            if (dialoguePointer < allPrologues.Length)
             {
-                introTextBox.text = "";
+                if (dialoguePointer == 5)
+                {
+                    introTextBox.text = "";
+                }
+                introTextBox.text += allPrologues[dialoguePointer] + System.Environment.NewLine;
+                dialoguePointer++;
             }
-            introTextBox.text += allDialogues[dialoguePointer] + System.Environment.NewLine;
-            dialoguePointer++;
+            else
+            {
+                CheckGameState();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
         }
-        else
+        else if (SceneManager.GetActiveScene().buildIndex == 5)
         {
-            CheckGameState();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if(gameStateSO.cur_sem == 2)
+            {
+                Debug.Log("Continue Epilogue..");
+                if (dialoguePointer < allEpilogues.Length)
+                {
+                    if (dialoguePointer == 5)
+                    {
+                        introTextBox.text = "";
+                    }
+                    introTextBox.text += allEpilogues[dialoguePointer] + System.Environment.NewLine;
+                    dialoguePointer++;
+                }
+                else
+                {
+                    CheckGameState();
+                    SceneManager.LoadScene(0);
+                }
+            }
+            else if (gameStateSO.cur_sem == 1)
+            {
+                Debug.Log("Continue After boss 1 logue");
+                if (dialoguePointer < allBetweenlogues.Length)
+                {
+                    if (dialoguePointer == 5)
+                    {
+                        introTextBox.text = "";
+                    }
+                    introTextBox.text += allBetweenlogues[dialoguePointer] + System.Environment.NewLine;
+                    dialoguePointer++;
+                }
+                else
+                {
+                    CheckGameState();
+                    SceneManager.LoadScene(2);
+                }
+            }
+            
         }
+        
     }
 
     public void Skip()
