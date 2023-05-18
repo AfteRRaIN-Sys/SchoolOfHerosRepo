@@ -139,15 +139,15 @@ public class BattleSystem : MonoBehaviour
 		enemyUnit = enemyGO.GetComponent<Unit>();
 
 		if(gameStateSO.cur_sem==1){
-			enemyUnit.unitName = "Typical Bad Teacher";
+			enemyUnit.unitName = "Fascia";
 			enemyUnit.currentHP = 400;
 			enemyUnit.maxHP = 400;
 
 		}
 		if(gameStateSO.cur_sem>=2){
-			enemyUnit.unitName = "Sadism Bad Teacher";
-			enemyUnit.currentHP = 600;
-			enemyUnit.maxHP = 600;
+			enemyUnit.unitName = "Narcissus";
+			enemyUnit.currentHP = 700;
+			enemyUnit.maxHP = 700;
 
 		}
 
@@ -249,8 +249,8 @@ public class BattleSystem : MonoBehaviour
 				yield return new WaitForSecondsRealtime(2f);
 				dialogueText.text = enemyUnit.unitName + " punishs "+ playerUnits[target].unitName;
 				yield return new WaitForSecondsRealtime(2f);
-				playerUnits[target].damage -= 5;
-				dialogueText.text = playerUnits[target].unitName + "'s atk is reduced by 5";
+				playerUnits[target].damage -= 10;
+				dialogueText.text = playerUnits[target].unitName + "'s atk is reduced by 10";
 				yield return new WaitForSecondsRealtime(2f);
 			}
 
