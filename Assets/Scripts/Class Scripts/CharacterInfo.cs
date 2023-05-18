@@ -147,16 +147,47 @@ public class CharacterInfo : MonoBehaviour
 
         card.transform.GetChild(0).GetComponent<Image>().sprite = bossInfoBackground;
 
+        TMP_Text name = card.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+
+        TMP_Text story = infoPanel.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+        TMP_Text hint = card.transform.GetChild(0).GetChild(1).GetComponent<TMP_Text>();
+
         if ((gameStateSO.cur_sem % 2) == 1)
         {
             card.GetComponent<Image>().sprite = bossSprite1;
+            name.text = "Fascia";
+
+            hint.text = "Oh? are you hurt?" + System.Environment.NewLine;
+            hint.text += "I'll make sure you ALL will hurt the same!" + System.Environment.NewLine;
+            hint.text += "Ahahaha, your cry is such a music to my ears~" + System.Environment.NewLine;
+            hint.text += "Brace yourself, next one's gonna be even harder!!" + System.Environment.NewLine;
+
+            story.text = "She, is one of the four incoming disasters mentioned in warning messeges." + System.Environment.NewLine;
+            story.text += "She has a nature of dictationship, despite everything that won't stay 'where they belong'." + System.Environment.NewLine;
+            story.text += "Peace and equility never in her vocabulary list." + System.Environment.NewLine;
+            story.text += "Only 'Complete obedience'." + System.Environment.NewLine;
+            story.text += "..." + System.Environment.NewLine;
+            story.text += "(Then we will have to be creative to fight against her.)" + System.Environment.NewLine;
         }
         else
         {
             card.GetComponent<Image>().sprite = bossSprite2;
+            name.text = "Narcissus";
+
+            hint.text = "Don't worry, I will take time to 'educate' you all!" + System.Environment.NewLine;
+            hint.text += "Hah! You think you are good enough? Think again!" + System.Environment.NewLine;
+            hint.text += "Now you all know that 'I' am the greatest!" + System.Environment.NewLine;
+
+            story.text = "He, is one of the four incoming disasters mentioned in warning messeges." + System.Environment.NewLine;
+            story.text += "He, no. 'It' is a monster live in the frozen land." + System.Environment.NewLine;
+            story.text += "It is the biggest narcissistic being of all four." + System.Environment.NewLine;
+            story.text += "As of being the oldest of all beings." + System.Environment.NewLine;
+            story.text += "It kill all the beings that he redeemed 'unintelligent'." + System.Environment.NewLine;
+            story.text += "..." + System.Environment.NewLine;
+            story.text += "(We will have him know defeat with our courages!.)" + System.Environment.NewLine;
         }
-        TMP_Text name = card.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
-        name.text = "Boss";
+        
+        
 
     }
 
