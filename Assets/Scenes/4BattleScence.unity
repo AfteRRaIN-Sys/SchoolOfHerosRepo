@@ -7315,6 +7315,10 @@ MonoBehaviour:
   angles: 
   victory: {fileID: 836503614}
   defeat: {fileID: 1851160411}
+  audioSource: {fileID: 445635794}
+  battleBGM: {fileID: 8300000, guid: 15a62432d310e9f489809b2e58144e4f, type: 3}
+  defeatBGM: {fileID: 8300000, guid: 4ea7d1f37028e87488185fdd22420a47, type: 3}
+  victoryBGM: {fileID: 8300000, guid: 99dccabab33b39b4eb0c51229d2bc2f3, type: 3}
   loadWindow: {fileID: 1692849123}
 --- !u!4 &1714929644
 Transform:
