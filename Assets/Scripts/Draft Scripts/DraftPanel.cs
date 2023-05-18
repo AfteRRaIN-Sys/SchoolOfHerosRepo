@@ -23,6 +23,7 @@ public class DraftPanel : MonoBehaviour
     public TMP_FontAsset cardFontAsset;
     
     public GameObject DraftArea;
+    public Image skillTree;
     public GameObject CardInfoPopup;
     public Sprite studentCardSprite;
     public Sprite professorCardSprite;
@@ -76,9 +77,9 @@ public class DraftPanel : MonoBehaviour
         
         allSkillInfoText = "";
         foreach(Skill s in gameStateSO.skillList) {
-            Debug.Log(s.id.ToString() + " -- " + s.prereqID + " -- " + s.type.ToString());
+            Debug.Log(s.name + s.id.ToString() + " -- " + s.prereqID + " -- " + s.type.ToString());
             allSkillInfoText += $"{s.name}\n";
-            // allSkillInfoText += $"  - Type : {s.typeName[s.type-1]}\n";
+            allSkillInfoText += $"  - Type : {s.typeName[s.type-1]}\n";
             allSkillInfoText += $"  - Level : {s.level}\n";
             if (s.prereqID == 0) {
                 allSkillInfoText += $"  - Prerequisite : -\n";

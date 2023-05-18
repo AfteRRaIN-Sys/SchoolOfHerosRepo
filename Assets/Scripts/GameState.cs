@@ -238,21 +238,29 @@ public class Skill {
     public int prereqID;
     public int level;
     public int turnsToComplete;
-    public string[] skillNames = {"Attack I","Attack II","Attack III","Attack IV","Critical Chance",
-                        "Life Steal I","Life Steal II","Poison Cloating","Bleeding Effect", "Open Wound",
-                        "Guard I","Guard II","Guard III","Guard IV","Evade","Reflect Damage","Counter Attack",
-                        "Absorb Damage I","Absorb Damage II"," Absorb Damage III",
-                        "Buff I","Buff II","Buff III","Buff IV","Team Buff I","Team Buff II","Team Buff III",
-                        "Debuff I","Debuff II","Debuff III","Debuff IV","Heal I","Heal II","Revive I","Revive II","Team Heal I", "Team Heal II"};
+    public string[] skillNames = {
+		"Attack I","Attack II","Attack III","Attack IV",
+		"Critical Chance", "Life Steal I","Life Steal II",
+        "Poison Cloating","Bleeding Effect", "Open Wound",
+		"Guard I","Guard II","Guard III","Guard IV",
+		"Evade","Reflect Damage","Counter Attack",
+		"Absorb Damage I","Absorb Damage II"," Absorb Damage III",
+		"Buff I","Buff II","Buff III","Buff IV","Team Buff I","Team Buff II","Team Buff III",
+		"Debuff I","Debuff II","Debuff III","Debuff IV",
+		"Heal I","Heal II","Revive I","Revive II","Team Heal I", "Team Heal II"
+    };
     
     
-    public string[] skillDes = {"small damage attack","normal damage attack","high damage attack","deadly damage attack","damage attack X2",
-                        "steal some hp when attacked","steal high hp when attacked","reduce some boss atk when attacked","reduce high boss atk when attacked", "reduce high boss atk and add it to player when attacked",
-                        "small reduced guard","normal reduced guard","high reduced guard","completely reduced guard","have chance to evade attack when guard","have chance to Reflect Boss Damage when guard","have chance to Reflect Boss Damage and attack 1 time when guard",
-                        "buff normal atk to 1 player","buff atk damage to 1 player","buff high atk to 1 player","buff deadly atk to 1 player",
-                        "buff small atk to all player","buff atk damage to all player","buff high atk to all player",
-                        "Debuff small boss atk","Debuff normal boss atk","Debuff high boss atk","Debuff deadly boss atk",
-                        "Heal small hp to 1 player","Heal normal hp to 1 player","Revive small hp to all player","Revive normal hp to all player","Heal normal hp to all player", "Heal high hp to all player"};
+    public string[] skillDes = {
+        "small damage attack","moderate damage attack","high damage attack","deadly damage attack",
+        "damage attack X2", "steal some hp when attacked","steal high hp when attacked",
+        "reduce some boss atk when attacked","reduce high boss atk when attacked", "reduce high boss atk and add it to player when attacked",
+        "small reduced guard","moderate reduced guard","high reduced guard","completely reduced guard",
+        "have chance to evade attack when guard","have chance to Reflect Boss Damage when guard","have chance to Reflect Boss Damage and attack 1 time when guard",
+        "have chance to absorb small amount of damage when guard", "have chance to absorb moderate amount of damage when guard", "have chance to absorb high amount of damage when guard",
+        "buff normal atk to 1 player","buff atk damage to 1 player","buff high atk to 1 player","buff deadly atk to 1 player","buff small atk to all player","buff atk damage to all player", "buff huge atk damage to all player",
+        "debuff small boss atk","Debuff normal boss atk","Debuff high boss atk","Debuff deadly boss atk",
+        "Heal small hp to 1 player","Heal normal hp to 1 player","Revive small hp to all player","Revive normal hp to all player","Heal normal hp to all player", "Heal high hp to all player"};
                     
     public string[] typeName = {
         "Atk",
@@ -283,6 +291,7 @@ public class Skill {
 
     public Skill(int id)
     {
+        Debug.Log($"skill id :{id}");
         this.name = this.skillNames[id-1];
         this.id = id;
         if(id <= 10){
@@ -295,15 +304,15 @@ public class Skill {
             this.type = 3;
         }
         else if(id<= 31){
-            this.id = 4;
+            this.type = 4;
         }
         else{
-            this.id = 5;
+            this.type = 5;
         }    
 
         this.level = this.skillLevels[id-1];
         this.prereqID = this.preReqs[id-1];
-        this.description = "test";
+        this.description = skillDes[id-1];
         this.turnsToComplete = this.level * 2;
     }
 }
