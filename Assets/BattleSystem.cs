@@ -401,6 +401,10 @@ public class BattleSystem : MonoBehaviour
 
     [SerializeField]
     GameObject victory, defeat;
+    [SerializeField]
+    AudioSource audioSource;
+    [SerializeField]
+    AudioClip battleBGM, defeatBGM, victoryBGM;
 	void EndBattle()
 	{
 		StopAllCoroutines();
@@ -423,6 +427,7 @@ public class BattleSystem : MonoBehaviour
             // move to draft
             //NextScene();
             GameObject newObject = Instantiate(defeat, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
+            audioSource.clip = defeatBGM;
         }
 
 		
@@ -956,6 +961,7 @@ public class BattleSystem : MonoBehaviour
     {
         loadWindow.alpha = 1;
         Delay();
+        audioSource.clip = battleBGM;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
