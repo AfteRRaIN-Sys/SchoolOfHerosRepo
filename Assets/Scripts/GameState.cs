@@ -26,36 +26,36 @@ public class GameState : MonoBehaviour {
                                         "Arnia"};
     int[] genderTemplate = { 0,1,0,0,0,0,0,0,0,0,0,1,1,0,1}; //0: male 1: female
      public bool[] studentAvail = {true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
-     public int[][] prefSkill = {new int[7]{0,1,2,3,4,5,6},
-                                 new int[7]{0,1,2,3,7,8,9},
-                                 new int[7]{0,1,2,3,10,11,12},
-                                 new int[7]{0,1,2,3,20,21,22},
-                                 new int[7]{0,1,2,3,31,32,33},
-                                 new int[7]{0,1,2,3,4,5,6},
-                                 new int[7]{0,1,2,3,7,8,9},
-                                 new int[7]{0,1,2,3,10,11,12},
-                                 new int[7]{0,1,2,3,20,21,22},
-                                 new int[7]{0,1,2,3,31,32,33},
-                                 new int[7]{0,1,2,3,4,5,6},
-                                 new int[7]{0,1,2,3,7,8,9},
-                                 new int[7]{0,1,2,3,10,11,12},
-                                 new int[7]{0,1,2,3,20,21,22},
-                                 new int[7]{0,1,2,3,31,32,33}};
-    public int[][] hateSkill = {new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16},
-                                 new int[7]{10,11,12,13,14,15,16}};
+     public int[][] prefSkill = {new int[7]{0,1,2,3,4,5,6},  //attack
+                                 new int[7]{0,1,2,3,7,8,9},  //special attack
+                                 new int[7]{3,4,5,6,7,8,9},  //big attack
+                                 new int[7]{0,1,2,3,4,5,6},  //attack
+                                 new int[7]{3,4,5,6,7,8,9},  //big attack
+                                 new int[7]{0,1,2,3,7,8,9},    //special attack
+                                 new int[7]{10,11,12,13,14,15,16},  //defense     
+                                 new int[7]{10,11,12,13,17,18,19},  //absorb
+                                 new int[7]{30,31,32,33,34,35,36},  //heal
+                                 new int[7]{30,31,32,33,34,35,36},  //heal
+                                 new int[7]{20,21,22,23,24,25,26},  //support
+                                 new int[7]{20,21,22,23,24,25,26},  //support
+                                 new int[7]{27,28,29,30,31,32,33},   //debuff
+                                 new int[7]{27,28,29,30,31,32,33},   //debuff
+                                 new int[7]{10,11,12,13,14,15,16}};  //defense
+    public int[][] hateSkill = {new int[7]{10,11,12,13,14,15,16},  //hate defense
+                                 new int[7]{20,21,22,23,24,25,26}, //hate support
+                                 new int[7]{30,31,32,33,34,35,36},  //hate heal
+                                 new int[7]{30,31,32,33,34,35,36},   //hate heal
+                                 new int[7]{10,11,12,13,14,15,16},  //hate defense
+                                 new int[7]{27,28,29,30,31,32,33},   //hate debuff
+                                 new int[7]{0,1,2,3,4,5,6},          //attack
+                                 new int[7]{3,4,5,6,7,8,9},          //big attack 
+                                 new int[7]{20,21,22,23,24,25,26},   //support
+                                 new int[7]{0,1,2,3,4,5,6},          //attack
+                                 new int[7]{10,11,12,13,14,15,16},   //defense
+                                 new int[7]{0,1,2,3,7,8,9},        // special attack
+                                 new int[7]{10,11,12,13,17,18,19},  //absorb
+                                 new int[7]{0,1,2,3,7,8,9},       //special attack
+                                 new int[7]{27,28,29,30,31,32,33}};  //debuff
 
     [SerializeField]
     Sprite stu1F, stu2F, stu3F, stu4F, stu5F, stu1B, stu2B, stu3B, stu4B, stu5B;
@@ -244,6 +244,15 @@ public class Skill {
                         "Absorb Damage I","Absorb Damage II"," Absorb Damage III",
                         "Buff I","Buff II","Buff III","Buff IV","Team Buff I","Team Buff II","Team Buff III",
                         "Debuff I","Debuff II","Debuff III","Debuff IV","Heal I","Heal II","Revive I","Revive II","Team Heal I", "Team Heal II"};
+    
+    
+    public string[] skillDes = {"small damage attack","normal damage attack","high damage attack","deadly damage attack","damage attack X2",
+                        "steal some hp when attacked","steal high hp when attacked","reduce some boss atk when attacked","reduce high boss atk when attacked", "reduce high boss atk and add it to player when attacked",
+                        "small reduced guard","normal reduced guard","high reduced guard","completely reduced guard","have chance to evade attack when guard","have chance to Reflect Boss Damage when guard","have chance to Reflect Boss Damage and attack 1 time when guard",
+                        "buff normal atk to 1 player","buff atk damage to 1 player","buff high atk to 1 player","buff deadly atk to 1 player",
+                        "buff small atk to all player","buff atk damage to all player","buff high atk to all player",
+                        "Debuff small boss atk","Debuff normal boss atk","Debuff high boss atk","Debuff deadly boss atk",
+                        "Heal small hp to 1 player","Heal normal hp to 1 player","Revive small hp to all player","Revive normal hp to all player","Heal normal hp to all player", "Heal high hp to all player"};
                     
     public string[] typeName = {
         "Atk",
