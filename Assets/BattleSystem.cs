@@ -515,7 +515,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[30]<=0 && br){
 					act  = Random.value;
 					if(act>=0.8 - supChance){
-						enemyUnit.damage -= 20;
+						enemyUnit.damage -= 15;
 						bossChance += 0.1;
 						dialogueText.text = slctStudents[i].name +"'s " + skillNames[30]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
@@ -597,7 +597,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[29]<=0 && br){
 					act  = Random.value;
 					if(act>=0.7 - supChance){
-						enemyUnit.damage -= 20;
+						enemyUnit.damage -= 15;
 						dialogueText.text = slctStudents[i].name +"'s " + skillNames[29]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);
@@ -677,7 +677,7 @@ public class BattleSystem : MonoBehaviour
 				if(playerUnits[i].skills[28]<=0 && br){
 					act  = Random.value;
 					if(act>=0.7 - supChance){
-						enemyUnit.damage -= 15;
+						enemyUnit.damage -= 10;
 						dialogueText.text = slctStudents[i].name +"'s " + skillNames[28]+" is successful!";
 						yield return new WaitForSecondsRealtime(2f);
 						//UnitMove(enemyUnit, -1);

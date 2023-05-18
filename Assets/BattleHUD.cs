@@ -35,7 +35,7 @@ public class BattleHUD : MonoBehaviour
 		string list = "";
 		
 		Debug.Log(player.skills.Length.ToString());
-		if(unit.maxHP > 200 ){
+		if(player.maxHP > 200 ){
 			list = "?????????????????????????????????";
 		}
         for(int i=0;i<37;i++){
@@ -50,14 +50,14 @@ public class BattleHUD : MonoBehaviour
 	public void SetHP(int hp)
 	{
 		hpSlider.value = hp;
-		Fill.color = Color.Lerp(MinHealthColor, MaxHealthColor, (float)hp / 100);
+		Fill.color = Color.Lerp(MinHealthColor, MaxHealthColor, (float)hp / player.maxHP);
 		currentHPText.text = hp.ToString();
 	}
 	
     public void OnMouseOver()
     {
         string list = "";
-		if(unit.maxHP > 200 ){
+		if(player.maxHP > 200 ){
 			list = "?????????????????????????????????";
 		}
         for(int i=0;i<37;i++){
