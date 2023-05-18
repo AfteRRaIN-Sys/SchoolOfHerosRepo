@@ -137,7 +137,6 @@ public class BattleSystem : MonoBehaviour
 		}
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
 		enemyUnit = enemyGO.GetComponent<Unit>();
-		enemyHUD.SetHUD(enemyUnit);
 
 		if(gameStateSO.cur_sem==1){
 			enemyUnit.unitName = "Typical Bad Teacher";
@@ -151,6 +150,8 @@ public class BattleSystem : MonoBehaviour
 			enemyUnit.maxHP = 600;
 
 		}
+
+		enemyHUD.SetHUD(enemyUnit);
 
 		dialogueText.text = enemyUnit.unitName + " approaches...";
 
