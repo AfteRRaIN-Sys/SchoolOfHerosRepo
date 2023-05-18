@@ -184,7 +184,9 @@ public class CharacterInfo : MonoBehaviour
             story.text += "As of being the oldest of all beings." + System.Environment.NewLine;
             story.text += "It kill all the beings that he redeemed 'unintelligent'." + System.Environment.NewLine;
             story.text += "..." + System.Environment.NewLine;
-            story.text += "(We will have him know defeat with our courages!.)" + System.Environment.NewLine;
+            story.text += "(He seems like to 'demorale' our heroes...)" + System.Environment.NewLine;
+            story.text += "(And he really enjoy that too...)" + System.Environment.NewLine;
+            story.text += "(We really need the 'Morale' Support for our frontlines...)" + System.Environment.NewLine;
         }
         
         
