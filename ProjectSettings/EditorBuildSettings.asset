@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/4BattleScence.unity
     guid: 03cda56cb758d5146b70af8c7bffb526
+  - enabled: 1
+    path: Assets/Scenes/5Epilogue.unity
+    guid: 77d4c9800ae183c42a29f5d692369c37
   m_configObjects: {}
