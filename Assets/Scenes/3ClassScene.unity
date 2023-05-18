@@ -1151,6 +1151,10 @@ MonoBehaviour:
   classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
   classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
   classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
+  preferLecture: {fileID: 21300000, guid: 252a1c84a38a3734999e6066cd658da1, type: 3}
+  hateLecture: {fileID: 21300000, guid: c39f7731a2a157a4b83e67ce00a6fe99, type: 3}
+  masteredLecture: {fileID: 21300000, guid: 6cbe79704d79ac14fa0e56f8030da13f, type: 3}
+  needPrerequisite: {fileID: 21300000, guid: 09ccdfd34fcff0941ab6c2bdeddace20, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!1 &386481506
 GameObject:
@@ -2317,6 +2321,10 @@ MonoBehaviour:
   classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
   classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
   classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
+  preferLecture: {fileID: 21300000, guid: 252a1c84a38a3734999e6066cd658da1, type: 3}
+  hateLecture: {fileID: 21300000, guid: c39f7731a2a157a4b83e67ce00a6fe99, type: 3}
+  masteredLecture: {fileID: 21300000, guid: 6cbe79704d79ac14fa0e56f8030da13f, type: 3}
+  needPrerequisite: {fileID: 21300000, guid: 09ccdfd34fcff0941ab6c2bdeddace20, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!114 &709152022
 MonoBehaviour:
@@ -3000,6 +3008,10 @@ MonoBehaviour:
   classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
   classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
   classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
+  preferLecture: {fileID: 21300000, guid: 252a1c84a38a3734999e6066cd658da1, type: 3}
+  hateLecture: {fileID: 21300000, guid: c39f7731a2a157a4b83e67ce00a6fe99, type: 3}
+  masteredLecture: {fileID: 21300000, guid: 6cbe79704d79ac14fa0e56f8030da13f, type: 3}
+  needPrerequisite: {fileID: 21300000, guid: 09ccdfd34fcff0941ab6c2bdeddace20, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!1 &868555396
 GameObject:
@@ -3298,6 +3310,10 @@ MonoBehaviour:
   classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
   classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
   classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
+  preferLecture: {fileID: 21300000, guid: 252a1c84a38a3734999e6066cd658da1, type: 3}
+  hateLecture: {fileID: 21300000, guid: c39f7731a2a157a4b83e67ce00a6fe99, type: 3}
+  masteredLecture: {fileID: 21300000, guid: 6cbe79704d79ac14fa0e56f8030da13f, type: 3}
+  needPrerequisite: {fileID: 21300000, guid: 09ccdfd34fcff0941ab6c2bdeddace20, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!1 &929352817
 GameObject:
@@ -4825,6 +4841,10 @@ MonoBehaviour:
   classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
   classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
   classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
+  preferLecture: {fileID: 21300000, guid: 252a1c84a38a3734999e6066cd658da1, type: 3}
+  hateLecture: {fileID: 21300000, guid: c39f7731a2a157a4b83e67ce00a6fe99, type: 3}
+  masteredLecture: {fileID: 21300000, guid: 6cbe79704d79ac14fa0e56f8030da13f, type: 3}
+  needPrerequisite: {fileID: 21300000, guid: 09ccdfd34fcff0941ab6c2bdeddace20, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!1 &1409062615
 GameObject:
@@ -4960,6 +4980,10 @@ MonoBehaviour:
   classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
   classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
   classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
+  preferLecture: {fileID: 21300000, guid: 252a1c84a38a3734999e6066cd658da1, type: 3}
+  hateLecture: {fileID: 21300000, guid: c39f7731a2a157a4b83e67ce00a6fe99, type: 3}
+  masteredLecture: {fileID: 21300000, guid: 6cbe79704d79ac14fa0e56f8030da13f, type: 3}
+  needPrerequisite: {fileID: 21300000, guid: 09ccdfd34fcff0941ab6c2bdeddace20, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!225 &1419712469
 CanvasGroup:
@@ -5135,6 +5159,10 @@ MonoBehaviour:
   classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
   classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
   classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
+  preferLecture: {fileID: 21300000, guid: 252a1c84a38a3734999e6066cd658da1, type: 3}
+  hateLecture: {fileID: 21300000, guid: c39f7731a2a157a4b83e67ce00a6fe99, type: 3}
+  masteredLecture: {fileID: 21300000, guid: 6cbe79704d79ac14fa0e56f8030da13f, type: 3}
+  needPrerequisite: {fileID: 21300000, guid: 09ccdfd34fcff0941ab6c2bdeddace20, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!114 &1450045995
 MonoBehaviour:
@@ -5879,6 +5907,10 @@ MonoBehaviour:
   classroom2: {fileID: 21300000, guid: ff9f642ba2de25d4eafc923f0d7bfd14, type: 3}
   classroom3: {fileID: 21300000, guid: 388a67d5fbe8bc3468a9237f795068f6, type: 3}
   classroom4: {fileID: 21300000, guid: f0f618ba5182fb84899b227724938a8d, type: 3}
+  preferLecture: {fileID: 21300000, guid: 252a1c84a38a3734999e6066cd658da1, type: 3}
+  hateLecture: {fileID: 21300000, guid: c39f7731a2a157a4b83e67ce00a6fe99, type: 3}
+  masteredLecture: {fileID: 21300000, guid: 6cbe79704d79ac14fa0e56f8030da13f, type: 3}
+  needPrerequisite: {fileID: 21300000, guid: 09ccdfd34fcff0941ab6c2bdeddace20, type: 3}
   minigameBoard: {fileID: 0}
 --- !u!225 &1696367979
 CanvasGroup:
@@ -7441,6 +7473,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1809158906}
     m_Modifications:
+    - target: {fileID: 151402255224049685, guid: 1fd7fc59e74aea442ab96fd281e24394, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151402255224049685, guid: 1fd7fc59e74aea442ab96fd281e24394, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151402255224049685, guid: 1fd7fc59e74aea442ab96fd281e24394, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 151402256546196799, guid: 1fd7fc59e74aea442ab96fd281e24394, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0

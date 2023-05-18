@@ -37,7 +37,7 @@ public class TextController : MonoBehaviour
     }
     public void Continue ()
     {
-        Debug.Log("Clicked");
+        Debug.Log("Continue Prologue..");
         if(dialoguePointer < allDialogues.Length)
         {
             if(dialoguePointer == 5)
@@ -52,6 +52,15 @@ public class TextController : MonoBehaviour
             CheckGameState();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+    }
+
+    public void Skip()
+    {
+        Debug.Log("Skip Prologue.");
+        
+        CheckGameState();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        
     }
 
     private void CheckGameState()

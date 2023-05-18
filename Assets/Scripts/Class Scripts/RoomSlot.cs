@@ -35,9 +35,6 @@ public class RoomSlot : MonoBehaviour, IDropHandler
                 {
                     if (!room.IsFull())
                     {
-                        room.AddStudent(student);
-                        student.Assign();
-
                         GameObject studentButtonObjectClone = Instantiate(studentButtonObject, transform.GetChild(1).transform);
                         GameObject studentButtonPanel = studentButtonObjectClone.transform.GetChild(0).gameObject;
                         Image studentPic = studentButtonObjectClone.transform.GetChild(1).GetComponent<Image>();
@@ -49,7 +46,10 @@ public class RoomSlot : MonoBehaviour, IDropHandler
                         studentButton.setStudent(student);
                         studentButton.setStudentRoom(room);
 
-                        profButtonObject.GetComponent<RectTransform>().SetSiblingIndex(0);                      
+                        profButtonObject.GetComponent<RectTransform>().SetSiblingIndex(0);
+
+                        room.AddStudent(student);
+                        student.Assign();                    
                     }
                     else
                     {
@@ -99,16 +99,17 @@ public class RoomSlot : MonoBehaviour, IDropHandler
                     //dropdownClone.transform.SetSiblingIndex(1);
                     GameObject dropdownClone = Instantiate(dropdownObject, profButtonObjectPanel.transform).gameObject;
 
-                    Debug.Log("prof: " + prof.name);
+
+                    /*Debug.Log("prof: " + prof.name);
                     Debug.Log("prof skills: " + prof.subjects.Length.ToString());
                     for (int i = 0; i < prof.subjects.Length; i++)
                     {
                         Debug.Log("prof skill: " + prof.subjects[i].ToString());
-                        /*if (prof.subjects[i] == 1)
+                        if (prof.subjects[i] == 1)
                         {
                             Debug.Log("prof skill: " + prof.subjects[i]);
-                        }*/
-                    }
+                        }
+                    }*/
 
                     dropdownClone.GetComponent<DropDownHandler>().SkillOptionEdit(dropdownClone.GetComponent<TMP_Dropdown>(), prof.subjects);
 
