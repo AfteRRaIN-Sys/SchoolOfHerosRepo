@@ -47,6 +47,8 @@ public class DraftPanel : MonoBehaviour
 
     public int point;
 
+    public string allSkillInfoText;
+
     [SerializeField]
     Sprite maleStudent1, maleStudent2, maleStudent3, femaleStudent1, femaleStudent2;
 
@@ -70,6 +72,22 @@ public class DraftPanel : MonoBehaviour
         numSelected = 0;
         maxSlctStudent = 3;
         point = gameStateSO.point;
+        
+        allSkillInfoText = "";
+        foreach(Skill s in gameStateSO.skillList) {
+            Debug.Log(s.id.ToString() + " -- " + s.prereqID + " -- " + s.type.ToString());
+            allSkillInfoText += $"{s.name}\n";
+            // allSkillInfoText += $"  - Type : {s.typeName[s.type-1]}\n";
+            allSkillInfoText += $"  - Level : {s.level}\n";
+            if (s.prereqID == 0) {
+                allSkillInfoText += $"  - Prerequisite : -\n";
+            } else {
+                allSkillInfoText += $"  - Prerequisite : {s.skillNames[s.prereqID-1]}\n";
+            }
+            allSkillInfoText += $"  - Turn to complete : {s.turnsToComplete}\n";
+            allSkillInfoText += $"  - Description : {s.description}\n";
+        }
+
         //Debug.Log(point);
         //Debug.Log(gameStateSO.cur_sem);
 
@@ -138,7 +156,8 @@ public class DraftPanel : MonoBehaviour
                 // Student tmp = this.gameObject.AddComponent<Student>();
                 GameObject studentCardObj = Instantiate(CardPrefab, new Vector3(0,0,0), Quaternion.identity);
                 studentCardObj.transform.SetParent(DraftArea.transform, false);
-                studentCardObj.GetComponent<Image>().sprite = studentCardSprite;
+                // studentCardObj.GetComponent<Image>().sprite = studentCardSprite;
+                studentCardObj.GetComponent<Image>().sprite = gameStateObj.GetComponent<GameState>().getSpriteByGender(students[i].id);
 
                 // Student student = Student.CreateComponent(studentCardObj, $"student_{i}", i);
                 // students.Add(student);

@@ -10,6 +10,8 @@ public class ToggleTable : MonoBehaviour
     Button button;
     Image toggleBtnImage;
 
+    public GameObject content;
+
     public Sprite x;
     public Sprite eye;
 
@@ -26,6 +28,7 @@ public class ToggleTable : MonoBehaviour
 
         Image table = GameObject.Find("DraftArea").GetComponent<DraftPanel>().decisionTable;
         table.gameObject.SetActive(!table.gameObject.activeSelf);
+        content.GetComponentInChildren<TMP_Text>().text = GameObject.Find("DraftArea").GetComponent<DraftPanel>().allSkillInfoText;
 
         CanvasGroup slctStudentTxt = GameObject.Find("Background").GetComponentInChildren<CanvasGroup>();
         // Debug.Log($"clicked : txt : {slctStudentTxt.text}");

@@ -95,6 +95,10 @@ public class CardInfoBtnScript : MonoBehaviour
             
         }
         GameObject.Find("DraftArea").GetComponent<DraftPanel>().CardInfoPopup.GetComponentInChildren<CardInfoTxtAreaScript>().infoTxtProperties = info;
-        GameObject.Find("DraftArea").GetComponent<DraftPanel>().CardInfoPopup.SetActive(true);  
+        GameObject.Find("DraftArea").GetComponent<DraftPanel>().CardInfoPopup.SetActive(true);
+        
+        if (isStudent){
+            GameObject.Find("CardProfilePicture").GetComponent<Image>().sprite = GameObject.Find("DraftArea").GetComponent<DraftPanel>().gameStateObj.GetComponent<GameState>().getSpriteByGender(student.id);
+        }
     }
 }

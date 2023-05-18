@@ -78,11 +78,11 @@ public class MainMenuBtn : MonoBehaviour
         }
 
         List<Skill> skillList = new List<Skill>();
-        for (int i =0; i<numSkill; i++) {
+        for (int i =0; i<this.numSkill; i++) {
             skillList.Add(new Skill(i+1));
         }
-        int[] progressLeftTemplate = new int[numSkill];
-        for (int i =0; i<numSkill; i++) {
+        int[] progressLeftTemplate = new int[this.numSkill];
+        for (int i =0; i<this.numSkill; i++) {
             progressLeftTemplate[i] = skillList[i].turnsToComplete;
         }
         gameStateSO.skillList = skillList;

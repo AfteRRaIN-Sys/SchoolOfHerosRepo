@@ -736,7 +736,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.999997}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -949,6 +949,21 @@ MonoBehaviour:
   - Arthur
   - Arnia
   studentAvail: 010101010101010101010101010101
+  stu1F: {fileID: 0}
+  stu2F: {fileID: 0}
+  stu3F: {fileID: 0}
+  stu4F: {fileID: 0}
+  stu5F: {fileID: 0}
+  stu1B: {fileID: 0}
+  stu2B: {fileID: 0}
+  stu3B: {fileID: 0}
+  stu4B: {fileID: 0}
+  stu5B: {fileID: 0}
+  maleStudent1: {fileID: 21300000, guid: cca2e45d928285940acdd23ecf92aac6, type: 3}
+  maleStudent2: {fileID: 21300000, guid: b523f75d01e621643bbeb8d03af1c3ae, type: 3}
+  maleStudent3: {fileID: 21300000, guid: 2ef8db33deac8ad4d9d5b1d9ec0c5331, type: 3}
+  femaleStudent1: {fileID: 21300000, guid: d9c8ff051659cad4b97069dfa44790c7, type: 3}
+  femaleStudent2: {fileID: 21300000, guid: 269aecdebf98c2d4c9d2f098debe7ddb, type: 3}
   ProfessorTemplateName:
   - Sword Master
   - Vampire Lord
@@ -1141,7 +1156,7 @@ MonoBehaviour:
     Desc\r\n - Turn to complete\r\n - lv\r\n - category\r\n\r\nSkill 4\r\n - Desc\r\n-
     Turn to complete\r\n - lv\r\n - category"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 097c46d0427a5904da679c45121145b8, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1178,7 +1193,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 60
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1205,7 +1220,7 @@ MonoBehaviour:
   m_margin: {x: 50, y: 50, z: 50, w: 50}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &428410310
@@ -2574,8 +2589,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 271, y: -261}
-  m_SizeDelta: {x: 400, y: 400}
+  m_AnchoredPosition: {x: 280.58, y: -424.64}
+  m_SizeDelta: {x: 561.16, y: 849.28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1510159869
 MonoBehaviour:
@@ -2699,7 +2714,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 195649166}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.999997
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3312,7 +3327,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Skill Info
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 56c0d1facbf21a145a9931e0772d086d, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3337,8 +3352,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65
-  m_fontSizeBase: 65
+  m_fontSize: 85
+  m_fontSizeBase: 85
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3376,7 +3391,7 @@ MonoBehaviour:
   m_margin: {x: 25, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1871318188
@@ -3666,6 +3681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed5365bf28d5064ea445b5bb2c089b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  content: {fileID: 428410307}
   x: {fileID: 21300000, guid: 4b795edd8619643458452b983c4039f2, type: 3}
   eye: {fileID: 21300000, guid: 8004118ba4145a74e823fedaa37acf3a, type: 3}
 --- !u!114 &1927013495
@@ -3788,7 +3804,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.00049698463, y: 0.00024414062}
-  m_SizeDelta: {x: 0, y: -357}
+  m_SizeDelta: {x: 0, y: -526.979}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1949330857
 MonoBehaviour:
