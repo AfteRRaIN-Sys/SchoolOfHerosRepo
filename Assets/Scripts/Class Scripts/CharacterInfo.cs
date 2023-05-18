@@ -9,9 +9,43 @@ public class CharacterInfo : MonoBehaviour
     [SerializeField]
     GameStateSO gameStateSO;
     [SerializeField]
-    Sprite studentMaleSprite, studentFemaleSprite, professorSprite,  bossSprite1, bossSprite2;
+    Sprite maleStudent1, maleStudent2, maleStudent3, femaleStudent1, femaleStudent2, 
+        professorSprite,  
+        bossSprite1, bossSprite2;
     [SerializeField]
     Sprite studentInfoBackground, professorInfoBackground, bossInfoBackground;
+
+    public Sprite getSpriteByGender(int id)
+    {
+        if (gameStateSO.StudentGenderTemplate[id] == 0)
+        {
+            // male
+            if ((id % 3) == 0)
+            {
+                return maleStudent1;
+            }
+            else if ((id % 3) == 1)
+            {
+                return maleStudent2;
+            }
+            else
+            {
+                return maleStudent3;
+            }
+        }
+        else
+        {
+            // female
+            if ((id % 3) == 0)
+            {
+                return femaleStudent1;
+            }
+            else
+            {
+                return femaleStudent2;
+            }
+        }
+    }
 
     public void ClassroomShowStudentInfo(GameObject infoPrefab)
     {
@@ -26,12 +60,12 @@ public class CharacterInfo : MonoBehaviour
         GameObject infoPanel = Instantiate(infoPrefab, Vector3.zero, Quaternion.identity, canvas.transform);
         GameObject card = infoPanel.transform.GetChild(1).gameObject;
 
-        card.GetComponent<Image>().sprite = studentMaleSprite;
+        card.GetComponent<Image>().sprite = getSpriteByGender(student.id);
 
         TMP_Text name = card.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
         name.text = student.name;
 
-        card.transform.GetChild(0).GetComponent<Image>().sprite = studentInfoBackground;
+        card.transform.GetChild(0).GetComponent<Image>().sprite = getSpriteByGender(student.id);
 
         TMP_Text pref = infoPanel.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
         TMP_Text summary = card.transform.GetChild(0).GetChild(1).GetComponent<TMP_Text>();

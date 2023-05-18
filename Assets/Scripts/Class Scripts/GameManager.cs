@@ -42,7 +42,8 @@ public class GameManager : MonoBehaviour
     CanvasGroup notificationLogButton, BossDetailButton;
     [SerializeField] //Card Prefab for Students and Professors
     GameObject studentCardPrefab, professorCardPrefab;
-
+    [SerializeField]
+    Sprite maleStudent1, maleStudent2, maleStudent3, femaleStudent1, femaleStudent2;
 
     //This will be called in the start of the scene
     public void Start()
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour
             TMP_Text name = studentCardObj.transform.GetChild(1).GetComponent<TMP_Text>();
             name.text = tmp.name;
             //Debug.Log($"student {s.name} {studentCardObj.GetComponent<Student>().name}");
+            studentCardObj.GetComponent<Image>().sprite = getSpriteByGender(tmp.id);
         }
 
         List<Professor> slctProfessors = gameStateSO.professorList;
@@ -114,6 +116,38 @@ public class GameManager : MonoBehaviour
 
 
 
+    }
+
+    public Sprite getSpriteByGender(int id)
+    {
+        if (gameStateSO.StudentGenderTemplate[id] == 0)
+        {
+            // male
+            if ((id % 3) == 0)
+            {
+                return maleStudent1;
+            }
+            else if ((id % 3) == 1)
+            {
+                return maleStudent2;
+            }
+            else
+            {
+                return maleStudent3;
+            }
+        }
+        else
+        {
+            // female
+            if ((id % 3) == 0)
+            {
+                return femaleStudent1;
+            }
+            else
+            {
+                return femaleStudent2;
+            }
+        }
     }
 
     // Move to next scene in order from Built scenes

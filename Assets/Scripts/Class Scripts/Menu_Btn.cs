@@ -48,6 +48,11 @@ public class Menu_Btn : Game_Button
 
     public void Cancel()
     {
+        GameObject existedMenu = GameObject.Find("BuyList(Clone)");
+        if(existedMenu != null)
+        {
+            Destroy(existedMenu);
+        }
         Destroy(transform.parent.gameObject);
     }
 

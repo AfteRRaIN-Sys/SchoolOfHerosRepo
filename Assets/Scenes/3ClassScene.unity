@@ -934,8 +934,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
-  studentMaleSprite: {fileID: 0}
-  studentFemaleSprite: {fileID: 0}
+  maleStudent1: {fileID: 0}
+  maleStudent2: {fileID: 0}
+  maleStudent3: {fileID: 0}
+  femaleStudent1: {fileID: 0}
+  femaleStudent2: {fileID: 0}
   professorSprite: {fileID: 0}
   bossSprite1: {fileID: 21300000, guid: 9e32cbf1a3c31f443b2bdda5dc90bd4e, type: 3}
   bossSprite2: {fileID: 21300000, guid: ee5c97d166ee4014f9fbff9d381e87c4, type: 3}
@@ -1005,6 +1008,11 @@ MonoBehaviour:
   BossDetailButton: {fileID: 305547248}
   studentCardPrefab: {fileID: 1502024292869187119, guid: 5379a5f8ecf7c8f49aefaad303c3e91f, type: 3}
   professorCardPrefab: {fileID: 6418140653729942050, guid: 012d51f632d0b944c859241a66e76804, type: 3}
+  maleStudent1: {fileID: 21300000, guid: cca2e45d928285940acdd23ecf92aac6, type: 3}
+  maleStudent2: {fileID: 21300000, guid: b523f75d01e621643bbeb8d03af1c3ae, type: 3}
+  maleStudent3: {fileID: 21300000, guid: 2ef8db33deac8ad4d9d5b1d9ec0c5331, type: 3}
+  femaleStudent1: {fileID: 21300000, guid: d9c8ff051659cad4b97069dfa44790c7, type: 3}
+  femaleStudent2: {fileID: 21300000, guid: 269aecdebf98c2d4c9d2f098debe7ddb, type: 3}
 --- !u!114 &372683186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1127,6 +1135,9 @@ MonoBehaviour:
   profButtonObject: {fileID: 397375156002916942, guid: 0c3eec1ca886701459bb3828cc64d4a1, type: 3}
   studentButtonObject: {fileID: 2966418791363276330, guid: 3d70c36c9a4bdca4ab4e4ed916d7f924, type: 3}
   dropdownObject: {fileID: 8177269612918981862, guid: d9b940f9a2f7bbb488c926b290ace1a4, type: 3}
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
+  maleIcon: {fileID: 21300000, guid: 9b41f93c1ef655140bf90896d482484c, type: 3}
+  femaleIcon: {fileID: 21300000, guid: f55ea90ce27747e4d8c82b9df65a5ef7, type: 3}
 --- !u!114 &385389138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2343,6 +2354,9 @@ MonoBehaviour:
   profButtonObject: {fileID: 397375156002916942, guid: 0c3eec1ca886701459bb3828cc64d4a1, type: 3}
   studentButtonObject: {fileID: 2966418791363276330, guid: 3d70c36c9a4bdca4ab4e4ed916d7f924, type: 3}
   dropdownObject: {fileID: 8177269612918981862, guid: d9b940f9a2f7bbb488c926b290ace1a4, type: 3}
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
+  maleIcon: {fileID: 21300000, guid: 9b41f93c1ef655140bf90896d482484c, type: 3}
+  femaleIcon: {fileID: 21300000, guid: f55ea90ce27747e4d8c82b9df65a5ef7, type: 3}
 --- !u!225 &709152024
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2984,6 +2998,9 @@ MonoBehaviour:
   profButtonObject: {fileID: 397375156002916942, guid: 0c3eec1ca886701459bb3828cc64d4a1, type: 3}
   studentButtonObject: {fileID: 2966418791363276330, guid: 3d70c36c9a4bdca4ab4e4ed916d7f924, type: 3}
   dropdownObject: {fileID: 8177269612918981862, guid: d9b940f9a2f7bbb488c926b290ace1a4, type: 3}
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
+  maleIcon: {fileID: 21300000, guid: 9b41f93c1ef655140bf90896d482484c, type: 3}
+  femaleIcon: {fileID: 21300000, guid: f55ea90ce27747e4d8c82b9df65a5ef7, type: 3}
 --- !u!114 &853460756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3286,6 +3303,9 @@ MonoBehaviour:
   profButtonObject: {fileID: 397375156002916942, guid: 0c3eec1ca886701459bb3828cc64d4a1, type: 3}
   studentButtonObject: {fileID: 2966418791363276330, guid: 3d70c36c9a4bdca4ab4e4ed916d7f924, type: 3}
   dropdownObject: {fileID: 8177269612918981862, guid: d9b940f9a2f7bbb488c926b290ace1a4, type: 3}
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
+  maleIcon: {fileID: 21300000, guid: 9b41f93c1ef655140bf90896d482484c, type: 3}
+  femaleIcon: {fileID: 21300000, guid: f55ea90ce27747e4d8c82b9df65a5ef7, type: 3}
 --- !u!114 &917979018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4135,8 +4155,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameStateSO: {fileID: 0}
-  studentMaleSprite: {fileID: 0}
-  studentFemaleSprite: {fileID: 0}
+  maleStudent1: {fileID: 0}
+  maleStudent2: {fileID: 0}
+  maleStudent3: {fileID: 0}
+  femaleStudent1: {fileID: 0}
+  femaleStudent2: {fileID: 0}
   professorSprite: {fileID: 0}
   bossSprite1: {fileID: 0}
   bossSprite2: {fileID: 0}
@@ -4945,6 +4968,9 @@ MonoBehaviour:
   profButtonObject: {fileID: 397375156002916942, guid: 0c3eec1ca886701459bb3828cc64d4a1, type: 3}
   studentButtonObject: {fileID: 2966418791363276330, guid: 3d70c36c9a4bdca4ab4e4ed916d7f924, type: 3}
   dropdownObject: {fileID: 8177269612918981862, guid: d9b940f9a2f7bbb488c926b290ace1a4, type: 3}
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
+  maleIcon: {fileID: 21300000, guid: 9b41f93c1ef655140bf90896d482484c, type: 3}
+  femaleIcon: {fileID: 21300000, guid: f55ea90ce27747e4d8c82b9df65a5ef7, type: 3}
 --- !u!114 &1400013127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5084,6 +5110,9 @@ MonoBehaviour:
   profButtonObject: {fileID: 397375156002916942, guid: 0c3eec1ca886701459bb3828cc64d4a1, type: 3}
   studentButtonObject: {fileID: 2966418791363276330, guid: 3d70c36c9a4bdca4ab4e4ed916d7f924, type: 3}
   dropdownObject: {fileID: 8177269612918981862, guid: d9b940f9a2f7bbb488c926b290ace1a4, type: 3}
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
+  maleIcon: {fileID: 21300000, guid: 9b41f93c1ef655140bf90896d482484c, type: 3}
+  femaleIcon: {fileID: 21300000, guid: f55ea90ce27747e4d8c82b9df65a5ef7, type: 3}
 --- !u!114 &1409062626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5309,6 +5338,9 @@ MonoBehaviour:
   profButtonObject: {fileID: 397375156002916942, guid: 0c3eec1ca886701459bb3828cc64d4a1, type: 3}
   studentButtonObject: {fileID: 2966418791363276330, guid: 3d70c36c9a4bdca4ab4e4ed916d7f924, type: 3}
   dropdownObject: {fileID: 8177269612918981862, guid: d9b940f9a2f7bbb488c926b290ace1a4, type: 3}
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
+  maleIcon: {fileID: 21300000, guid: 9b41f93c1ef655140bf90896d482484c, type: 3}
+  femaleIcon: {fileID: 21300000, guid: f55ea90ce27747e4d8c82b9df65a5ef7, type: 3}
 --- !u!225 &1450045997
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5697,6 +5729,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1809158906}
     m_Modifications:
+    - target: {fileID: 794096306349955626, guid: 5379a5f8ecf7c8f49aefaad303c3e91f, type: 3}
+      propertyPath: maleStudent1
+      value: 
+      objectReference: {fileID: 21300000, guid: 5996cd7efba5efe4f9c7f78509495323, type: 3}
+    - target: {fileID: 794096306349955626, guid: 5379a5f8ecf7c8f49aefaad303c3e91f, type: 3}
+      propertyPath: maleStudent2
+      value: 
+      objectReference: {fileID: 21300000, guid: 4b22ca4bd25403c4c84fe1878ec633c7, type: 3}
+    - target: {fileID: 794096306349955626, guid: 5379a5f8ecf7c8f49aefaad303c3e91f, type: 3}
+      propertyPath: maleStudent3
+      value: 
+      objectReference: {fileID: 21300000, guid: 592aa57d6737ad447939832c5286a7e0, type: 3}
+    - target: {fileID: 794096306349955626, guid: 5379a5f8ecf7c8f49aefaad303c3e91f, type: 3}
+      propertyPath: femaleStudent1
+      value: 
+      objectReference: {fileID: 21300000, guid: 8705887a571529b49a2c9f124fa2c5c2, type: 3}
+    - target: {fileID: 794096306349955626, guid: 5379a5f8ecf7c8f49aefaad303c3e91f, type: 3}
+      propertyPath: femaleStudent2
+      value: 
+      objectReference: {fileID: 21300000, guid: 56308dcf050eac949a21ac6c89448b17, type: 3}
     - target: {fileID: 1502024292869187119, guid: 5379a5f8ecf7c8f49aefaad303c3e91f, type: 3}
       propertyPath: m_Name
       value: StudentCard(ClassScene)
@@ -6011,6 +6063,9 @@ MonoBehaviour:
   profButtonObject: {fileID: 397375156002916942, guid: 0c3eec1ca886701459bb3828cc64d4a1, type: 3}
   studentButtonObject: {fileID: 2966418791363276330, guid: 3d70c36c9a4bdca4ab4e4ed916d7f924, type: 3}
   dropdownObject: {fileID: 8177269612918981862, guid: d9b940f9a2f7bbb488c926b290ace1a4, type: 3}
+  gameStateSO: {fileID: 11400000, guid: b22334a79a1b9474b8619317ae4ba893, type: 2}
+  maleIcon: {fileID: 21300000, guid: 9b41f93c1ef655140bf90896d482484c, type: 3}
+  femaleIcon: {fileID: 21300000, guid: f55ea90ce27747e4d8c82b9df65a5ef7, type: 3}
 --- !u!114 &1678764367
 MonoBehaviour:
   m_ObjectHideFlags: 0

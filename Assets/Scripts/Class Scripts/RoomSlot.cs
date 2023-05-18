@@ -13,10 +13,16 @@ public class RoomSlot : MonoBehaviour, IDropHandler
     public GameObject studentButtonObject;
     public GameObject dropdownObject;
 
+
     void Start()
     {
         room = GetComponent<Room>();
     }
+
+    [SerializeField]
+    GameStateSO gameStateSO;
+    [SerializeField]
+    Sprite maleIcon, femaleIcon;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -38,6 +44,15 @@ public class RoomSlot : MonoBehaviour, IDropHandler
                         GameObject studentButtonObjectClone = Instantiate(studentButtonObject, transform.GetChild(1).transform);
                         GameObject studentButtonPanel = studentButtonObjectClone.transform.GetChild(0).gameObject;
                         Image studentPic = studentButtonObjectClone.transform.GetChild(1).GetComponent<Image>();
+
+                        if (gameStateSO.StudentGenderTemplate[student.id] == 0)
+                        {
+                            studentPic.sprite = maleIcon;
+                        }
+                        else
+                        {
+                            studentPic.sprite = femaleIcon;
+                        }
 
                         Stud_Btn studentButton = studentButtonPanel.GetComponent<Stud_Btn>();
 
