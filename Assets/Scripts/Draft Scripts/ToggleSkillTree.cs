@@ -10,6 +10,8 @@ public class ToggleSkillTree : MonoBehaviour
     Button button;
     Image toggleBtnImage;
 
+    public Button toggleSkillInfoButton;
+
     public GameObject content;
 
     public Sprite x;
@@ -29,6 +31,7 @@ public class ToggleSkillTree : MonoBehaviour
         Image table = GameObject.Find("DraftArea").GetComponent<DraftPanel>().skillTree;
         table.gameObject.SetActive(!table.gameObject.activeSelf);
         // content.GetComponentInChildren<TMP_Text>().text = GameObject.Find("DraftArea").GetComponent<DraftPanel>().allSkillInfoText;
+        toggleSkillInfoButton.gameObject.SetActive(!toggleSkillInfoButton.gameObject.activeSelf);
 
         CanvasGroup slctStudentTxt = GameObject.Find("Background").GetComponentInChildren<CanvasGroup>();
         // Debug.Log($"clicked : txt : {slctStudentTxt.text}");

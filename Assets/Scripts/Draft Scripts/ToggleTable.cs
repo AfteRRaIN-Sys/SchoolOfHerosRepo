@@ -9,6 +9,7 @@ public class ToggleTable : MonoBehaviour
 {
     Button button;
     Image toggleBtnImage;
+    public Button toggleSkillTreeButton;
 
     public GameObject content;
 
@@ -28,6 +29,9 @@ public class ToggleTable : MonoBehaviour
 
         Image table = GameObject.Find("DraftArea").GetComponent<DraftPanel>().decisionTable;
         table.gameObject.SetActive(!table.gameObject.activeSelf);
+
+        toggleSkillTreeButton.gameObject.SetActive(!toggleSkillTreeButton.gameObject.activeSelf);
+
         content.GetComponentInChildren<TMP_Text>().text = GameObject.Find("DraftArea").GetComponent<DraftPanel>().allSkillInfoText;
 
         CanvasGroup slctStudentTxt = GameObject.Find("Background").GetComponentInChildren<CanvasGroup>();
