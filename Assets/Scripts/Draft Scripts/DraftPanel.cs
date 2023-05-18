@@ -20,6 +20,7 @@ public class DraftPanel : MonoBehaviour
     public GameObject Background;
     public Sprite backgroundSprite1;
     public Sprite backgroundSprite2;
+    public TMP_FontAsset cardFontAsset;
     
     public GameObject DraftArea;
     public GameObject CardInfoPopup;
@@ -175,6 +176,9 @@ public class DraftPanel : MonoBehaviour
                 tmp.text = student.name;
                 tmp.fontSize = 30f;
                 tmp.color = Color.white;
+                tmp.font = cardFontAsset;
+                tmp.margin = new Vector4(0,0,10,40);
+                tmp.verticalAlignment = VerticalAlignmentOptions.Bottom;
 
                 studentCardObjList.Add(studentCardObj);
             }
@@ -211,9 +215,12 @@ public class DraftPanel : MonoBehaviour
                 // add txt to each studentCardObj
                 // print($"GetComponentInChildren<TMP_Text>().text : {}");
                 TMP_Text tmp = professorCardObj.GetComponentInChildren<TMP_Text>();
-                tmp.text = professor.name;
+                tmp.text = $"{professor.name}\n{professor.cost}";
                 tmp.fontSize = 30f;
                 tmp.color = Color.white;
+                tmp.font = cardFontAsset;
+                tmp.margin = new Vector4(0,0,10,40);
+                tmp.verticalAlignment = VerticalAlignmentOptions.Bottom;
 
                 professorCardObjList.Add(professorCardObj);
             }
