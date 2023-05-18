@@ -201,6 +201,10 @@ public class DraftPanel : MonoBehaviour
                 professorCardObj.GetComponent<Image>().sprite = professorCardSprite;
                 professorCardObj.transform.SetParent(DraftArea.transform, false);
 
+                professorCardObj.transform.GetChild(1).GetComponent<CanvasGroup>().alpha = 1f;
+                // btnColor.a = 1f;
+                // professorCardObj.GetComponentInChildren<Button>().GetComponentInChildren<Image>().color = btnColor;
+
                 // Professor professor = Professor.CreateComponent(professorCardObj, $"Professor_{i}", i);
                 // professors.Add(professor);
                 Professor professor = professorCardObj.AddComponent<Professor>();
@@ -216,11 +220,11 @@ public class DraftPanel : MonoBehaviour
                 // add txt to each studentCardObj
                 // print($"GetComponentInChildren<TMP_Text>().text : {}");
                 TMP_Text tmp = professorCardObj.GetComponentInChildren<TMP_Text>();
-                tmp.text = $"{professor.name}\n{professor.cost}";
+                tmp.text = $"{professor.name}\n${professor.cost}";
                 tmp.fontSize = 30f;
                 tmp.color = Color.white;
                 tmp.font = cardFontAsset;
-                tmp.margin = new Vector4(0,0,10,40);
+                tmp.margin = new Vector4(0,0,10,50);
                 tmp.verticalAlignment = VerticalAlignmentOptions.Bottom;
 
                 professorCardObjList.Add(professorCardObj);

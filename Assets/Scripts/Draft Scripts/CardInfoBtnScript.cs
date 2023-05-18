@@ -99,6 +99,8 @@ public class CardInfoBtnScript : MonoBehaviour
         
         if (isStudent){
             GameObject.Find("CardProfilePicture").GetComponent<Image>().sprite = GameObject.Find("DraftArea").GetComponent<DraftPanel>().gameStateObj.GetComponent<GameState>().getSpriteByGender(student.id);
+        } else {
+            GameObject.Find("CardProfilePicture").GetComponent<Image>().sprite = GameObject.Find("DraftArea").GetComponent<DraftPanel>().professorCardSprite;
         }
     }
 }

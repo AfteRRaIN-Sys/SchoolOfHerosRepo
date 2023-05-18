@@ -5276,7 +5276,7 @@ PrefabInstance:
     - target: {fileID: -4899582185881224644, guid: a5fd5896fe22e4e4db2f7efbe29b3767, type: 3}
       propertyPath: professorCardSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5915cdc174101e540b3349e21ee2cd74, type: 3}
+      objectReference: {fileID: 21300000, guid: afdde9927bde71e478fa676a8922fa24, type: 3}
     - target: {fileID: -4899582185881224644, guid: a5fd5896fe22e4e4db2f7efbe29b3767, type: 3}
       propertyPath: students.Array.size
       value: 0

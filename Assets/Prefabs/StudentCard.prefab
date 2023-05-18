@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7904373836037941532}
   - component: {fileID: 4307319224928398213}
   - component: {fileID: 2155236825964763972}
+  - component: {fileID: 2357172028187885803}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -62,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9536657, g: 0.990566, b: 0.7429245, a: 0}
+  m_Color: {r: 0.9536657, g: 0.990566, b: 0.7429245, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -135,6 +136,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0dd8325cf30954d978f12e23b102e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &2357172028187885803
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292131718755349133}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5585947104732090587
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +485,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: '?'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
