@@ -422,11 +422,11 @@ public class BattleSystem : MonoBehaviour
 		if(state == BattleState.WON)
 		{
 			dialogueText.text = "You won the battle!";
-			//yield return new WaitForSecondsRealtime(2f);
-			dialogueText.text = "You get 700 points";
-			gameStateSO.point += 700;
+			yield return new WaitForSecondsRealtime(2f);
+			dialogueText.text = "You get 400 points and 700 money";
+			gameStateSO.point += 400;
 			gameStateSO.money += 700;
-            //yield return new WaitForSecondsRealtime(2f);
+            yield return new WaitForSecondsRealtime(2f);
             // move to draft
             //NextScene();
             GameObject newObject = Instantiate(victory, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
@@ -434,6 +434,7 @@ public class BattleSystem : MonoBehaviour
         } else if (state == BattleState.LOST)
 		{
 			dialogueText.text = "You were defeated.";
+			yield return new WaitForSecondsRealtime(2f);
             // move to draft
             //NextScene();
             GameObject newObject = Instantiate(defeat, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
@@ -805,8 +806,8 @@ public class BattleSystem : MonoBehaviour
 							yield return new WaitForSecondsRealtime(2f);
 							enemyUnit.TakeDamage(dmg);
 							enemyHUD.SetHP(enemyUnit.currentHP);
-							playerUnits[i].damage += 10;
-							enemyUnit.damage -= 10;
+							playerUnits[i].damage += 5;
+							enemyUnit.damage -= 5;
 							StartCoroutine(UnitMove(enemyUnit, -1));
 							StartCoroutine(UnitMove(playerUnits[i], -1));
 							dr = false;
@@ -839,7 +840,7 @@ public class BattleSystem : MonoBehaviour
 							yield return new WaitForSecondsRealtime(2f);
 							enemyUnit.TakeDamage(dmg);
 							enemyHUD.SetHP(enemyUnit.currentHP);
-							enemyUnit.damage -= 10;
+							enemyUnit.damage -= 5;
 							StartCoroutine(UnitMove(enemyUnit, -1));
 							StartCoroutine(UnitMove(playerUnits[i], -1));
 							dr = false;
@@ -855,7 +856,7 @@ public class BattleSystem : MonoBehaviour
 							yield return new WaitForSecondsRealtime(2f);
 							enemyUnit.TakeDamage(dmg);
 							enemyHUD.SetHP(enemyUnit.currentHP);
-							enemyUnit.damage -= 5;
+							enemyUnit.damage -= 3;
 							StartCoroutine(UnitMove(enemyUnit, -1));
 							StartCoroutine(UnitMove(playerUnits[i], -1));
 							dr = false;
