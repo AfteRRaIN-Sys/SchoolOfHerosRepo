@@ -198,6 +198,8 @@ public class BattleSystem : MonoBehaviour
 		float act  = Random.value;
 		if(gameStateSO.cur_sem ==1){
 			if(act > 0.85){
+				dialogueText.text = enemyUnit.unitName + " use I am the Order!!!!!";
+				yield return new WaitForSecondsRealtime(2f);
 				attack_mode = 0;
 				enemyUnit.damage += 10;
 				enemyUnit.Heal(20);
@@ -206,40 +208,48 @@ public class BattleSystem : MonoBehaviour
 				yield return new WaitForSecondsRealtime(2f);
 			}
 			else if(act > 0.6){
+				dialogueText.text = enemyUnit.unitName + " use High pitch laughter!!!!";
+				yield return new WaitForSecondsRealtime(2f);
 				dialogueText.text = enemyUnit.unitName + " attacks all heroes!!!!";
 				yield return new WaitForSecondsRealtime(2f);
 				attack_mode = 2;
 			}
 			else{
+				dialogueText.text = enemyUnit.unitName + " use Devilish Order!!!!";
+				yield return new WaitForSecondsRealtime(2f);
 				attack_mode = 1;
 			}
 		}
 		else if(gameStateSO.cur_sem >=2){
 			if(act > 0.8){
 				attack_mode = 0;
+				dialogueText.text = enemyUnit.unitName + " use Greatest Devil’s Grace";
+				yield return new WaitForSecondsRealtime(2f);
 				dialogueText.text = enemyUnit.unitName + " debuff all heross";
 				yield return new WaitForSecondsRealtime(2f);
-				dialogueText.text = "All heroes' atk is reduced by 10";
+				dialogueText.text = "All heroes' atk is reduced by 5";
 				yield return new WaitForSecondsRealtime(2f);
 				for (int i = 0; i < 3; i++){
 				 	if(playerUnits[i].currentHP >0){
-				 		playerUnits[i].damage -= 10;
+				 		playerUnits[i].damage -= 5;
 					}
 				}
 			}
 			else if(act > 0.6){
+				dialogueText.text = enemyUnit.unitName + " use Frostbite!!!!";
+				yield return new WaitForSecondsRealtime(2f);
 				dialogueText.text = enemyUnit.unitName + " attacks all heroes!!!!";
 				yield return new WaitForSecondsRealtime(2f);
 				attack_mode = 2;
 			}
 			else{
 				attack_mode = 1;
-				dialogueText.text = enemyUnit.unitName + " take advantages a hero!!!!";
+				dialogueText.text = enemyUnit.unitName + " use Heart Piercing!!!!";
 				yield return new WaitForSecondsRealtime(2f);
 				dialogueText.text = enemyUnit.unitName + " punishs "+ playerUnits[target].unitName;
 				yield return new WaitForSecondsRealtime(2f);
-				playerUnits[target].damage -= 10;
-				dialogueText.text = playerUnits[target].unitName + "'s atk is reduced by 10";
+				playerUnits[target].damage -= 5;
+				dialogueText.text = playerUnits[target].unitName + "'s atk is reduced by 5";
 				yield return new WaitForSecondsRealtime(2f);
 			}
 
